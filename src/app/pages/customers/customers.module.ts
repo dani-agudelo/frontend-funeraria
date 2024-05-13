@@ -6,7 +6,10 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    // ListComponent,
+    // ManageComponent
+  ],
   imports: [
     CommonModule,
     CustomersRoutingModule,
