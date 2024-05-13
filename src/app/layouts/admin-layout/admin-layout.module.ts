@@ -17,6 +17,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   imports: [
     CommonModule,
+    // regstra las rutas hijas definidas en AdminLayoutRoutes en el RouterModule de AdminLayoutModule
     RouterModule.forChild(AdminLayoutRoutes),
     FormsModule,
     HttpClientModule,

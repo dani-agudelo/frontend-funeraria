@@ -11,5 +11,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'user-profile',   component: UserProfileComponent },
     { path: 'tables',         component: TablesComponent },
     { path: 'icons',          component: IconsComponent },
-    { path: 'maps',           component: MapsComponent }
+    { path: 'maps',           component: MapsComponent },
+    // aca ponemos las rutas principales de nuestro proyecto de funeraria
+    { path: 'customers', loadChildren: () => import('src/app/pages/customers/customers.module').then(m => m.CustomersModule)}
 ];
