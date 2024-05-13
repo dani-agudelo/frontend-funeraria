@@ -1,15 +1,48 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Customer } from "src/app/models/customer.model";
+import { CustomerService } from "src/app/services/customer.service";
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: "app-list",
+  templateUrl: "./list.component.html",
+  styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit(): void {
+  customers: Customer[];
+  constructor(
+    private service: CustomerService,
+    private route: Router,
+  ) {
+    this.customers = [];
   }
 
+  ngOnInit(): void {
+    this.list();
+  }
+
+  list() {
+    this.service.getCustomers().subscribe((data) => {
+      console.log(data);
+      this.customers = data;
+    });
+  }
+
+  create() {
+    this.route.navigate(["customers/create"]);
+  }
+
+  view(id: string) {
+    this.route.navigate(["customers/view", id]);
+  }
+
+  update(id: string) {
+    this.route.navigate(["customers/update", id]);
+  }
+
+  delete(id: string) {
+    this.service.delete(id).subscribe(() => {
+      this.list();
+    });
+  }
 }
