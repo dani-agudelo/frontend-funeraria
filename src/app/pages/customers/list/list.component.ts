@@ -12,7 +12,7 @@ export class ListComponent implements OnInit {
   customers: Customer[];
   constructor(
     private service: CustomerService,
-    private route: Router,
+    private router: Router,
   ) {
     this.customers = [];
   }
@@ -29,15 +29,15 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    this.route.navigate(["customers/create"]);
+    this.router.navigate(["customers/create"]);
   }
 
   view(id: string) {
-    this.route.navigate(["customers/view", id]);
+    this.router.navigate(["customers/view", id]);
   }
 
   update(id: string) {
-    this.route.navigate(["customers/update", id]);
+    this.router.navigate(["customers/update", id]);
   }
 
   delete(id: string) {
