@@ -17,6 +17,7 @@ export class SubscriptionsService {
   getSubscriptions(): Observable<Subscriptions[]> {
     return this.http.get<Subscriptions[]>(`${this.baseUrl}/subscriptions`);
   }
+  
   view(id: string): Observable<Subscriptions> {
     return this.http.get<Subscriptions>(`${this.baseUrl}/subscriptions/${id}`);
   }

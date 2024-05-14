@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Subscriptions } from 'src/app/models/subscriptions.model';
-import { SubscriptionsService } from 'src/app/services/subscriptions.service';
+import { Payment } from 'src/app/models/payment.model';
+import { PaymentService } from 'src/app/services/payment.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -11,15 +11,15 @@ import Swal from 'sweetalert2';
 })
 export class ListComponent implements OnInit {
 
-  subscriptions: Subscriptions[];
-  customerId: string;
+  payments: Payment[];
+  subscriptionId: string;
 
   constructor(
-    private service: SubscriptionsService,
+    private service: PaymentService,
     private parent: ActivatedRoute,
     private router: Router,
-  ) {
-    this.subscriptions = [];
+  ) { 
+    this.payments = [];
   }
 
   ngOnInit(): void {
@@ -29,29 +29,29 @@ export class ListComponent implements OnInit {
   list() {
     const id = this.parent.snapshot.params.id;
     if (id) {
+      this.subscriptionId = id;
       console.log(id);
-      this.customerId = id;
-      this.service.getSubscriptionsByCustomer(id).subscribe((data: Subscriptions[]) => {
+      this.service.getPaymentsBySubscription(id).subscribe((data: Payment[]) => {
         console.log(data);
-        this.subscriptions = data;
+        this.payments = data;
       });
     } else {
-      this.service.getSubscriptions().subscribe((data: Subscriptions[]) => {
-        this.subscriptions = data;
+      this.service.getPayments().subscribe((data: Payment[]) => {
+        this.payments = data;
       });
     }
   }
 
   create() {
-    this.router.navigate(['subscriptions/create']);
+    this.router.navigate(['payments/create']);
   }
 
   view(id: string) {
-    this.router.navigate(['subscriptions/view', id]);
+    this.router.navigate(['payments/view', id]);
   }
 
   update(id: string) {
-    this.router.navigate(['subscriptions/update', id]);
+    this.router.navigate(['payments/update', id]);
   }
 
   delete(id: string) {
@@ -67,17 +67,15 @@ export class ListComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(id).subscribe(() => {
-          Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
+          Swal.fire(
+            'Eliminado',
+            'El registro ha sido eliminado',
+            'success'
+          );
           this.ngOnInit();
         });
       }
     });
   }
-
-  pagos(id: string) {
-    console.log('entro en payment', id)
-    this.router.navigate(['subscriptions', id, 'payments']);
-  }
-
 
 }
