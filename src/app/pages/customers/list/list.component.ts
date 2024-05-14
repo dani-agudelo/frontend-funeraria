@@ -64,4 +64,10 @@ export class ListComponent implements OnInit {
       }
     });
   }
+
+  subscriptions(id: string) {
+    this.router.navigate(['customers', id, 'subscriptions']);
+  }
+
+  // 
 }
