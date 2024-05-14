@@ -6,7 +6,7 @@
                 <div class="card-header bg-transparent">
                     <div class="row">
                         <div class="col-3">
-                            <h3 class="mb-0">Customers</h3>
+                            <h3 class="mb-0">Clientes</h3>
                         </div>
                         <div class="col-6"></div>
                         <div class="col-3">
@@ -21,12 +21,12 @@
                         <thead>
                             <tr>
                                 <th class="col-1">id</th>
-                                <th class="col-3">user id</th>
-                                <th class="col-3">name</th>
+                                <th class="col-3">usuario id</th>
+                                <th class="col-3">nombre</th>
                                 <th class="col-3">email</th>
-                                <th class="col-3">document</th>
-                                <th class="col-3">phone</th>
-                                <th class="col-3">gender</th>
+                                <th class="col-3">documento</th>
+                                <th class="col-3">telefono</th>
+                                <th class="col-3">genero</th>
                                 <th class="col-5">Opciones</th>
                             </tr>
                         </thead>
@@ -40,7 +40,7 @@
                                 <td>{{ customer.phone }}</td>
                                 <td>{{ customer.gender}}</td>
                                 <td>
-                                    <button type="button" class="btn btn-primary" (click)="view(actual.id)">
+                                    <button type="button" class="btn btn-primary" (click)="view(customer.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
                                             <path
@@ -49,7 +49,7 @@
                                                 d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0" />
                                         </svg>
                                     </button>
-                                    <button type="button" class="btn btn-warning" (click)="update(actual.id)">
+                                    <button type="button" class="btn btn-warning" (click)="update(customer.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16">
                                             <path
@@ -58,7 +58,7 @@
                                                 d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5z" />
                                         </svg>
                                     </button>
-                                    <button type="button" class="btn btn-danger" (click)="delete(actual.id)">
+                                    <button type="button" class="btn btn-danger" (click)="delete(customer.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                             fill="currentColor" class="bi bi-trash3" viewBox="0 0 16 16">
                                             <path
