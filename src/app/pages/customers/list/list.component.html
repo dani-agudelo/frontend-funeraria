@@ -1,14 +1,12 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
-<!-- Page content -->
 <div class="container-fluid mt--7">
-    <!-- Table -->
     <div class="row">
         <div class="col">
             <div class="card shadow">
                 <div class="card-header bg-transparent">
                     <div class="row">
                         <div class="col-3">
-                            <h3 class="mb-0">Clientes</h3>
+                            <h3 class="mb-0">Customers</h3>
                         </div>
                         <div class="col-6"></div>
                         <div class="col-3">
@@ -33,7 +31,6 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <!-- theaters es el arreglo que está en list.component.ts -->
                             <tr *ngFor="let customer of customers; index as i">
                                 <td>{{ customer.id }}</td>
                                 <td>{{ i + 1 }}</td>

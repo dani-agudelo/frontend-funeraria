@@ -17,7 +17,7 @@ export class ServiceexecutionService {
     return this.http.get<Serviceexecution[]>(this.baseUrl);
   }
 
-  view(id: string): Observable<Serviceexecution> {
+  view(id: number): Observable<Serviceexecution> {
     return this.http.get<Serviceexecution>(`${this.baseUrl}/${id}`);
   }
 
@@ -29,7 +29,11 @@ export class ServiceexecutionService {
     return this.http.put<Serviceexecution>(`${this.baseUrl}/${Serviceexecution.id}`, Serviceexecution);
   }
 
-  delete(id: string): Observable<Serviceexecution> {
+  delete(id: number): Observable<Serviceexecution> {
     return this.http.delete<Serviceexecution>(`${this.baseUrl}/${id}`);
+  }
+
+  getServiceexecutionByCustomer(id: number): Observable<Serviceexecution[]> {
+    return this.http.get<Serviceexecution[]>(`${this.baseUrl}/customer/${id}`);
   }
 }
