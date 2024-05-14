@@ -18,6 +18,18 @@ export class OwnerService {
     return this.http.get<Owner[]>(this.baseUrl);
   }
 
+  view(id: string): Observable<Owner> {
+    return this.http.get<Owner>(`${this.baseUrl}/${id}`);
+  }
+
+  create(owner: any): Observable<Owner> {
+    return this.http.post<Owner>(this.baseUrl, owner);
+  }
+
+  update(owner: any): Observable<Owner> {
+    return this.http.put<Owner>(`${this.baseUrl}/${owner.id}`, owner);
+  }
+
   delete(id: string): Observable<Owner> {
     return this.http.delete<Owner>(`${this.baseUrl}/${id}`);
   }

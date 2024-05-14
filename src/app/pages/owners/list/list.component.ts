@@ -34,15 +34,15 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    this.route.navigate(["users/create"]);
+    this.route.navigate(["owners/create"]);
   }
 
   view(id: string) {
-    this.route.navigate(["users/view", id]);
+    this.route.navigate(["owners/view", id]);
   }
 
   update(id: string) {
-    this.route.navigate(["users/update", id]);
+    this.route.navigate(["owners/update", id]);
   }
 
   delete(id: string) {
