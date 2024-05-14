@@ -24,4 +24,23 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.CustomersModule,
       ),
   },
+  {
+    path: "services",
+    loadChildren: () =>
+      import("../../pages/services/services.module").then(
+        (m) => m.ServicesModule,
+      ),
+  },
+  {
+    path: "serviceexecutions",
+    loadChildren: () =>
+      import("../../pages/serviceexecutions/serviceexecutions.module").then(
+        (m) => m.ServiceexecutionsModule,
+      ),
+  },
+  {
+    path: "owners",
+    loadChildren: () =>
+      import("../../pages/owners/owners.module").then((m) => m.OwnersModule),
+  },
 ];
