@@ -1,5 +1,6 @@
 export class Owner {
-  id?: number;
+  id: string;
+  customer_id: string;
   name: string;
   email: string;
   document: string;
