@@ -1,16 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscriptions } from 'src/app/models/subscriptions.model';
-import { SubscriptionsService } from 'src/app/services/subscriptions.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscriptions } from "src/app/models/subscriptions.model";
+import { SubscriptionsService } from "src/app/services/subscriptions.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: "app-list",
+  templateUrl: "./list.component.html",
+  styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-
   subscriptions: Subscriptions[];
   customerId: string;
 
@@ -27,14 +26,16 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    const id = this.parent.snapshot.params.id;
+    const id = this.parent.snapshot.params.idCustomer;
     if (id) {
       console.log(id);
       this.customerId = id;
-      this.service.getSubscriptionsByCustomer(id).subscribe((data: Subscriptions[]) => {
-        console.log(data);
-        this.subscriptions = data;
-      });
+      this.service
+        .getSubscriptionsByCustomer(id)
+        .subscribe((data: Subscriptions[]) => {
+          console.log(data);
+          this.subscriptions = data;
+        });
     } else {
       this.service.getSubscriptions().subscribe((data: Subscriptions[]) => {
         this.subscriptions = data;
@@ -45,7 +46,12 @@ export class ListComponent implements OnInit {
   create() {
     console.log('entro en create')
     // customers/1/subscriptions/create
-    this.router.navigate(['customers', this.customerId, 'subscriptions', 'create']);
+    this.router.navigate([
+      "customers",
+      this.customerId,
+      "subscriptions",
+      "create",
+    ]);
   }
 
   view(id: string) {
@@ -57,19 +63,25 @@ export class ListComponent implements OnInit {
     console.log('entro en update', id)
     // this.router.navigate(['subscriptions/update', id]);
     // customers/1/subscriptions//update/1
-    this.router.navigate(['customers', this.customerId, 'subscriptions', 'update', id]);
+    this.router.navigate([
+      "customers",
+      this.customerId,
+      "subscriptions",
+      "update",
+      id,
+    ]);
   }
 
   delete(id: string) {
     Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'No podrás revertir esto',
-      icon: 'warning',
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto",
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(id).subscribe(() => {
@@ -81,11 +93,15 @@ export class ListComponent implements OnInit {
   }
 
   pagos(id: string) {
-    console.log('entro en payment', id)
+    console.log("entro en payment", id);
     // customers/1/subscriptions/1/payments/list
-    this.router.navigate(['customers', this.customerId, 'subscriptions', id, 'payments', 'list']);
-
+    this.router.navigate([
+      "customers",
+      this.customerId,
+      "subscriptions",
+      id,
+      "payments",
+      "list",
+    ]);
   }
-
-
 }

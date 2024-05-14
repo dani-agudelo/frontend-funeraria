@@ -20,40 +20,39 @@ export class ManageComponent implements OnInit {
     private route: Router,
   ) {
     this.mode = 1;
-    this.subscription={
+    this.subscription = {
       id: 1,
       customer_id: 1,
       plan_id: 1,
       start_date: new Date(),
       end_date: new Date(),
       monthly_fee: 1,
-      is_paid: true
-    }
-    }
+      is_paid: true,
+    };
+  }
 
   ngOnInit(): void {
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.mode = 1;
-    } else if (currentUrl.includes("update")) {
-      this.mode = 2;
     } else if (currentUrl.includes("create")) {
+      this.mode = 2;
+    } else if (currentUrl.includes("update")) {
       this.mode = 3;
     }
 
-      if (this.parent.snapshot.params.id) {
+    if (this.parent.snapshot.params.id) {
       this.subscription.id = this.parent.snapshot.params.id;
       this.getSubscription(this.subscription.id.toString());
     }
-    }
+  }
 
   getSubscription(id: string) {
     this.service.view(id).subscribe((data: Subscriptions) => {
-      console.log(data)
+      console.log(data);
       this.subscription = data;
-     });
+    });
   }
-
 
   create() {
     this.service.create(this.subscription).subscribe(() => {

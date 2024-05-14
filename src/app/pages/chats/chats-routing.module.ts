@@ -9,15 +9,10 @@ const routes: Routes = [
   { path: "create", component: ManageComponent },
   { path: "update/:id", component: ManageComponent },
   { path: "view/:id", component: ManageComponent },
-  {
-    path: ":idServiceExecution/chats",
-    loadChildren: () =>
-      import("../chats/chats.module").then((m) => m.ChatsModule),
-  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ServiceexecutionsRoutingModule {}
+export class ChatsRoutingModule {}
