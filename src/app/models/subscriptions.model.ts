@@ -7,7 +7,7 @@ export class Subscriptions {
     plan_id?: number;
     start_date: Date;
     end_date: Date;
-    montly_fee: number;
+    monthly_fee: number;
     is_paid: boolean;
     
 }
