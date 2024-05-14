@@ -76,7 +76,9 @@ export class ListComponent implements OnInit {
 
   pagos(id: string) {
     console.log('entro en payment', id)
-    this.router.navigate(['subscriptions', id, 'payments']);
+    // customers/1/subscriptions/1/payments/list
+    this.router.navigate(['customers', this.customerId, 'subscriptions', id, 'payments', 'list']);
+
   }
 
 
