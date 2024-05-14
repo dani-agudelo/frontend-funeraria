@@ -35,9 +35,9 @@ export class ManageComponent implements OnInit {
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.mode = 1;
-    } else if (currentUrl.includes("update")) {
-      this.mode = 2;
     } else if (currentUrl.includes("create")) {
+      this.mode = 2;
+    } else if (currentUrl.includes("update")) {
       this.mode = 3;
     }
 

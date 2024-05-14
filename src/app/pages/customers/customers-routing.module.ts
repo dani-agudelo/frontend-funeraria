@@ -7,16 +7,16 @@ const routes: Routes = [
   { path: "list", component: ListComponent },
   { path: "create", component: ManageComponent },
   { path: "update/:id", component: ManageComponent },
-  { path: "view/:id", component: ManageComponent },
+  { path: "view/:idcustomer", component: ManageComponent },
   {
-    path: ":id/subscriptions",
+    path: ":idcustomer/subscriptions",
     loadChildren: () =>
       import("../subscriptions/subscriptions.module").then(
         (m) => m.SubscriptionsModule,
       ),
   },
   {
-    path: ":id/serviceexecutions",
+    path: ":idcustomer/serviceexecutions",
     loadChildren: () =>
       import("../serviceexecutions/serviceexecutions.module").then(
         (m) => m.ServiceexecutionsModule,
