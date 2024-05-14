@@ -9,7 +9,9 @@
           <div class="row">
             <div class="col-3">
               <h3 *ngIf="!ownerId" class="mb-0">Beneficiarios</h3>
-              <h3 *ngIf="ownerId" class="mb-0">Beneficiarios de {{ownerId}}</h3>
+              <h3 *ngIf="ownerId" class="mb-0">
+                Beneficiarios de {{ ownerId }}
+              </h3>
             </div>
             <div class="col-6"></div>
             <div class="col-3">
@@ -32,12 +34,12 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor='let ben of beneficiaries'>
+              <tr *ngFor="let ben of beneficiaries">
                 <td>{{ ben.id }}</td>
                 <td>{{ ben.name }}</td>
                 <td>{{ ben.email }}</td>
                 <td>{{ ben.document }}</td>
-                 <td>{{ ben.age }}</td>
+                <td>{{ ben.age }}</td>
                 <td>
                   <button
                     type="button"
@@ -100,13 +102,6 @@
                       />
                     </svg>
                   </button>
-                  <button
-                    type="button"
-                    class="btn btn-info"
-                    (click)="beneficiaries(owner.id)"
-                  >
-                    Beneficiarios
-                  </button>
                 </td>
               </tr>
             </tbody>
@@ -116,4 +111,3 @@
     </div>
   </div>
 </div>
-
