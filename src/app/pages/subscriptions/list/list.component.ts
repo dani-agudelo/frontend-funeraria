@@ -43,16 +43,18 @@ export class ListComponent implements OnInit {
   }
 
   create() {
+    console.log('entro en create')
     // customers/1/subscriptions/create
     this.router.navigate(['customers', this.customerId, 'subscriptions', 'create']);
   }
 
   view(id: string) {
-    // customers/1/subscriptions/1
-    this.router.navigate(['customers', this.customerId, 'subscriptions', id]);
+    // http://localhost:4200/#/customers/1/subscriptions/view/1
+    this.router.navigate(['customers', this.customerId, 'subscriptions', 'view', id]);
   }
 
   update(id: string) {
+    console.log('entro en update', id)
     // this.router.navigate(['subscriptions/update', id]);
     // customers/1/subscriptions//update/1
     this.router.navigate(['customers', this.customerId, 'subscriptions', 'update', id]);

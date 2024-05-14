@@ -12,94 +12,64 @@
         </div>
         <div class="card-body">
           <div class="container d-grid gap-3">
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Id:</div>
               <div class="col-8">
                 {{ subscription.id }}
               </div>
             </div>
-            <div class="row" *ngIf="mode == 1">
+            <div class="row mb-1" *ngIf="mode == 1">
               <div class="col-4">Cliente id</div>
               <div class="col-8">
                 {{ subscription.customer_id }}
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Nombre:</div>
               <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="subscription.plan_id"
-                  [disabled]="mode == 1"
-                />
+                <input type="text" class="form-control" [(ngModel)]="subscription.plan_id" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Fecha de inicio:</div>
               <div class="col-8">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="subscription.start_date"
-                  [disabled]="mode == 1"
-                />
+                <input type="text" class="form-control" [(ngModel)]="subscription.start_date "
+                  [disabled]="mode == 1" />
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Fecha Fin:</div>
               <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="subscription.end_date"
-                  [disabled]="mode == 1"
-                />
+                <input type="text" class="form-control" [(ngModel)]="subscription.end_date" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Monto Mensual:</div>
               <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="subscription.monthly_fee"
-                  [disabled]="mode == 1"
-                />
+                <input type="text" class="form-control" [(ngModel)]="subscription.monthly_fee" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Pagó:</div>
               <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="subscription.is_paid"
-                  [disabled]="mode == 1"
-                />
+                <input type="text" class="form-control" [(ngModel)]="subscription.is_paid" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4"></div>
               <div class="col-8">
-                <button
-                  *ngIf="mode == 2"
-                  class="btn btn-primary btn-block"
-                  (click)="update()"
-                >
-                  Actualizar
-                </button>
-                <button
-                  *ngIf="mode == 3"
-                  class="btn btn-primary btn-block"
-                  (click)="create()"
-                >
-                  Crear
-                </button>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                    Crear
+                  </button>
+                  <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                    Actualizar
+                  </button>
+                </div>
               </div>
             </div>
           </div>
