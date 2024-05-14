@@ -26,12 +26,10 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    const id = this.parent.snapshot.params.idCustomer;
-    if (id) {
-      console.log(id);
-      this.customerId = id;
+    this.customerId = this.parent.snapshot.params.idCustomer;
+    if (this.customerId) {
       this.service
-        .getSubscriptionsByCustomer(id)
+        .getSubscriptionsByCustomer(this.customerId)
         .subscribe((data: Subscriptions[]) => {
           console.log(data);
           this.subscriptions = data;
@@ -44,8 +42,6 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    console.log('entro en create')
-    // customers/1/subscriptions/create
     this.router.navigate([
       "customers",
       this.customerId,
@@ -55,14 +51,16 @@ export class ListComponent implements OnInit {
   }
 
   view(id: string) {
-    // http://localhost:4200/#/customers/1/subscriptions/view/1
-    this.router.navigate(['customers', this.customerId, 'subscriptions', 'view', id]);
+    this.router.navigate([
+      "customers",
+      this.customerId,
+      "subscriptions",
+      "view",
+      id,
+    ]);
   }
 
   update(id: string) {
-    console.log('entro en update', id)
-    // this.router.navigate(['subscriptions/update', id]);
-    // customers/1/subscriptions//update/1
     this.router.navigate([
       "customers",
       this.customerId,
@@ -93,8 +91,6 @@ export class ListComponent implements OnInit {
   }
 
   pagos(id: string) {
-    console.log("entro en payment", id);
-    // customers/1/subscriptions/1/payments/list
     this.router.navigate([
       "customers",
       this.customerId,

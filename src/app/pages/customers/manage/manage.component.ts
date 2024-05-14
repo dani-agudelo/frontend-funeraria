@@ -45,7 +45,7 @@ export class ManageComponent implements OnInit {
 
     if (this.parent.snapshot.params.id) {
       this.customer.id = this.parent.snapshot.params.id;
-      this.getCustomer(this.customer.id.toString());
+      this.getCustomer(this.customer.id);
     }
   }
 
@@ -59,6 +59,7 @@ export class ManageComponent implements OnInit {
 
   async getCustomer(id: string) {
     this.serviceCustomer.view(id).subscribe((data) => {
+      console.log(data);
       this.customer = data[0];
     });
   }
