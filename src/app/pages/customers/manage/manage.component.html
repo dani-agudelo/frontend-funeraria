@@ -12,78 +12,74 @@
         </div>
         <div class="card-body">
           <div class="container d-grid gap-3">
-            <div class="row">
+            <div class="row mb-2">
               <div class="col-4">Id:</div>
               <div class="col-8">
                 {{ customer.id }}
               </div>
             </div>
-            <div class="row" *ngIf="mode == 1">
+            <div class="row mb-1" *ngIf="mode == 1">
               <div class="col-4">User id</div>
               <div class="col-8">
                 {{ customer.user_id }}
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Nombre:</div>
               <div class="col-8">
                 <input type="text" class="form-control" [(ngModel)]="customer.name" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Email:</div>
               <div class="col-8">
                 <input type="email" class="form-control" [(ngModel)]="customer.email" [disabled]="mode == 1" />
               </div>
             </div>
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Document:</div>
               <div class="col-8">
                 <input type="text" class="form-control" [(ngModel)]="customer.document" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Celular:</div>
               <div class="col-8">
                 <input type="text" class="form-control" [(ngModel)]="customer.phone" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4">Genero:</div>
               <div class="col-8">
                 <input type="text" class="form-control" [(ngModel)]="customer.gender" [disabled]="mode == 1" />
               </div>
             </div>
 
-            <div class="row">
+            <div class="row mb-1">
               <div class="col-4"></div>
               <div class="col-8">
-                <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
-                  Crear
-                </button>
-                <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
-                  Actualizar
-                </button>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                    Crear
+                  </button>
+                  <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                    Actualizar
+                  </button>
+                </div>
               </div>
             </div>
             <div *ngIf="mode == 1" class="mt-2">
-              <button
-                type="button"
-                class="btn btn-info"
-                (click)="subscriptions()"
-              >
-                Suscripciones
-              </button>
-              <button
-                type="button"
-                class="btn btn-info"
-                (click)="serviceexecutions()"
-              >
-                Servicios en ejecución
-              </button>
+              <div class="d-flex align-items-center justify-content-center">
+                <button type="button" class="btn btn-info" (click)="subscriptions()">
+                  Suscripciones
+                </button>
+                <button type="button" class="btn btn-info" (click)="serviceexecutions()">
+                  Servicios en ejecución
+                </button>
+              </div>
             </div>
           </div>
         </div>
