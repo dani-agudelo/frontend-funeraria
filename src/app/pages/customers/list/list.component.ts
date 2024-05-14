@@ -43,31 +43,21 @@ export class ListComponent implements OnInit {
 
   delete(id: string) {
     Swal.fire({
-      title: '¿Estás seguro de eliminar el registro?',
+      title: "¿Estás seguro de eliminar el registro?",
       text: "Esta acción no se puede revertir!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Sí, eliminar!',
-      cancelButtonText: 'No, cancelar'
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar!",
+      cancelButtonText: "No, cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
         this.service.delete(id).subscribe(() => {
-          Swal.fire(
-            'Eliminado!',
-            'El registro ha sido eliminado.',
-            'success'
-          );
+          Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
           this.ngOnInit();
         });
       }
     });
   }
-
-  subscriptions(id: string) {
-    this.router.navigate(['customers', id, 'subscriptions']);
-  }
-
-  // 
 }
