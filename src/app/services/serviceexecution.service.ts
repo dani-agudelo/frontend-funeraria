@@ -17,7 +17,7 @@ export class ServiceexecutionService {
     return this.http.get<Serviceexecution[]>(this.baseUrl);
   }
 
-  view(id: number): Observable<Serviceexecution> {
+  view(id: string): Observable<Serviceexecution> {
     return this.http.get<Serviceexecution>(`${this.baseUrl}/${id}`);
   }
 

@@ -33,7 +33,6 @@ export class ListComponent implements OnInit {
       this.service
         .getChatsByServiceAndCustomer(this.customerId, id)
         .subscribe((data: Chat[]) => {
-          console.log(data);
           this.chats = data;
         });
     } else {

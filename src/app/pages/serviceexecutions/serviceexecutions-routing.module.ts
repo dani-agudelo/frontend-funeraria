@@ -14,6 +14,11 @@ const routes: Routes = [
     loadChildren: () =>
       import("../chats/chats.module").then((m) => m.ChatsModule),
   },
+  {
+    path: ":idServiceExecution/comments",
+    loadChildren: () =>
+      import("../comment/comment.module").then((m) => m.CommentModule),
+  },
 ];
 
 @NgModule({

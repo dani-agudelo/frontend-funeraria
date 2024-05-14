@@ -1,8 +1,7 @@
 import { Customer } from "./customer.model";
 
 export class Serviceexecution {
-    id?: number;
-    customer_id?: number;
-    customer?: Customer;
-    service_id?: number;
+  id?: string;
+  customer_id?: string;
+  service_id?: string;
 }
