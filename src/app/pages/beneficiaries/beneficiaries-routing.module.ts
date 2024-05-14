@@ -4,6 +4,7 @@ import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
 
 const routes: Routes = [
+  // si la ruta es vacía, redirigir a list
   { path: "", redirectTo: "list", pathMatch: "full" },
   { path: "list", component: ListComponent },
   { path: "create", component: ManageComponent },

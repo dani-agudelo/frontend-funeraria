@@ -29,10 +29,12 @@ export class ListComponent implements OnInit {
   list() {
     const id = this.parent.snapshot.params.id;
     if (id) {
+      console.log(id);
       this.ownerId = id;
       this.service
         .getBeneficiariesByOwner(id)
         .subscribe((data: Beneficiary[]) => {
+          console.log(data)
           this.beneficiaries = data;
         });
     } else {
