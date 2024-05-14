@@ -28,8 +28,8 @@ export class ListComponent implements OnInit {
     });
   }
 
+  // on click, navigate to owners/:id/beneficiaries
   beneficiaries(id: string) {
-    // owners/:id/beneficiaries'
     this.route.navigate(["owners", id, "beneficiaries"]);
   }
 

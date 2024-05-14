@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 
 import { SubscriptionsRoutingModule } from './subscriptions-routing.module';
 import { ListComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    ManageComponent
   ],
   imports: [
     CommonModule,

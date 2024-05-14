@@ -65,8 +65,8 @@ export class ListComponent implements OnInit {
     });
   }
 
-  subscription(id: string) {
-    this.router.navigate(['/subscriptions', id]);
+  subscriptions(id: string) {
+    this.router.navigate(['customers', id, 'subscriptions']);
   }
 
   // 

@@ -8,7 +8,7 @@ const routes: Routes = [
   { path: "create", component: ManageComponent },
   { path: "update/:id", component: ManageComponent },
   { path: "view/:id", component: ManageComponent },
-  { path: "subscriptions/:id", component: ManageComponent}
+  { path: ":id/subscriptions", loadChildren: () => import("../subscriptions/subscriptions.module").then((m) => m.SubscriptionsModule) },
 ];
 
 @NgModule({
