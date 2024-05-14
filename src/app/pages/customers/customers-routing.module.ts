@@ -9,14 +9,14 @@ const routes: Routes = [
   { path: "update/:id", component: ManageComponent },
   { path: "view/:idcustomer", component: ManageComponent },
   {
-    path: ":idcustomer/subscriptions",
+    path: ":idCustomer/subscriptions",
     loadChildren: () =>
       import("../subscriptions/subscriptions.module").then(
         (m) => m.SubscriptionsModule,
       ),
   },
   {
-    path: ":idcustomer/serviceexecutions",
+    path: ":idCustomer/serviceexecutions",
     loadChildren: () =>
       import("../serviceexecutions/serviceexecutions.module").then(
         (m) => m.ServiceexecutionsModule,
