@@ -92,9 +92,10 @@ export class ManageComponent implements OnInit {
       gender: this.customer.gender,
     };
     const user = {
+      id: this.customer.user_id,
       name: this.customer.name,
       email: this.customer.email,
-      password: "123456"
+      password: "123456",
     };
     this.serviceCustomer.update(customer).subscribe(() => {
       this.serviceUser.update(user).subscribe(() => {
