@@ -10,7 +10,7 @@ import { environment } from "src/environments/environment";
 export class ServiceexecutionService {
   baseUrl: string;
   constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.url_ms_business}/service_execution`;
+    this.baseUrl = `${environment.url_ms_business}/service_executions`;
   }
 
   getServiceexecutions(): Observable<Serviceexecution[]> {
