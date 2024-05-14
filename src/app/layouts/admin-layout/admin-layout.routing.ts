@@ -31,4 +31,9 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.ServiceexecutionsModule,
       ),
   },
+  {
+    path: "owners",
+    loadChildren: () =>
+      import("../../pages/owners/owners.module").then((m) => m.OwnersModule),
+  },
 ];
