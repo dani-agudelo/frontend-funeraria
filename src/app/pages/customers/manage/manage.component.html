@@ -69,6 +69,22 @@
                 </button>
               </div>
             </div>
+            <div *ngIf="mode == 1" class="mt-2">
+              <button
+                type="button"
+                class="btn btn-info"
+                (click)="subscriptions()"
+              >
+                Suscripciones
+              </button>
+              <button
+                type="button"
+                class="btn btn-info"
+                (click)="serviceexecutions()"
+              >
+                Servicios en ejecución
+              </button>
+            </div>
           </div>
         </div>
       </div>
