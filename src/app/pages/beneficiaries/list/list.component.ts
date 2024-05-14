@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { throws } from "assert";
 import { Beneficiary } from "src/app/models/beneficiary.model";
 import { BeneficiaryService } from "src/app/services/beneficiary.service";
 import Swal from "sweetalert2";

@@ -29,7 +29,6 @@ export class ListComponent implements OnInit {
   }
 
   beneficiaries(id: string) {
-    // owners/:id/beneficiaries'
     this.route.navigate(["owners", id, "beneficiaries"]);
   }
 
