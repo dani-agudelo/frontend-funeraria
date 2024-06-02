@@ -6,4 +6,5 @@ export class Customer {
   document: string;
   phone: string;
   gender: string;
+  password?: string;
 }
