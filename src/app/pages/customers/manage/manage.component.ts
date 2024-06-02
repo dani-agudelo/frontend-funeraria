@@ -26,7 +26,6 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
 
     this.customer = {
-      user_id: "",
       name: "",
       email: "",
       document: "",
@@ -83,6 +82,7 @@ export class ManageComponent implements OnInit {
   ngOnInit(): void {
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
+      this.theFormGroup.disable();
       this.mode = 1;
     } else if (currentUrl.includes("create")) {
       this.mode = 2;
