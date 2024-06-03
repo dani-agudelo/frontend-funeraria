@@ -26,10 +26,11 @@ export class ListComponent implements OnInit {
   }
 
   list() {
+    // we get the customer id from the parent route
     this.customerId = this.parent.snapshot.params.idCustomer;
-    if (this.customerId) {
-      this.service
-        .getSubscriptionsByCustomer(this.customerId)
+    if (this.customerId) { 
+      // we get the subscriptions by customer
+      this.service.getSubscriptionsByCustomer(this.customerId)
         .subscribe((data: Subscriptions[]) => {
           console.log(data);
           this.subscriptions = data;
@@ -90,14 +91,14 @@ export class ListComponent implements OnInit {
     });
   }
 
+  //TODO: In this method not is necessary to pass 'list' as parameter, because is the default value
   pagos(id: string) {
     this.router.navigate([
       "customers",
       this.customerId,
       "subscriptions",
       id,
-      "payments",
-      "list",
+      "payments"
     ]);
   }
 }

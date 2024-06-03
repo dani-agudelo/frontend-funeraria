@@ -28,12 +28,12 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    const id = this.parent.snapshot.params.id;
-    if (id) {
-      this.subscriptionId = id;
-      console.log(id);
-      this.service.getPaymentsBySubscription(id).subscribe((data: Payment[]) => {
-        console.log(data);
+    this.customerId = this.parent.snapshot.params.idCustomer;
+    this.subscriptionId = this.parent.snapshot.params.idSubscription;
+    console.log('Id de la suscripcion: ' + this.subscriptionId);
+    console.log('Id del cliente: ' + this.customerId);
+    if (this.subscriptionId && this.customerId) {
+      this.service.getPaymentsBySubscription(this.subscriptionId).subscribe((data: Payment[]) => {
         this.payments = data;
       });
     } else {

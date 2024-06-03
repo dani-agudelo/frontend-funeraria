@@ -110,7 +110,8 @@ export class ManageComponent implements OnInit {
 
   async getCustomer(id: string) {
     this.serviceCustomer.view(id).subscribe((data) => {
-      this.customer = data[0];
+      this.customer = data[0]; //?
+      console.log('Customer', JSON.stringify(this.customer));
     });
   }
 

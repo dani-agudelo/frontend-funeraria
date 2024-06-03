@@ -25,37 +25,33 @@
               </div>
             </div>
             <div class="row mb-1">
-              <div class="col-4">Nombre:</div>
+              <div class="col-4">Plan id:</div>
               <div class="col-8">
-                <input type="text" class="form-control" [(ngModel)]="subscription.plan_id" [disabled]="mode == 1" />
+                <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="subscription.plan_id" />
+                <span *ngIf="mode == 1">{{subscription.plan_id}}</span>
               </div>
             </div>
 
             <div class="row mb-1">
               <div class="col-4">Fecha de inicio:</div>
               <div class="col-8">
-                <input type="text" class="form-control" [(ngModel)]="subscription.start_date "
-                  [disabled]="mode == 1" />
+                <input *ngIf="mode != 1" type="text" class="form-control" [(ngModel)]="subscription.start_date" />
+                <span *ngIf="mode == 1">{{subscription.start_date}}</span>
               </div>
             </div>
             <div class="row mb-1">
               <div class="col-4">Fecha Fin:</div>
               <div class="col-8">
-                <input type="text" class="form-control" [(ngModel)]="subscription.end_date" [disabled]="mode == 1" />
+                <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="subscription.end_date"/>
+                <span *ngIf="mode == 1">{{subscription.end_date}}</span>
               </div>
             </div>
 
             <div class="row mb-1">
               <div class="col-4">Monto Mensual:</div>
               <div class="col-8">
-                <input type="text" class="form-control" [(ngModel)]="subscription.monthly_fee" [disabled]="mode == 1" />
-              </div>
-            </div>
-
-            <div class="row mb-1">
-              <div class="col-4">Pagó:</div>
-              <div class="col-8">
-                <input type="text" class="form-control" [(ngModel)]="subscription.is_paid" [disabled]="mode == 1" />
+                <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="subscription.monthly_fee"  />
+                <span *ngIf="mode == 1">{{subscription.monthly_fee}}</span>
               </div>
             </div>
 
