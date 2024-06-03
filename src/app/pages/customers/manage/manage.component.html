@@ -33,7 +33,6 @@
                     class="form-control"
                     [(ngModel)]="customer.name"
                     formControlName="name"
-                    [disabled]="mode == 1"
                   />
                   <div>
                     <div
@@ -74,7 +73,6 @@
                     class="form-control"
                     [(ngModel)]="customer.email"
                     formControlName="email"
-                    [disabled]="mode == 1"
                   />
                   <div>
                     <div
@@ -109,7 +107,6 @@
                     class="form-control"
                     [(ngModel)]="customer.document"
                     formControlName="document"
-                    [disabled]="mode == 1"
                   />
                   <div>
                     <div
@@ -157,7 +154,6 @@
                     class="form-control"
                     [(ngModel)]="customer.phone"
                     formControlName="phone"
-                    [disabled]="mode == 1"
                   />
                   <div>
                     <div
@@ -204,7 +200,6 @@
                     class="form-control"
                     [(ngModel)]="customer.gender"
                     formControlName="gender"
-                    [disabled]="mode == 1"
                   >
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
