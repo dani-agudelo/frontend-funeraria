@@ -8,10 +8,7 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [
-    ListComponent,
-    ManageComponent
-  ],
+  declarations: [ListComponent,ManageComponent],
   imports: [
     CommonModule,
     SubscriptionsRoutingModule,

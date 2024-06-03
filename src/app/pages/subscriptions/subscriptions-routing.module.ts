@@ -10,7 +10,10 @@ const routes: Routes = [
   { path: "create", component: ManageComponent },
   { path: "update/:id", component: ManageComponent },
   { path: "view/:id", component: ManageComponent },
-  { path: ':id/payments', loadChildren: () => import('../payments/payments.module').then((m) => m.PaymentsModule) },
+  {
+    path: ':idSubscription/payments',
+    loadChildren: () => import('../payments/payments.module').then((m) => m.PaymentsModule)
+  },
 ];
 
 @NgModule({

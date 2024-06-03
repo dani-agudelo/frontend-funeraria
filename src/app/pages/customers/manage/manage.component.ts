@@ -90,6 +90,12 @@ export class ManageComponent implements OnInit {
       this.mode = 3;
     }
 
+    if (this.mode == 1) {
+      this.theFormGroup.disable();
+    } else {
+      this.theFormGroup.enable();
+    }
+    
     if (this.parent.snapshot.params.id) {
       this.customer.id = this.parent.snapshot.params.id;
       this.getCustomer(this.customer.id);
