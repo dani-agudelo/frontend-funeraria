@@ -1,8 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Service } from "src/app/models/service.model";
 import { Serviceexecution } from "src/app/models/serviceexecution.model";
 import { ServiceexecutionService } from "src/app/services/serviceexecution.service";
+import { ServicesService } from "src/app/services/services.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-manage",
@@ -12,29 +15,55 @@ import { ServiceexecutionService } from "src/app/services/serviceexecution.servi
 export class ManageComponent implements OnInit {
   mode: number;
   serviceExecution: Serviceexecution;
-  FormGroup: FormGroup;
+  formGroup: FormGroup;
+  services: Service[];
+  trySend: boolean;
 
   constructor(
     private service: ServiceexecutionService,
+    private servicesService: ServicesService,
+    private formBuilder: FormBuilder,
     private parent: ActivatedRoute,
     private router: Router,
   ) {
     this.mode = 1;
+    this.services = [];
+    this.trySend = false;
     this.serviceExecution = {
-      id: "1",
-      service_id: "1",
-      customer_id: "1",
+      id: "",
+      customer: {
+        id: this.parent.snapshot.params.idCustomer,
+      },
+      service: {
+        id: "",
+      },
     };
+
+    this.configFormGroup();
+  }
+
+  configFormGroup() {
+    this.formGroup = this.formBuilder.group({
+      idCustomer: [null, Validators.required],
+      idService: [null, Validators.required],
+    });
   }
 
   ngOnInit(): void {
+    this.servicesList();
     this.list();
+  }
+
+  get getFormGroup() {
+    return this.formGroup.controls;
   }
 
   list() {
     const currentUrl = this.parent.snapshot.url.join("/");
+
     if (currentUrl.includes("view")) {
       this.mode = 1;
+      this.formGroup.disable();
     } else if (currentUrl.includes("create")) {
       this.mode = 2;
     } else if (currentUrl.includes("update")) {
@@ -53,13 +82,31 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  servicesList() {
+    this.servicesService.getServices().subscribe((data: Service[]) => {
+      this.services = data;
+    });
+  }
+
   create() {
+    if (this.formGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error", "Por favor complete los campos requeridos", "error");
+      return;
+    }
+
     this.service.create(this.serviceExecution).subscribe(() => {
       this.router.navigate(["serviceexecutions/list"]);
     });
   }
 
   update() {
+    if (this.formGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error", "Por favor complete los campos requeridos", "error");
+      return;
+    }
+
     this.service.update(this.serviceExecution).subscribe(() => {
       this.router.navigate(["serviceexecutions/list"]);
     });
@@ -68,7 +115,7 @@ export class ManageComponent implements OnInit {
   chats() {
     this.router.navigate([
       "customers",
-      this.serviceExecution.customer_id,
+      this.serviceExecution.customer.id,
       "serviceexecutions",
       this.serviceExecution.id,
       "chats",
@@ -78,7 +125,7 @@ export class ManageComponent implements OnInit {
   messages() {
     this.router.navigate([
       "customers",
-      this.serviceExecution.customer_id,
+      this.serviceExecution.customer.id,
       "serviceexecutions",
       this.serviceExecution.id,
       "messages",

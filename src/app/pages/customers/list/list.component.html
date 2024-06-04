@@ -33,7 +33,7 @@
             <tbody>
               <tr *ngFor="let customer of customers; index as i">
                 <td>{{ customer.id }}</td>
-                <td>{{ i + 1 }}</td>
+                <td>{{ customer.user_id.slice(0, 5) }} ...</td>
                 <td>{{ customer.name }}</td>
                 <td>{{ customer.email }}</td>
                 <td>{{ customer.document }}</td>

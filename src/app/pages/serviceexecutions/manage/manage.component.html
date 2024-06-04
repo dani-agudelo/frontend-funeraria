@@ -11,67 +11,80 @@
           <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
         </div>
         <div class="card-body">
-          <div class="container d-grid gap-3">
-            <div class="row mb-2">
-              <div class="col-4">Id:</div>
-              <div class="col-8">
-                {{ serviceExecution.id }}
+          <form class="form" [formGroup]="formGroup">
+            <div class="container d-grid gap-3">
+              <div class="row mb-2">
+                <div class="col-4">Id:</div>
+                <div class="col-8">
+                  {{ serviceExecution.id }}
+                </div>
               </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col-4">User id</div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="serviceExecution.customer_id"
-                  [disabled]="mode == 1"
-                />
+              <div class="row mb-1">
+                <div class="col-4">User id</div>
+                <div class="col-8">
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="idCustomer"
+                    [(ngModel)]="serviceExecution.customer.id"
+                    disabled
+                  />
+                </div>
               </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col-4">Service id</div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="serviceExecution.service_id"
-                  [disabled]="mode == 1"
-                />
-              </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col-4"></div>
-              <div class="col-8">
-                <div class="d-flex align-items-center justify-content-center">
-                  <button
-                    *ngIf="mode == 2"
-                    class="btn btn-primary btn-block"
-                    (click)="create()"
+              <div class="row mb-1">
+                <div class="col-4">Servicio</div>
+                <div class="col-8">
+                  <select
+                    class="form-control"
+                    formControlName="idService"
+                    [(ngModel)]="serviceExecution.service.id"
                   >
-                    Crear
+                    <option
+                      *ngFor="let service of services"
+                      [value]="service.id"
+                    >
+                      Nombre: {{ service.name }}
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button
+                      *ngIf="mode == 2"
+                      class="btn btn-primary btn-block"
+                      (click)="create()"
+                    >
+                      Crear
+                    </button>
+                    <button
+                      *ngIf="mode == 3"
+                      class="btn btn-primary btn-block"
+                      (click)="update()"
+                    >
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="mode == 1" class="mt-2">
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" class="btn btn-info" (click)="chats()">
+                    Chats
                   </button>
                   <button
-                    *ngIf="mode == 3"
-                    class="btn btn-primary btn-block"
-                    (click)="update()"
+                    type="button"
+                    class="btn btn-info"
+                    (click)="comments()"
                   >
-                    Actualizar
+                    Comentarios
                   </button>
                 </div>
               </div>
             </div>
-            <div *ngIf="mode == 1" class="mt-2">
-              <div class="d-flex align-items-center justify-content-center">
-                <button type="button" class="btn btn-info" (click)="chats()">
-                  Chats
-                </button>
-                <button type="button" class="btn btn-info" (click)="comments()">
-                  Comentarios
-                </button>
-              </div>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
