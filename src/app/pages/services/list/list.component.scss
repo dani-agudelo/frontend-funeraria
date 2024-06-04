@@ -1,0 +1,22 @@
+.header {
+    background: linear-gradient(87deg, #f5365c 0, #f56036 100%) !important;
+  }
+  
+  .card {
+    border: 0;
+    border-radius: .375rem;
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, .15) !important;
+  }
+  
+  .card-header {
+    background-color: transparent;
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .list-group-item {
+    cursor: pointer;
+  }
+  

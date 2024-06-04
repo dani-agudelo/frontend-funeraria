@@ -35,6 +35,7 @@ export class ListComponent implements OnInit {
     if (this.subscriptionId && this.customerId) {
       this.service.getPaymentsBySubscription(this.subscriptionId).subscribe((data: Payment[]) => {
         this.payments = data;
+        console.log('paymentssssss', this.payments);
       });
     } else {
       this.service.getPayments().subscribe((data: Payment[]) => {
@@ -48,15 +49,15 @@ export class ListComponent implements OnInit {
 
     console.log('create de payment')
     // necesito esta ruta // http://localhost:4200/#/customers/1/subscriptions/1/payments/create
-    this.router.navigate(['customers', this.parent.snapshot.paramMap.get('idcustomer'), 'subscriptions', this.parent.snapshot.paramMap.get('id'), 'payments', 'create']);
+    this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'create']);
   }
 
   view(id: string) {
-    this.router.navigate(['customers', this.parent.snapshot.paramMap.get('idcustomer'), 'subscriptions', this.parent.snapshot.paramMap.get('id'), 'payments', 'view', id]);
+    this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'view', id]);
   }
 
   update(id: string) {
-    this.router.navigate(['customers', this.parent.snapshot.paramMap.get('idcustomer'), 'subscriptions', this.parent.snapshot.paramMap.get('id'), 'payments', 'update', id]);
+    this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'update', id]);
   }
 
   delete(id: string) {

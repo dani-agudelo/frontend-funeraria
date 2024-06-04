@@ -7,6 +7,4 @@ export class Payment {
     payment_date: Date;
     subscription_id?: number;
     subscription?: Subscriptions;
-    created_at?: Date;
-    updated_at?: Date;
 }

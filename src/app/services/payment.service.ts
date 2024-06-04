@@ -19,6 +19,7 @@ export class PaymentService {
   }
 
   view(id: string): Observable<Payment> {
+    console.log('id que llega a view',id)
     return this.http.get<Payment>(`${this.baseUrl}/payments/${id}`);
   }
 

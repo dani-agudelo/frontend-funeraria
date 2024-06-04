@@ -28,7 +28,7 @@ export class ListComponent implements OnInit {
   list() {
     // we get the customer id from the parent route
     this.customerId = this.parent.snapshot.params.idCustomer;
-    if (this.customerId) { 
+    if (this.customerId) {
       // we get the subscriptions by customer
       this.service.getSubscriptionsByCustomer(this.customerId)
         .subscribe((data: Subscriptions[]) => {
@@ -83,15 +83,21 @@ export class ListComponent implements OnInit {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(id).subscribe(() => {
-          Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
-          this.ngOnInit();
+        this.service.delete(id).subscribe({
+          next: () => {
+            Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
+            this.ngOnInit();
+          },
+          error: (err) => {
+            if (err.status === 400) {
+              Swal.fire("Error", "No se pudo eliminar el registro.", "error");
+            }
+          }
         });
       }
     });
   }
 
-  //TODO: In this method not is necessary to pass 'list' as parameter, because is the default value
   pagos(id: string) {
     this.router.navigate([
       "customers",
