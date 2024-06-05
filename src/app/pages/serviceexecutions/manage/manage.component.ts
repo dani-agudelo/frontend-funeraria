@@ -31,12 +31,8 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
     this.serviceExecution = {
       id: "",
-      customer: {
-        id: this.parent.snapshot.params.idCustomer,
-      },
-      service: {
-        id: "",
-      },
+      customer_id: this.parent.snapshot.params.idCustomer,
+      service_id: "",
     };
 
     this.configFormGroup();
@@ -84,6 +80,7 @@ export class ManageComponent implements OnInit {
 
   servicesList() {
     this.servicesService.getServices().subscribe((data: Service[]) => {
+      console.log(data);
       this.services = data;
     });
   }
@@ -96,7 +93,12 @@ export class ManageComponent implements OnInit {
     }
 
     this.service.create(this.serviceExecution).subscribe(() => {
-      this.router.navigate(["serviceexecutions/list"]);
+      this.router.navigate([
+        "customers",
+        this.serviceExecution.customer_id,
+        "serviceexecutions",
+        "list",
+      ]);
     });
   }
 
@@ -115,7 +117,7 @@ export class ManageComponent implements OnInit {
   chats() {
     this.router.navigate([
       "customers",
-      this.serviceExecution.customer.id,
+      this.serviceExecution.customer_id,
       "serviceexecutions",
       this.serviceExecution.id,
       "chats",
@@ -125,7 +127,7 @@ export class ManageComponent implements OnInit {
   messages() {
     this.router.navigate([
       "customers",
-      this.serviceExecution.customer.id,
+      this.serviceExecution.customer_id,
       "serviceexecutions",
       this.serviceExecution.id,
       "messages",

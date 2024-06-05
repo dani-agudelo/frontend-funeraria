@@ -17,6 +17,10 @@ export class ServiceexecutionService {
     return this.http.get<Serviceexecution[]>(this.baseUrl);
   }
 
+  getServiceexecutionsByCustomer(id: string): Observable<Serviceexecution[]> {
+    return this.http.get<Serviceexecution[]>(`${this.baseUrl}/customer/${id}`);
+  }
+
   view(id: string): Observable<Serviceexecution> {
     return this.http.get<Serviceexecution>(`${this.baseUrl}/${id}`);
   }

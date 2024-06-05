@@ -27,9 +27,11 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    this.service.getServiceexecutions().subscribe((data) => {
-      this.serviceexecutions = data;
-    });
+    this.service
+      .getServiceexecutionsByCustomer(this.customerId)
+      .subscribe((data: Serviceexecution[]) => {
+        this.serviceexecutions = data;
+      });
   }
 
   create() {
