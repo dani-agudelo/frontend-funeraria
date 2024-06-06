@@ -63,6 +63,8 @@ export class ManageComponent implements OnInit {
       this.subscription.id = this.parent.snapshot.params.id;
       this.getSubscription(this.subscription.id.toString());
     }
+
+    
   }
 
   get getTheFormGroup() {
