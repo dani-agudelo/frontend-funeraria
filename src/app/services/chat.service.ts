@@ -17,13 +17,8 @@ export class ChatService {
     return this.http.get<Chat[]>(this.urlBase);
   }
 
-  getChatsByServiceAndCustomer(
-    idCustomer: string,
-    idService: string,
-  ): Observable<Chat[]> {
-    return this.http.get<Chat[]>(
-      `${this.urlBase}/customers/${idCustomer}/service_executions/${idService}/chats`,
-    );
+  getChatsByServiceExecution(id: string): Observable<Chat[]> {
+    return this.http.get<Chat[]>(`${this.urlBase}/service_executions/${id}`);
   }
 
   view(id: string): Observable<Chat> {

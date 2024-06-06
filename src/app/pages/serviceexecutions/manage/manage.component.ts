@@ -110,11 +110,17 @@ export class ManageComponent implements OnInit {
     }
 
     this.service.update(this.serviceExecution).subscribe(() => {
-      this.router.navigate(["serviceexecutions/list"]);
+      this.router.navigate([
+        "customers",
+        this.serviceExecution.customer_id,
+        "serviceexecutions",
+        "list",
+      ]);
     });
   }
 
   chats() {
+    console.log(this.serviceExecution.customer_id, this.serviceExecution.id);
     this.router.navigate([
       "customers",
       this.serviceExecution.customer_id,

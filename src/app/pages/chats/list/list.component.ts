@@ -11,12 +11,17 @@ import Swal from "sweetalert2";
 })
 export class ListComponent implements OnInit {
   chats: Chat[];
-  customerId: string;
+  serviceExecutionId: string;
+  url: string;
+
   constructor(
     private service: ChatService,
     private parent: ActivatedRoute,
     private router: Router,
   ) {
+    this.url =
+      this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
+    this.serviceExecutionId = this.parent.snapshot.params.idServiceExecution;
     this.chats = [];
   }
 
@@ -25,33 +30,24 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    console.log(this.parent.snapshot.params);
-    const id = this.parent.snapshot.params.id;
-    if (id) {
-      console.log(id);
-      this.customerId = this.parent.snapshot.params.idCustomer;
-      this.service
-        .getChatsByServiceAndCustomer(this.customerId, id)
-        .subscribe((data: Chat[]) => {
-          this.chats = data;
-        });
-    } else {
-      this.service.getChats().subscribe((data: Chat[]) => {
+    this.service
+      .getChatsByServiceExecution(this.serviceExecutionId)
+      .subscribe((data: Chat[]) => {
+        console.log(data);
         this.chats = data;
       });
-    }
   }
 
   create() {
-    this.router.navigate(["chats/create"]);
+    this.router.navigate([this.url, "create"]);
   }
 
   view(id: string) {
-    this.router.navigate(["chats/view", id]);
+    this.router.navigate([this.url, "view", id]);
   }
 
   update(id: string) {
-    this.router.navigate(["chats/update", id]);
+    this.router.navigate([this.url, "update", id]);
   }
 
   delete(id: string) {
