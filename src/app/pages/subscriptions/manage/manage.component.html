@@ -35,7 +35,10 @@
                       *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched ||trySend)">
                       <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">
                         El plan es requerido</strong>
-
+                      <strong *ngIf="getTheFormGroup.plan_id.errors.min" class="msnError">El plan debe ser mayor a 0
+                      </strong>
+                      <strong *ngIf="getTheFormGroup.plan_id.errors.pattern" class="msnError">El plan debe ser un
+                        número</strong>
                     </div>
                   </div>
                   <span *ngIf="mode == 1">{{subscription.plan_id}}</span>
@@ -45,14 +48,30 @@
               <div class="row mb-1">
                 <div class="col-4">Fecha de inicio:</div>
                 <div class="col-8">
-                  <input *ngIf="mode != 1" type="date" class="form-control" [(ngModel)]="subscription.start_date" />
+                  <input *ngIf="mode != 1" type="date" class="form-control" [(ngModel)]="subscription.start_date"
+                    formControlName="start_date" />
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.start_date.errors.required" class="msnError">
+                        La fecha de inicio es requerida</strong>
+                    </div>
+                  </div>
                   <span *ngIf="mode == 1">{{subscription.start_date | date: 'dd/MM/yyyy'}}</span>
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-4">Fecha Fin:</div>
                 <div class="col-8">
-                  <input *ngIf="mode!=1" type="date" class="form-control" [(ngModel)]="subscription.end_date" />
+                  <input *ngIf="mode!=1" type="date" class="form-control" [(ngModel)]="subscription.end_date"
+                    formControlName="end_date" />
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.start_date.errors.required" class="msnError">
+                        La fecha de fin es requerida</strong>
+                    </div>
+                  </div>
                   <span *ngIf="mode == 1">{{subscription.end_date | date: 'dd/MM/yyyy'}}</span>
                 </div>
               </div>
@@ -60,7 +79,20 @@
               <div class="row mb-1">
                 <div class="col-4">Monto Mensual:</div>
                 <div class="col-8">
-                  <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="subscription.monthly_fee" />
+                  <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="subscription.monthly_fee"
+                    formControlName="monthly_fee" />
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.monthly_fee.errors && (getTheFormGroup.monthly_fee.dirty || getTheFormGroup.monthly_fee.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.monthly_fee.errors.required" class="msnError">
+                        El monto es requerido</strong>
+                      <strong *ngIf="getTheFormGroup.monthly_fee.errors.min" class="msnError">El monto debe ser mayor a
+                        0
+                      </strong>
+                      <strong *ngIf="getTheFormGroup.monthly_fee.errors.pattern" class="msnError">El monto debe ser un
+                        número</strong>
+                    </div>
+                  </div>
                   <span *ngIf="mode == 1">${{subscription.monthly_fee}}</span>
                 </div>
               </div>
