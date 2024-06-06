@@ -1,11 +1,8 @@
-import { Serviceexecution } from "./serviceexecution.model";
-
 export class Commment {
     id?: number;
     rating: number;
     comment: string;
-    service_execution_id?: number;
-    serviceexecutions?: Serviceexecution;
+    service_execution_id: string;
     created_at?: Date;
     updated_at?: Date;
 }

@@ -11,11 +11,20 @@ export class CommentService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.url_ms_business}`;
+    this.baseUrl = `${environment.url_ms_business}/comments`;
    }
 
    getComments(): Observable<Commment[]> {
-    return this.http.get<Commment[]>(`${this.baseUrl}/comments`);
+    return this.http.get<Commment[]>(this.baseUrl);
+  }
+
+  getCommentByServiceAndCustomer(
+    idCustomer: string,
+    idService: string,
+  ): Observable<Commment[]> {
+    return this.http.get<Commment[]>(
+      `${this.baseUrl}/customers/${idCustomer}/service_executions/${idService}/comments`,
+    );
   }
 
   view(id: string): Observable<Commment> {

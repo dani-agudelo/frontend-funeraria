@@ -133,4 +133,14 @@ export class ManageComponent implements OnInit {
       "messages",
     ]);
   }
+
+  comments() {
+    this.router.navigate([
+      "customers",
+      this.serviceExecution.customer_id,
+      "serviceexecutions",
+      this.serviceExecution.id,
+      "comments",
+    ]);
+  }
 }

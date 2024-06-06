@@ -11,7 +11,7 @@ import { Commment } from "src/app/models/comment.model";
 })
 export class ListComponent implements OnInit {
   comments: Commment[];
-  idServiceExecution: string;
+  customerId: string;
 
   constructor(
     private service: CommentService,
@@ -26,10 +26,13 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    this.idServiceExecution = this.parent.snapshot.params.idServiceExecution;
-    if (this.idServiceExecution) {
+    console.log(this.parent.snapshot.params);
+    const id = this.parent.snapshot.params.id;
+    if (id) {
+      console.log(id);
+      this.customerId = this.parent.snapshot.params.idCustomer;
       this.service
-        .getCommentsByServiceExecution(this.idServiceExecution)
+        .getCommentByServiceAndCustomer(this.customerId, id)
         .subscribe((data: Commment[]) => {
           this.comments = data;
         });
