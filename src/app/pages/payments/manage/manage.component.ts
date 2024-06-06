@@ -1,6 +1,5 @@
-import { DatePipe } from '@angular/common';
 import { Component, OnInit } from "@angular/core";
-import { FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Payment } from 'src/app/models/payment.model';
 import { PaymentService } from 'src/app/services/payment.service';
@@ -17,15 +16,17 @@ export class ManageComponent implements OnInit {
   theFormGroup: FormGroup;
   subscriptionId: number;
   customerId: number;
+  trySend: boolean;
 
 
   constructor(
     private parent: ActivatedRoute,
     private service: PaymentService,
     private route: Router,
-    private datePipe: DatePipe
+    private theFormBuilder: FormBuilder,
   ) {
     this.mode = 1;
+    this.trySend = false;
 
     this.payment = {
       id: 1,
@@ -33,16 +34,37 @@ export class ManageComponent implements OnInit {
       payment_method: "",
       payment_date: null,
       subscription_id: 1,
-    }
+    };
+
+    this.configFormGroup();
+  }
+
+  configFormGroup() {
+    this.theFormGroup = this.theFormBuilder.group({
+      amount: [
+        0,
+        [Validators.required, Validators.min(0.01)],
+      ],
+      payment_method: [
+        "",
+        [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
+      ],
+      payment_date: [
+        new Date(),
+        [Validators.required],
+      ],
+    });
   }
 
   ngOnInit(): void {
     this.subscriptionId = this.parent.snapshot.params.idSubscription;
     this.customerId = this.parent.snapshot.params.idCustomer;
+    this.payment.subscription_id = this.subscriptionId;
     console.log('Id de la suscripcion: ' + this.subscriptionId);
     console.log('Id del cliente: ' + this.customerId);
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
+      this.theFormGroup.disable();
       this.mode = 1;
     } else if (currentUrl.includes("create")) {
       this.mode = 2;
@@ -56,6 +78,10 @@ export class ManageComponent implements OnInit {
     }
   }
 
+  get getTheFormGroup() {
+    return this.theFormGroup.controls;
+  }
+
   getPayment(id: string) {
     this.service.view(id).subscribe((data: Payment) => {
       this.payment = data;
@@ -63,7 +89,12 @@ export class ManageComponent implements OnInit {
   }
 
   create() {
-    this.payment.subscription_id = this.subscriptionId;
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error", "Por favor complete los campos requeridos", "error");
+      return;
+    }
+
     this.service.create(this.payment).subscribe(() => {
       Swal.fire(
         "Creación exitosa",
@@ -75,7 +106,18 @@ export class ManageComponent implements OnInit {
   }
 
   update() {
+    if (this.theFormGroup.invalid) {
+      this.trySend = true;
+      Swal.fire("Error", "Por favor complete los campos requeridos", "error");
+      return;
+    }
+
     this.service.update(this.payment).subscribe(() => {
+      Swal.fire(
+        "Actualización exitosa",
+        "Pago actualizado correctamente",
+        "success",
+      );
       this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
     });
   }

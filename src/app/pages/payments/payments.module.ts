@@ -4,7 +4,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { PaymentsRoutingModule } from './payments-routing.module';
 import { ListComponent } from './list/list.component';
 import { ManageComponent } from './manage/manage.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,7 +16,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     PaymentsRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class PaymentsModule { }

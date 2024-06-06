@@ -11,64 +11,75 @@
           <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
         </div>
         <div class="card-body">
-          <div class="container d-grid gap-3">
-            <div class="row mb-1">
-              <div class="col-4">Id:</div>
-              <div class="col-8">
-                {{ subscription.id }}
+          <form class="form" [formGroup]="theFormGroup">
+            <div class="container d-grid gap-3">
+              <div *ngIf="mode!=2" class="row mb-1">
+                <div class="col-4">Suscripción Id:</div>
+                <div class="col-8">
+                  {{ subscription.id }}
+                </div>
               </div>
-            </div>
-            <div class="row mb-1" *ngIf="mode == 1">
-              <div class="col-4">Cliente id</div>
-              <div class="col-8">
-                {{ subscription.customer_id }}
+              <div class="row mb-1" *ngIf="mode == 1">
+                <div class="col-4">Cliente id</div>
+                <div class="col-8">
+                  {{ subscription.customer_id }}
+                </div>
               </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col-4">Plan id:</div>
-              <div class="col-8">
-                <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="subscription.plan_id" />
-                <span *ngIf="mode == 1">{{subscription.plan_id}}</span>
-              </div>
-            </div>
+              <div class="row mb-1">
+                <div class="col-4">Plan id:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="subscription.plan_id"
+                    formControlName="plan_id" />
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.plan_id.errors && (getTheFormGroup.plan_id.dirty || getTheFormGroup.plan_id.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.plan_id.errors.required" class="msnError">
+                        El plan es requerido</strong>
 
-            <div class="row mb-1">
-              <div class="col-4">Fecha de inicio:</div>
-              <div class="col-8">
-                <input *ngIf="mode != 1" type="text" class="form-control" [(ngModel)]="subscription.start_date" />
-                <span *ngIf="mode == 1">{{subscription.start_date}}</span>
+                    </div>
+                  </div>
+                  <span *ngIf="mode == 1">{{subscription.plan_id}}</span>
+                </div>
               </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col-4">Fecha Fin:</div>
-              <div class="col-8">
-                <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="subscription.end_date"/>
-                <span *ngIf="mode == 1">{{subscription.end_date}}</span>
-              </div>
-            </div>
 
-            <div class="row mb-1">
-              <div class="col-4">Monto Mensual:</div>
-              <div class="col-8">
-                <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="subscription.monthly_fee"  />
-                <span *ngIf="mode == 1">{{subscription.monthly_fee}}</span>
+              <div class="row mb-1">
+                <div class="col-4">Fecha de inicio:</div>
+                <div class="col-8">
+                  <input *ngIf="mode != 1" type="date" class="form-control" [(ngModel)]="subscription.start_date" />
+                  <span *ngIf="mode == 1">{{subscription.start_date | date: 'dd/MM/yyyy'}}</span>
+                </div>
               </div>
-            </div>
+              <div class="row mb-1">
+                <div class="col-4">Fecha Fin:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="date" class="form-control" [(ngModel)]="subscription.end_date" />
+                  <span *ngIf="mode == 1">{{subscription.end_date | date: 'dd/MM/yyyy'}}</span>
+                </div>
+              </div>
 
-            <div class="row mb-1">
-              <div class="col-4"></div>
-              <div class="col-8">
-                <div class="d-flex align-items-center justify-content-center">
-                  <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
-                    Crear
-                  </button>
-                  <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
-                    Actualizar
-                  </button>
+              <div class="row mb-1">
+                <div class="col-4">Monto Mensual:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="subscription.monthly_fee" />
+                  <span *ngIf="mode == 1">${{subscription.monthly_fee}}</span>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                      Crear
+                    </button>
+                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                      Actualizar
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
