@@ -1,9 +1,11 @@
+import { Customer } from "./customer.model";
+
 export class Owner {
-  id: string;
-  customer_id: string;
+  id?: string;
   name: string;
   email: string;
-  document: string;
   start_date: string;
   end_date: string;
+  customer_id: string;
+  customer: Customer;
 }

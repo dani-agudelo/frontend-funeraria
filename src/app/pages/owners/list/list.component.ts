@@ -24,6 +24,7 @@ export class ListComponent implements OnInit {
 
   list() {
     this.service.getOwners().subscribe((data: Owner[]) => {
+      console.log(data);
       this.owners = data;
     });
   }

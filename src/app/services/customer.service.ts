@@ -17,6 +17,10 @@ export class CustomerService {
     return this.http.get<Customer[]>(this.baseUrl);
   }
 
+  getCustomersWithOutOwner(): Observable<Customer[]> {
+    return this.http.get<Customer[]>(`${this.baseUrl}/without_owner`);
+  }
+
   view(id: string): Observable<Customer> {
     return this.http.get<Customer>(`${this.baseUrl}/${id}`);
   }

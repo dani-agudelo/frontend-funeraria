@@ -11,101 +11,130 @@
           <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
         </div>
         <div class="card-body">
-          <div class="container d-grid gap-3">
-            <div class="row">
-              <div class="col-4">Id:</div>
-              <div class="col-8">
-                {{ owner.id }}
+          <form class="form" [formGroup]="theFormGroup">
+            <div class="container d-grid gap-3">
+              <div class="row" *ngIf="mode == 1">
+                <div class="col-4">Id:</div>
+                <div class="col-8">
+                  {{ owner.id }}
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-4">Nombre:</div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="owner.name"
-                  [disabled]="mode == 1"
-                />
+              <div class="row">
+                <div class="col-4">Customers</div>
+                <div class="col-8">
+                  <select
+                    class="form-control"
+                    [(ngModel)]="owner.customer_id"
+                    formControlName="customer_id"
+                  >
+                    <div *ngIf="mode == 3">
+                      <option
+                        *ngFor="let customer of customers"
+                        [value]="customer.id"
+                      >
+                        Nombre: {{ customer.name }} - Documento:
+                        {{ customer.document }}
+                      </option>
+                    </div>
+                    <option
+                      [value]="owner.customer_id"
+                      *ngIf="mode == 2 || mode == 1"
+                      disabled
+                    >
+                      Id: {{ owner.customer_id }} - Documento:
+                      {{ owner.customer.document }}
+                    </option>
+                  </select>
+                </div>
               </div>
-            </div>
+              <div class="row">
+                <div class="col-4">Fecha de inicio:</div>
+                <div class="col-8">
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="owner.start_date"
+                    formControlName="start_date"
+                  />
+                  <div>
+                    <div
+                      *ngIf="
+                        getTheFormGroup.start_date.errors &&
+                        (getTheFormGroup.start_date.dirty ||
+                          getTheFormGroup.start_date.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.start_date.errors.required"
+                        class="msnError"
+                      >
+                        fecha inicial es requerida</strong
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
 
-            <div class="row">
-              <div class="col-4">Email:</div>
-              <div class="col-8">
-                <input
-                  type="email"
-                  class="form-control"
-                  [(ngModel)]="owner.email"
-                  [disabled]="mode == 1"
-                />
+              <div class="row">
+                <div class="col-4">Fecha final:</div>
+                <div class="col-8">
+                  <input
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="owner.end_date"
+                    formControlName="end_date"
+                  />
+                  <div>
+                    <div
+                      *ngIf="
+                        getTheFormGroup.end_date.errors &&
+                        (getTheFormGroup.end_date.dirty ||
+                          getTheFormGroup.end_date.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.end_date.errors.required"
+                        class="msnError"
+                      >
+                        fecha final es requerida</strong
+                      >
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-4">Document:</div>
-              <div class="col-8">
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="owner.document"
-                  [disabled]="mode == 1"
-                />
-              </div>
-            </div>
 
-            <div class="row">
-              <div class="col-4">Fecha de inicio:</div>
-              <div class="col-8">
-                <input
-                  type="datetime-local"
-                  class="form-control"
-                  [(ngModel)]="owner.start_date"
-                  [disabled]="mode == 1"
-                />
+              <div class="row">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <button
+                    *ngIf="mode == 2"
+                    class="btn btn-primary btn-block"
+                    (click)="update()"
+                  >
+                    Actualizar
+                  </button>
+                  <button
+                    *ngIf="mode == 3"
+                    class="btn btn-primary btn-block"
+                    (click)="create()"
+                  >
+                    Crear
+                  </button>
+                </div>
               </div>
-            </div>
-
-            <div class="row">
-              <div class="col-4">Fecha final:</div>
-              <div class="col-8">
-                <input
-                  type="datetime-local"
-                  class="form-control"
-                  [(ngModel)]="owner.end_date"
-                  [disabled]="mode == 1"
-                />
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="col-4"></div>
-              <div class="col-8">
+              <div *ngIf="mode == 1" class="mt-2">
                 <button
-                  *ngIf="mode == 2"
-                  class="btn btn-primary btn-block"
-                  (click)="update()"
+                  type="button"
+                  class="btn btn-info"
+                  (click)="beneciaries()"
                 >
-                  Actualizar
-                </button>
-                <button
-                  *ngIf="mode == 3"
-                  class="btn btn-primary btn-block"
-                  (click)="create()"
-                >
-                  Crear
+                  Beneficiarios
                 </button>
               </div>
             </div>
-            <div *ngIf="mode == 1" class="mt-2">
-              <button
-                type="button"
-                class="btn btn-info"
-                (click)="beneciaries()"
-              >
-                Beneficiarios
-              </button>
-            </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>
