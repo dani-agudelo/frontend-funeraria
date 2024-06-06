@@ -11,57 +11,84 @@
           <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
         </div>
         <div class="card-body">
-          <div class="container d-grid gap-3">
-            <div *ngIf="mode!=2" class="row mb-1">
-              <div class="col-4">Id:</div>
-              <div class="col-8">
-                {{ payment.id }}
+          <form class="form" [formGroup]="theFormGroup">
+            <div class="container d-grid gap-3">
+              <div *ngIf="mode!=2" class="row mb-1">
+                <div class="col-4">Id:</div>
+                <div class="col-8">
+                  {{ payment.id }}
+                </div>
               </div>
-            </div>
-            <div class="row mb-1" *ngIf="mode==1">
-              <div class="col-4">Suscripción:</div>
-              <div class="col-8">
-                <span>{{payment.subscription_id}}</span>
+              <div class="row mb-1" *ngIf="mode==1">
+                <div class="col-4">Suscripción:</div>
+                <div class="col-8">
+                  <span>{{payment.subscription_id}}</span>
+                </div>
               </div>
-            </div>
 
-            <div class="row mb-1">
-              <div class="col-4">Monto:</div>
-              <div class="col-8">
-                <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="payment.amount" />
-                <span *ngIf="mode == 1">{{payment.amount}}</span>
+              <div class="row mb-1">
+                <div class="col-4">Monto:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="payment.amount" formControlName="amount"/>
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.amount.errors && (getTheFormGroup.amount.dirty || getTheFormGroup.amount.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.amount.errors.required" class="msnError">
+                        El monto es requerido</strong>
+                      <strong *ngIf="getTheFormGroup.amount.errors.min" class="msnError">El monto debe ser mayor a 0
+                      </strong>
+                    </div>
+                  </div>
+                  <span *ngIf="mode == 1">${{payment.amount}}</span>
+                </div>
               </div>
-            </div>
 
-            <div class="row mb-1">
-              <div class="col-4">Método de pago:</div>
-              <div class="col-8">
-                <input *ngIf="mode != 1" type="text" class="form-control" [(ngModel)]="payment.payment_method" />
-                <span *ngIf="mode == 1">{{payment.payment_method}}</span>
+              <div class="row mb-1">
+                <div class="col-4">Método de pago:</div>
+                <div class="col-8">
+                  <input *ngIf="mode != 1" type="text" class="form-control" [(ngModel)]="payment.payment_method" formControlName="payment_method"/>
+                  <div>
+                    <div
+                        *ngIf="getTheFormGroup.payment_method.errors && (getTheFormGroup.payment_method.dirty || getTheFormGroup.payment_method.touched ||trySend)">
+                        <strong *ngIf="getTheFormGroup.payment_method.errors.required" class="msnError">
+                            El método de pago es requerido</strong>
+                        <strong *ngIf="getTheFormGroup.payment_method.errors.minlength" class="msnError">Mínimo 3 caractereres</strong>
+                        <strong *ngIf="getTheFormGroup.payment_method.errors.maxlength" class="msnError">Máximo 50 caractereres</strong>
+                    </div>
+                </div>
+                  <span *ngIf="mode == 1">{{payment.payment_method}}</span>
+                </div>
               </div>
-            </div>
-            <div class="row mb-1">
-              <div class="col-4">Fecha:</div>
-              <div class="col-8">
-                <input *ngIf="mode!=1" type="date" class="form-control" [(ngModel)]="payment.payment_date" />
-                <span *ngIf="mode == 1">{{payment.payment_date}}</span>
+              <div class="row mb-1">
+                <div class="col-4">Fecha:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="date" class="form-control" [(ngModel)]="payment.payment_date" formControlName="payment_date"/>
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.payment_date.errors && (getTheFormGroup.payment_date.dirty || getTheFormGroup.payment_date.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.payment_date.errors.required" class="msnError">
+                        La fecha de pago es requerida</strong>
+                    </div>
+                  </div>
+                  <span *ngIf="mode == 1">{{payment.payment_date |date: 'dd/MM/yyyy'}}</span>
+                </div>
               </div>
-            </div>
 
-            <div class="row mb-1">
-              <div class="col-4"></div>
-              <div class="col-8">
-                <div class="d-flex align-items-center justify-content-center">
-                  <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
-                    Crear
-                  </button>
-                  <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
-                    Actualizar
-                  </button>
+              <div class="row mb-1">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                      Crear
+                    </button>
+                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                      Actualizar
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </form>
         </div>
       </div>
     </div>

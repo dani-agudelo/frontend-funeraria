@@ -43,21 +43,21 @@ export class ManageComponent implements OnInit {
     this.theFormGroup = this.theFormBuilder.group({
       amount: [
         0,
-        [Validators.required, Validators.min(0.01)],
+        [Validators.required, Validators.min(1)],
       ],
       payment_method: [
         "",
         [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
       ],
       payment_date: [
-        new Date(),
+        null,
         [Validators.required],
       ],
     });
   }
 
   ngOnInit(): void {
-    this.subscriptionId = this.parent.snapshot.params.idSubscription;
+    this.subscriptionId = Number(this.parent.snapshot.params.idSubscription);
     this.customerId = this.parent.snapshot.params.idCustomer;
     this.payment.subscription_id = this.subscriptionId;
     console.log('Id de la suscripcion: ' + this.subscriptionId);

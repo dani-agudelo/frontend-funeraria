@@ -27,7 +27,6 @@
                 <th class="col-3">Fecha de Inicio</th>
                 <th class="col-3">Fin</th>
                 <th class="col-3">Monto Mensual</th>
-                <th class="col-3">Pagó</th>
                 <th class="col-5">Opciones</th>
               </tr>
             </thead>
@@ -36,7 +35,7 @@
                 <td>{{ sub.id }}</td>
                 <td>{{ sub.start_date | date: 'dd/MM/yyyy' }}</td>
                 <td>La suscripción es vigente</td>
-                <td>{{ sub.monthly_fee }}</td>
+                <td>${{ sub.monthly_fee }}</td>
                 <td>
                   <button type="button" class="btn btn-primary" (click)="view(sub.id)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"

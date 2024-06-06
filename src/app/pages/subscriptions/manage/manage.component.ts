@@ -30,8 +30,8 @@ export class ManageComponent implements OnInit {
       id: 0,
       customer_id: 0,
       plan_id: 0,
-      start_date: new Date(),
-      end_date: new Date(),
+      start_date:null,
+      end_date: null,
       monthly_fee: 0,
     };
     this.configFormGroup();
@@ -47,7 +47,7 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customerId = this.parent.snapshot.params.idCustomer;
+    this.customerId = Number(this.parent.snapshot.params.idCustomer);
     this.subscription.customer_id = this.customerId;
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
@@ -68,7 +68,6 @@ export class ManageComponent implements OnInit {
   }
 
   get getTheFormGroup() {
-    console.log(this.theFormGroup);
     return this.theFormGroup.controls;
   }
 
@@ -86,14 +85,14 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
-
+    console.log(this.subscription)
     this.service.create(this.subscription).subscribe(() => {
       Swal.fire(
         "Creación exitosa",
         "La suscripción ha sido creada exitosamente",
         "success"
       );
-      this.route.navigate(["subscriptions/list"]);
+      this.route.navigate(["customers", this.customerId,"subscriptions","list"]);
     });
   }
 
@@ -110,7 +109,7 @@ export class ManageComponent implements OnInit {
         "La suscripción ha sido actualizada exitosamente",
         "success"
       );
-      this.route.navigate(["subscriptions/list"]);
+      this.route.navigate(["customers", this.customerId,"subscriptions","list"]);
     });
   }
 }
