@@ -1,0 +1,88 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+        </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="theFormGroup">
+            <div class="container d-grid gap-3">
+              <div *ngIf="mode!=2" class="row mb-1">
+                <div class="col-4">Id:</div>
+                <div class="col-8">
+                  {{ plan.id }}
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-4">Nombre:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="plan.name" formControlName="name"/>
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.name.errors && (getTheFormGroup.name.dirty || getTheFormGroup.name.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">
+                        El nombre es requerido</strong>
+                      <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">Minimo 3 caracteres
+                      </strong>
+                    </div>
+                  </div>
+                  <span *ngIf="mode == 1">{{plan.name}}</span>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-4">Descripción:</div>
+                <div class="col-8">
+                  <input *ngIf="mode != 1" type="text" class="form-control" [(ngModel)]="plan.description" formControlName="description"/>
+                  <div>
+                    <div
+                        *ngIf="getTheFormGroup.description.errors && (getTheFormGroup.description.dirty || getTheFormGroup.description.touched ||trySend)">
+                        <strong *ngIf="getTheFormGroup.description.errors.required" class="msnError">
+                            La descripción es requerida</strong>
+                        <strong *ngIf="getTheFormGroup.description.errors.minlength" class="msnError">Mínimo 3 caractereres</strong>
+                    </div>
+                </div>
+                  <span *ngIf="mode == 1">{{plan.description}}</span>
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-4">Tipo de Plan:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="plan.typePlan" formControlName="typePlan"/>
+                  <div>
+                    <div
+                      *ngIf="getTheFormGroup.typePlan.errors && (getTheFormGroup.typePlan.dirty || getTheFormGroup.typePlan.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.typePlan.errors.required" class="msnError">
+                        El tipo de plan es requerido</strong>
+                    </div>
+                  </div>
+                  <span *ngIf="mode == 1">{{plan.type_plan}}</span>
+                </div>
+              </div>
+
+              <div class="row mb-1">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                      Crear
+                    </button>
+                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
