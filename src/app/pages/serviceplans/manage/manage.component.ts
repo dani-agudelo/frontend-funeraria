@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Plan } from 'src/app/models/plan.model';
-import { PlanService } from 'src/app/services/plan.service';
-import Swal from 'sweetalert2';
+import { ServicePlan } from 'src/app/models/service-plan.model';
+import { ServiceplanService } from 'src/app/services/serviceplan.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-manage",
@@ -12,48 +12,37 @@ import Swal from 'sweetalert2';
 })
 export class ManageComponent implements OnInit {
   mode: number;
-  plan: Plan;
+  servicePlan: ServicePlan;
+  planId: number;
   theFormGroup: FormGroup;
   trySend: boolean;
 
-
   constructor(
     private parent: ActivatedRoute,
-    private service: PlanService,
+    private service: ServiceplanService,
     private router: Router,
     private theFormBuilder: FormBuilder,
   ) {
     this.mode = 1;
     this.trySend = false;
 
-    this.plan = {
-      id: null,
-      name: null,
-      description: null,
-      typePlan: null,
+    this.servicePlan = {
+      id: 0,
+      service_id: 0,
+      plan_id: 0,
     };
-
     this.configFormGroup();
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      name: [
-        null,
-        [Validators.required, Validators.minLength(3)],
-      ],
-      description: [
-        null,
-        [Validators.required, Validators.minLength(3)],
-      ],
-      typePlan: [
-        null,
-        [Validators.required, Validators.minLength(3)],
-      ],
+      service_id: [null, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]],
     });
   }
 
   ngOnInit(): void {
+    this.planId = Number(this.parent.snapshot.params.idPlan);
+    this.servicePlan.plan_id = this.planId;
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.theFormGroup.disable();
@@ -65,18 +54,21 @@ export class ManageComponent implements OnInit {
     }
 
     if (this.parent.snapshot.params.id) {
-      this.plan.id = this.parent.snapshot.params.id;
-      this.getPlan(this.plan.id.toString());
+      this.servicePlan.id = this.parent.snapshot.params.id;
+      this.getServicePlan(this.servicePlan.id.toString());
     }
+
+    
   }
 
   get getTheFormGroup() {
     return this.theFormGroup.controls;
   }
 
-  getPlan(id: string) {
-    this.service.view(id).subscribe((data: Plan) => {
-      this.plan = data;
+  getServicePlan(id: string) {
+    this.service.view(id).subscribe((data: ServicePlan) => {
+      console.log(data);
+      this.servicePlan = data;
     });
   }
 
@@ -86,14 +78,14 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
-
-    this.service.create(this.plan).subscribe(() => {
+    console.log(this.servicePlan)
+    this.service.create(this.servicePlan).subscribe(() => {
       Swal.fire(
         "Creación exitosa",
-        "Se ha creado un nuevo registro",
-        "success",
+        "El servicio-plan ha sido creado exitosamente",
+        "success"
       );
-      this.router.navigate(["plans/list"]);
+      this.router.navigate(["plans", this.planId,"serviceplans","list"]);
     });
   }
 
@@ -104,19 +96,14 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    this.service.update(this.plan).subscribe(() => {
+    this.service.update(this.servicePlan).subscribe(() => {
       Swal.fire(
         "Actualización exitosa",
-        "Plan actualizado correctamente",
-        "success",
+        "El servicio-plan ha sido actualizado exitosamente",
+        "success"
       );
-      this.router.navigate(["plans/list"]);
+      this.router.navigate(["plans", this.planId,"serviceplans","list"]);
     });
   }
-
-  serviceplans() {
-    this.router.navigate(["plans", this.plan.id, "serviceplans"]);
-  }
-
-  
 }
+

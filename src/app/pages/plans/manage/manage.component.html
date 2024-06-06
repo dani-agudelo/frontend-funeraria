@@ -79,6 +79,17 @@
                   </div>
                 </div>
               </div>
+              <div *ngIf="mode == 1" class="mt-2">
+                <div class="d-flex align-items-center justify-content-center">
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    (click)="serviceplans()"
+                  >
+                    Servicios-Plan
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
         </div>
