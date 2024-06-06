@@ -26,7 +26,7 @@
                     type="text"
                     class="form-control"
                     formControlName="idCustomer"
-                    [(ngModel)]="serviceExecution.customer.id"
+                    [(ngModel)]="serviceExecution.customer_id"
                     disabled
                   />
                 </div>
@@ -37,13 +37,13 @@
                   <select
                     class="form-control"
                     formControlName="idService"
-                    [(ngModel)]="serviceExecution.service.id"
+                    [(ngModel)]="serviceExecution.service_id"
                   >
                     <option
                       *ngFor="let service of services"
                       [value]="service.id"
                     >
-                      Nombre: {{ service.name }}
+                      Nombre: {{ service.name_service }}
                     </option>
                   </select>
                 </div>
