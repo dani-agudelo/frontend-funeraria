@@ -1,5 +1,5 @@
 export class Commment {
-    id?: number;
+    id?: string;
     rating: number;
     comment: string;
     service_execution_id: string;
