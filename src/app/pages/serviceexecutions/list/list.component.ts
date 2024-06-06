@@ -49,8 +49,8 @@ export class ListComponent implements OnInit {
       "customers",
       this.customerId,
       "serviceexecutions",
-      id,
       "view",
+      id,
     ]);
   }
 
@@ -59,8 +59,8 @@ export class ListComponent implements OnInit {
       "customers",
       this.customerId,
       "serviceexecutions",
-      id,
       "update",
+      id,
     ]);
   }
 
