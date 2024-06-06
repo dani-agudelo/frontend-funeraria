@@ -30,6 +30,7 @@ export class ListComponent implements OnInit {
     this.service
       .getServiceexecutionsByCustomer(this.customerId)
       .subscribe((data: Serviceexecution[]) => {
+        console.log(data);
         this.serviceexecutions = data;
       });
   }
