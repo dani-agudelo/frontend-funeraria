@@ -102,6 +102,21 @@ export class ManageComponent implements OnInit {
         "success",
       );
       this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
+    }, error => {
+      console.error(error);
+      if (error.status === 422 && error.error.errors[0].rule === 'unique') {
+        Swal.fire(
+          "Error",
+          "Ya existe un pago para esta suscripción en la fecha seleccionada",
+          "error",
+        );
+      } else {
+        Swal.fire(
+          "Error",
+          "Ocurrió un error al crear el registro",
+          "error",
+        );
+      }
     });
   }
 
