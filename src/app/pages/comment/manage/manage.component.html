@@ -11,60 +11,45 @@
         <div class="card-body">
           <form class="form" [formGroup]="theFormGroup">
             <div class="container d-grid gap-3">
-              <div class="row mb-2">
-                <div class="col-4">Id:</div>
+              <div *ngIf="mode!=2" class="row mb-1">
+                <div class="col-4">Id comentario:</div>
                 <div class="col-8">
                   {{ comment.id }}
                 </div>
               </div>
-              <div class="row mb-1">
+              <div *ngIf="mode!=2" class="row mb-1">
                 <div class="col-4">Servicio ejecutado id</div>
                 <div class="col-8">
-                    {{comment.service_execution_id}}
+                  {{comment.service_execution_id}}
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-4">Calificacion</div>
                 <div class="col-8">
-                  <select
-                    class="form-control"
-                    formControlName="rating"
-                    [(ngModel)]="comment.rating"
-                    >
+                  <select *ngIf="mode!=1" class="form-control" formControlName="rating" [(ngModel)]="comment.rating">
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
                   </select>
+                  <span *ngIf="mode==1">{{comment.rating}}</span>
                 </div>
               </div>
-                <div class="row mb-1">
-                    <div class="col-4">Comentario</div>
-                    <div class="col-8">
-                    <textarea
-                        class="form-control"
-                        formControlName="comment"
-                        [(ngModel)]="comment.comment"
-                    ></textarea>
-                    </div>
+              <div class="row mb-1">
+                <div class="col-4">Comentario</div>
+                <div class="col-8">
+                  <textarea class="form-control" formControlName="comment" [(ngModel)]="comment.comment"></textarea>
                 </div>
+              </div>
               <div class="row mb-1">
                 <div class="col-4"></div>
                 <div class="col-8">
                   <div class="d-flex align-items-center justify-content-center">
-                    <button
-                      *ngIf="mode == 2"
-                      class="btn btn-primary btn-block"
-                      (click)="create()"
-                    >
+                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
                       Crear
                     </button>
-                    <button
-                      *ngIf="mode == 3"
-                      class="btn btn-primary btn-block"
-                      (click)="update()"
-                    >
+                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
                       Actualizar
                     </button>
                   </div>
