@@ -30,6 +30,7 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
 
     this.comment = {
+      user_id: "",
       id: "",
       rating: 0,
       comment: "",
@@ -64,11 +65,7 @@ export class ManageComponent implements OnInit {
     this.customerId = this.parent.snapshot.params.idCustomer;
     this.serviceExecutionId = this.parent.snapshot.params.idServiceExecution;
     this.comment.service_execution_id = this.serviceExecutionId;
-    this.customerService.view(this.customerId).subscribe((data) => {
-    this.userId = data.user_id;
-      console.log('Id del usuario: ' + this.userId);
-    });
-    this.comment.user_id = this.userId;
+    this.getCustomer(this.customerId);
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.mode = 1;
@@ -92,6 +89,13 @@ export class ManageComponent implements OnInit {
   async getComment(id: string) {
     this.serviceComment.view(id).subscribe((data: Commment) => {
       this.comment = data;
+    });
+  }
+
+  async getCustomer(id: string) {
+    this.customerService.view(id).subscribe((data) => {
+      this.userId = data[0].user_id;
+      this.comment.user_id = this.userId;
     });
   }
 
