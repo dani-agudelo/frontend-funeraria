@@ -12,6 +12,7 @@ import { Commment } from "src/app/models/comment.model";
 export class ListComponent implements OnInit {
   comments: Commment[];
   customerId: string;
+  serviceExecutionId: string;
 
   constructor(
     private service: CommentService,
@@ -26,13 +27,14 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    console.log(this.parent.snapshot.params);
-    const id = this.parent.snapshot.params.id;
-    if (id) {
-      console.log(id);
-      this.customerId = this.parent.snapshot.params.idCustomer;
+   this.customerId = this.parent.snapshot.params.idCustomer;
+    this.serviceExecutionId = this.parent.snapshot.params.idServiceExecution;
+    console.log('Id de la ejecucion de servicio: ' + this.serviceExecutionId);
+    console.log('Id del cliente: ' + this.customerId);
+    //customers/:idCustomer/serviceexecutions/:idServiceExecution/comments
+    if (this.serviceExecutionId && this.customerId) {
       this.service
-        .getCommentByServiceAndCustomer(this.customerId, id)
+        .getCommentsByServiceExecution(this.serviceExecutionId)
         .subscribe((data: Commment[]) => {
           this.comments = data;
         });
@@ -44,15 +46,16 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate(["comments/create"]);
+    //customers/:idCustomer/serviceexecutions/:idServiceExecution/comments/create
+    this.router.navigate(["customers", this.customerId, "serviceexecutions", this.serviceExecutionId, "comments", "create"]);
   }
 
   view(id: string) {
-    this.router.navigate(["comments/view", id]);
+    this.router.navigate(["customers", this.customerId, "serviceexecutions", this.serviceExecutionId, "comments", "view", id]);
   }
 
   update(id: string) {
-    this.router.navigate(["comments/update", id]);
+    this.router.navigate(["customers", this.customerId, "serviceexecutions", this.serviceExecutionId, "comments", "update", id]);
   }
 
   delete(id: string) {

@@ -20,13 +20,7 @@
               <div class="row mb-1">
                 <div class="col-4">Servicio ejecutado id</div>
                 <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="service_execution_id"
-                    [(ngModel)]="comment.service_execution_id"
-                    disabled
-                  />
+                    {{comment.service_execution_id}}
                 </div>
               </div>
               <div class="row mb-1">
@@ -37,6 +31,11 @@
                     formControlName="rating"
                     [(ngModel)]="comment.rating"
                     >
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
                   </select>
                 </div>
               </div>

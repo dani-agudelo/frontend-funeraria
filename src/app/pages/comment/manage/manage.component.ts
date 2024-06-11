@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Commment } from 'src/app/models/comment.model';
 import { CommentService } from 'src/app/services/comment.service';
+import { CustomerService } from 'src/app/services/customer.service';
 import Swal from 'sweetalert2';
 @Component({
   selector: "app-manage",
@@ -12,21 +13,21 @@ import Swal from 'sweetalert2';
 export class ManageComponent implements OnInit {
   comment: Commment;
   mode: number;
+  customerId:string;
   serviceExecutionId: string;
   theFormGroup: FormGroup;
   trySend: boolean;
-  url: string;
+  userId: string;
 
   constructor(
     private parent: ActivatedRoute,
     private router: Router,
     private serviceComment: CommentService,
     private theFormBuilder: FormBuilder,
+    private customerService: CustomerService,
   ) {
     this.mode = 1;
     this.trySend = false;
-    this.url =
-      this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
 
     this.comment = {
       id: "",
@@ -55,19 +56,19 @@ export class ManageComponent implements OnInit {
           Validators.minLength(1),
           Validators.maxLength(500),
         ],
-      ],
-      service_execution_id: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(1),
-          Validators.maxLength(100),
-        ],
-      ],
+      ]
     });
   }
 
   ngOnInit(): void {
+    this.customerId = this.parent.snapshot.params.idCustomer;
+    this.serviceExecutionId = this.parent.snapshot.params.idServiceExecution;
+    this.comment.service_execution_id = this.serviceExecutionId;
+    this.customerService.view(this.customerId).subscribe((data) => {
+    this.userId = data.user_id;
+      console.log('Id del usuario: ' + this.userId);
+    });
+    this.comment.user_id = this.userId;
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.mode = 1;
@@ -100,10 +101,10 @@ export class ManageComponent implements OnInit {
       this.trySend = true;
       return;
     }
-
+    console.log(this.comment);
     this.serviceComment.create(this.comment).subscribe(() => {
       Swal.fire("¡Hecho!", "Comentario creado exitosamente", "success");
-      this.router.navigate([this.url.match(/.+(?<=\/).\/\w+/gim)[0], "list"]);
+      this.router.navigate(['customers',this.customerId, 'serviceexecutions', this.serviceExecutionId, 'comments', "list"]);
     });
   }
 
@@ -120,7 +121,7 @@ export class ManageComponent implements OnInit {
         "Comentario actualizado correctamente",
         "success",
       );
-      this.router.navigate([this.url.match(/.+(?<=\/).\/\w+/gim)[0], "list"]);
+      this.router.navigate(['customers',this.customerId, 'serviceexecutions', this.serviceExecutionId, 'comments', "list"]);
     });
   }
 }
