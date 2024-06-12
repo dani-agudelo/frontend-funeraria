@@ -1,5 +1,7 @@
+import { Service } from "./service.model";
+
 export class ServicePlan {
     id?: number;
-    service_id: number;
+    service: Service;
     plan_id: number;
 }

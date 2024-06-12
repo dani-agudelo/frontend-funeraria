@@ -52,8 +52,8 @@
                     formControlName="start_date" />
                   <div>
                     <div
-                      *ngIf="getTheFormGroup.end_date.errors && (getTheFormGroup.end_date.dirty || getTheFormGroup.end_date.touched ||trySend)">
-                      <strong *ngIf="getTheFormGroup.end_date.errors.required" class="msnError">
+                      *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.start_date.errors.required" class="msnError">
                         La fecha de inicio es requerida</strong>
                     </div>
                   </div>
@@ -67,8 +67,8 @@
                     formControlName="end_date" />
                   <div>
                     <div
-                      *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched ||trySend)">
-                      <strong *ngIf="getTheFormGroup.start_date.errors.required" class="msnError">
+                      *ngIf="getTheFormGroup.end_date.errors && (getTheFormGroup.end_date.dirty || getTheFormGroup.end_date.touched ||trySend)">
+                      <strong *ngIf="getTheFormGroup.end_date.errors.required" class="msnError">
                         La fecha de fin es requerida</strong>
                     </div>
                   </div>

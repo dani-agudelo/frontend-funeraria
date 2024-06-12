@@ -2,7 +2,9 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ServicePlan } from 'src/app/models/service-plan.model';
+import { Service } from "src/app/models/service.model";
 import { ServiceplanService } from 'src/app/services/serviceplan.service';
+import { ServicesService } from "src/app/services/services.service";
 import Swal from "sweetalert2";
 
 @Component({
@@ -16,31 +18,36 @@ export class ManageComponent implements OnInit {
   planId: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  services: Service[]
 
   constructor(
     private parent: ActivatedRoute,
     private service: ServiceplanService,
+    private servicesService: ServicesService,
     private router: Router,
     private theFormBuilder: FormBuilder,
   ) {
     this.mode = 1;
     this.trySend = false;
-
+    this.services = []
     this.servicePlan = {
       id: 0,
-      service_id: 0,
       plan_id: 0,
+      service :{
+        id: null,
+      }
     };
     this.configFormGroup();
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      service_id: [null, [Validators.required, Validators.min(1), Validators.pattern("^[0-9]*$")]],
+      idService: [null, [Validators.required]],
     });
   }
 
   ngOnInit(): void {
+    this.servicesList();
     this.planId = Number(this.parent.snapshot.params.idPlan);
     this.servicePlan.plan_id = this.planId;
     const currentUrl = this.parent.snapshot.url.join("/");
@@ -57,8 +64,12 @@ export class ManageComponent implements OnInit {
       this.servicePlan.id = this.parent.snapshot.params.id;
       this.getServicePlan(this.servicePlan.id.toString());
     }
+  }
 
-    
+  servicesList(){
+    this.servicesService.getServices().subscribe((data: Service[]) => {
+      this.services = data;
+    });
   }
 
   get getTheFormGroup() {

@@ -54,7 +54,7 @@
               <div class="row mb-1">
                 <div class="col-4">Tipo de Plan:</div>
                 <div class="col-8">
-                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="plan.typePlan" formControlName="typePlan"/>
+                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="plan.type_plan" formControlName="typePlan"/>
                   <div>
                     <div
                       *ngIf="getTheFormGroup.typePlan.errors && (getTheFormGroup.typePlan.dirty || getTheFormGroup.typePlan.touched ||trySend)">

@@ -97,7 +97,6 @@ export class ManageComponent implements OnInit {
   }
 
   get getTheFormGroup() {
-    console.log(this.theFormGroup);
     return this.theFormGroup.controls;
   }
 

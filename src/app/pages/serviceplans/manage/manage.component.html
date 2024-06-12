@@ -22,29 +22,22 @@
                             <div *ngIf="mode!=2" class="row mb-1">
                                 <div class="col-4">Plan id</div>
                                 <div class="col-8">
-                                   {{ servicePlan.plan_id }}
+                                    {{ servicePlan.plan_id }}
                                 </div>
                             </div>
 
                             <div class="row mb-1">
                                 <div class="col-4">Servicio Id</div>
                                 <div class="col-8">
-                                    <input *ngIf="mode != 1" type="number" class="form-control"
-                                        [(ngModel)]="servicePlan.service_id" formControlName="service_id" />
-                                    <div>
-                                        <div
-                                            *ngIf="getTheFormGroup.service_id.errors && (getTheFormGroup.service_id.dirty || getTheFormGroup.service_id.touched ||trySend)">
-                                            <strong *ngIf="getTheFormGroup.service_id.errors.required" class="msnError">
-                                                El servicio es requerido</strong>
-                                            <strong *ngIf="getTheFormGroup.service_id.errors.min" class="msnError">El
-                                                servicio debe ser mayor a 0
-                                            </strong>
-                                            <strong *ngIf="getTheFormGroup.service_id.errors.pattern"
-                                                class="msnError">El servicio debe ser un
-                                                número</strong>
-                                        </div>
-                                    </div>
-                                    <span *ngIf="mode == 1">{{servicePlan.service_id}}</span>
+                                    <select class="form-control" formControlName="idService"
+                                    [(ngModel)]="servicePlan.service.id">
+                                        <option *ngFor="let option of services" [value]="option.id">Id: {{option.id}}
+                                            Nombre:
+                                            {{option.name_service}} </option>
+                                    </select>
+                                    <!-- <input *ngIf="mode != 1" type="number" class="form-control"
+                                        [(ngModel)]="servicePlan.service.id" formControlName="idService" />
+                                    <span *ngIf="mode == 1">{{servicePlan.service_id}}</span> -->
                                 </div>
                             </div>
 
