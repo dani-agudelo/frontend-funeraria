@@ -1,0 +1,85 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup]="theFormGroup">
+                        <div class="container d-grid gap-3">
+                            <div *ngIf="mode!=2" class="row mb-1">
+                                <div class="col-4">Id:</div>
+                                <div class="col-8">
+                                    {{ service.id }}
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-4">Nombre:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control"
+                                        [(ngModel)]="service.name_service" formControlName="name_service" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.name_service.errors && (getTheFormGroup.name_service.dirty ||getTheFormGroup.name_service.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.name_service.errors.required"
+                                                class="msnError">
+                                                Nombre es requerido</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{service.name_service}}</span>
+
+                                </div>
+                            </div>
+                            <div *ngIf="mode==1 && currentService">
+                                <div class="row mb-1" *ngFor="let attribute of serviceAttributes">
+                                    <div class="col-4">{{ attribute.name }}:</div>
+                                    <div class="col-8">
+                                        <span>{{ attribute.value }}</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                                            Crear
+                                        </button>
+                                        <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <div *ngIf="mode == 1" class="mt-2">
+                                        <div  class="d-flex align-items-center justify-content-center">
+                                            <button *ngIf="!currentService" type="button" class="btn btn-info"
+                                                (click)="createServiceWithAttributes()">
+                                                Continuar creando
+                                            </button>
+                                            <button *ngIf="currentService"type="button" class="btn btn-info"
+                                                (click)="updateServiceWithAttributes(service.id)">
+                                                Actualizar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

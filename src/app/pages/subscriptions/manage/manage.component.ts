@@ -80,7 +80,6 @@ export class ManageComponent implements OnInit {
 
   create() {
     if (this.theFormGroup.invalid) {
-      console.log(this.theFormGroup);
       this.trySend = true;
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;

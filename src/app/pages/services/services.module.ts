@@ -3,15 +3,22 @@ import { CommonModule } from '@angular/common';
 
 import { ServicesRoutingModule } from './services-routing.module';
 import { ListComponent } from './list/list.component';
+import { ManageComponent } from './manage/manage.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TypeServiceComponent } from './type-service/type-service.component';
 
 
 @NgModule({
   declarations: [
-    ListComponent
+    ListComponent,
+    ManageComponent,
+    TypeServiceComponent
   ],
   imports: [
     CommonModule,
-    ServicesRoutingModule
+    ServicesRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class ServicesModule { }
