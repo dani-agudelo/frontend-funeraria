@@ -15,13 +15,14 @@ export class ManageComponent implements OnInit {
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
+  cities: any[] = [];
 
   constructor(
     private parent: ActivatedRoute,
     private router: Router,
     private serviceHeadquarter: HeadquarterService,
     private theFormBuilder: FormBuilder,
-  ) { 
+  ) {
     this.mode = 1;
     this.trySend = false;
 
@@ -74,6 +75,10 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.serviceHeadquarter.getCities().subscribe((data: any) => {
+      this.cities = data;
+      this.cities.sort((a, b) => a.municipio.localeCompare(b.municipio));
+    });
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.theFormGroup.disable();
@@ -94,7 +99,7 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls;
   }
 
-  getHeadquarter(id: string) {
+  async getHeadquarter(id: string) {
     this.serviceHeadquarter.view(id).subscribe((data: Headquarter) => {
       this.headquarter = data;
     });
@@ -106,6 +111,7 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
+    console.log(this.headquarter);
     this.serviceHeadquarter.create(this.headquarter).subscribe(() => {
       Swal.fire(
         "Creación exitosa",
@@ -122,7 +128,7 @@ export class ManageComponent implements OnInit {
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
-
+    console.log(this.headquarter);
     this.serviceHeadquarter.update(this.headquarter).subscribe(() => {
       Swal.fire(
         "Actualización exitosa",
@@ -131,6 +137,10 @@ export class ManageComponent implements OnInit {
       );
       this.router.navigate(["headquarters/list"]);
     });
+  }
+
+  rooms() {
+    this.router.navigate(["headquarters", this.headquarter.id, "rooms"]);
   }
 }
 

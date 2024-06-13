@@ -11,27 +11,31 @@ export class SepultureService {
   protected urlBase: string;
 
   constructor(private http: HttpClient) {
-    this.urlBase = `${environment.url_ms_business}/sepultures`;
+    this.urlBase = `${environment.url_ms_business}`;
   }
 
-  // getSepultures(): Observable<Sepulture[]> {
-  //   return this.http.get<Sepulture[]>(this.urlBase);
-  // }
+  getSepultures(): Observable<Sepulture[]> {
+    return this.http.get<Sepulture[]>(`${this.urlBase}/sepultures`);
+  }
 
   view(): Observable<Sepulture> {
-    return this.http.get<Sepulture>(this.urlBase);
+    return this.http.get<Sepulture>(`${this.urlBase}/sepultures`);
   }
 
   create(sepulture: Sepulture): Observable<Sepulture> {
-    return this.http.post<Sepulture>(this.urlBase, sepulture);
+    return this.http.post<Sepulture>(`${this.urlBase}/sepultures`, sepulture);
   }
 
   update(sepulture: Sepulture): Observable<Sepulture> {
-    return this.http.put<Sepulture>(`${this.urlBase}/${sepulture.id}`, sepulture);
+    return this.http.put<Sepulture>(`${this.urlBase}/sepultures/${sepulture.id}`, sepulture);
   }
 
   delete(id: string): Observable<Sepulture> {
-    return this.http.delete<Sepulture>(`${this.urlBase}/${id}`);
+    return this.http.delete<Sepulture>(`${this.urlBase}/sepultures/${id}`);
+  }
+
+  getSepulturesByRoom(idRoom: string): Observable<Sepulture[]> {
+    return this.http.get<Sepulture[]>(`${this.urlBase}/rooms/${idRoom}/sepultures`);
   }
 }
 

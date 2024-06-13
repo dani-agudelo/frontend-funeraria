@@ -13,8 +13,8 @@
         <div class="card-body">
           <form class="form" [formGroup]="theFormGroup">
             <div class="container d-grid gap-3">
-              <div class="row mb-2">
-                <div class="col-4">Id:</div>
+              <div *ngIf="mode!=2" class="row mb-2">
+                <div class="col-4">Id Sede:</div>
                 <div class="col-8">
                   {{ headquarter.id }}
                 </div>
@@ -22,169 +22,86 @@
               <div class="row mb-1">
                 <div class="col-4">Nombre:</div>
                 <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="headquarter.name"
-                    formControlName="name"
-                  />
+                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="headquarter.name"
+                    formControlName="name" />
                   <div>
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         getTheFormGroup.name.errors &&
                         (getTheFormGroup.name.dirty ||
                           getTheFormGroup.name.touched ||
                           trySend)
-                      "
-                    >
-                      <strong
-                        *ngIf="getTheFormGroup.name.errors.required"
-                        class="msnError"
-                      >
-                        Nombre es requerido</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.name.errors.minlength"
-                        class="msnError"
-                        >Inválido</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.name.errors.maxlength"
-                        class="msnError"
-                      >
+                      ">
+                      <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">
+                        Nombre es requerido</strong>
+                      <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">Inválido</strong>
+                      <strong *ngIf="getTheFormGroup.name.errors.maxlength" class="msnError">
                         Invalido
                       </strong>
                     </div>
                   </div>
+                  <span *ngIf="mode == 1">{{headquarter.name}}</span>
                 </div>
               </div>
 
               <div class="row mb-1">
                 <div class="col-4">Direccion:</div>
                 <div class="col-8">
-                  <input
-                    type="adress"
-                    class="form-control"
-                    [(ngModel)]="headquarter.adress"
-                    formControlName="adress"
-                  />
+                  <input *ngIf="mode!=1" type="adress" class="form-control" [(ngModel)]="headquarter.adress"
+                    formControlName="adress" />
                   <div>
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         getTheFormGroup.adress.errors &&
                         (getTheFormGroup.adress.dirty ||
                           getTheFormGroup.adress.touched ||
                           trySend)
-                      "
-                    >
-                      <strong
-                        *ngIf="getTheFormGroup.adress.errors.required"
-                        class="msnError"
-                      >
-                        Direccion es requerida</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.adress.errors.minlength"
-                        class="msnError"
-                      >
+                      ">
+                      <strong *ngIf="getTheFormGroup.adress.errors.required" class="msnError">
+                        Direccion es requerida</strong>
+                      <strong *ngIf="getTheFormGroup.adress.errors.minlength" class="msnError">
                         Invalido
-                        </strong
-                      >
-                        <strong
-                            *ngIf="getTheFormGroup.adress.errors.maxlength"
-                            class="msnError"
-                            >
-                            Invalido
-                        </strong>
+                      </strong>
+                      <strong *ngIf="getTheFormGroup.adress.errors.maxlength" class="msnError">
+                        Invalido
+                      </strong>
                     </div>
                   </div>
+                  <span *ngIf="mode == 1">{{headquarter.adress}}</span>
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-4">Ciudad:</div>
                 <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="headquarter.city"
-                    formControlName="city"
-                  />
-                  <div>
-                    <div
-                      *ngIf="
-                        getTheFormGroup.city.errors &&
-                        (getTheFormGroup.city.dirty ||
-                          getTheFormGroup.city.touched ||
-                          trySend)
-                      "
-                    >
-                      <strong
-                        *ngIf="getTheFormGroup.city.errors.required"
-                        class="msnError"
-                      >
-                        Ciudad es requerida</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.city.errors.minlength"
-                        class="msnError"
-                      >
-                        Invalido</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.city.errors.maxlength"
-                        class="msnError"
-                      >
-                        Invalido</strong
-                      >
-                    </div>
-                  </div>
+                  <select *ngIf="mode!=1" class="form-control" [(ngModel)]="headquarter.city" formControlName="city">
+                    <option *ngFor="let cit of cities" [value]="cit.municipio">{{ cit.municipio }}
+                    </option>
+                  </select>
+                  <span *ngIf="mode == 1">{{headquarter.city}}</span>
                 </div>
               </div>
 
               <div class="row mb-1">
                 <div class="col-4">Telefono:</div>
                 <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    [(ngModel)]="headquarter.phone"
-                    formControlName="phone"
-                  />
+                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="headquarter.phone"
+                    formControlName="phone" />
                   <div>
-                    <div
-                      *ngIf="
+                    <div *ngIf="
                         getTheFormGroup.phone.errors &&
                         (getTheFormGroup.phone.dirty ||
                           getTheFormGroup.phone.touched ||
                           trySend)
-                      "
-                    >
-                      <strong
-                        *ngIf="getTheFormGroup.phone.errors.required"
-                        class="msnError"
-                      >
-                        Telefono es requerido</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.phone.errors.minlength"
-                        class="msnError"
-                      >
-                        Invalido</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.phone.errors.maxlength"
-                        class="msnError"
-                      >
-                        Invalido</strong
-                      >
-                      <strong
-                        *ngIf="getTheFormGroup.phone.errors.pattern"
-                        class="msnError"
-                      >
-                        Invalido</strong
-                      >
+                      ">
+                      <strong *ngIf="getTheFormGroup.phone.errors.required" class="msnError">
+                        Telefono es requerido</strong>
+                      <strong *ngIf="getTheFormGroup.phone.errors.minlength" class="msnError">
+                        Invalido</strong>
+                      <strong *ngIf="getTheFormGroup.phone.errors.maxlength" class="msnError">
+                        Invalido</strong>
+                      <strong *ngIf="getTheFormGroup.phone.errors.pattern" class="msnError">
+                        Invalido</strong>
                     </div>
                   </div>
+                  <span *ngIf="mode == 1">{{headquarter.phone}}</span>
                 </div>
               </div>
 
@@ -192,21 +109,20 @@
                 <div class="col-4"></div>
                 <div class="col-8">
                   <div class="d-flex align-items-center justify-content-center">
-                    <button
-                      *ngIf="mode == 2"
-                      class="btn btn-primary btn-block"
-                      (click)="create()"
-                    >
+                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
                       Crear
                     </button>
-                    <button
-                      *ngIf="mode == 3"
-                      class="btn btn-primary btn-block"
-                      (click)="update()"
-                    >
+                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
                       Actualizar
                     </button>
                   </div>
+                </div>
+              </div>
+              <div *ngIf="mode == 1" class="mt-2">
+                <div class="d-flex align-items-center justify-content-center">
+                  <button type="button" class="btn btn-info" (click)="rooms()">
+                    Salas
+                  </button>
                 </div>
               </div>
             </div>

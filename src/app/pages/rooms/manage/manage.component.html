@@ -1,1 +1,135 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup]="theFormGroup">
+                        <div class="container d-grid gap-3">
+                            <div *ngIf="mode!=2" class="row mb-1">
+                                <div class="col-4">Sala Id:</div>
+                                <div class="col-8">
+                                    {{ room.id }}
+                                </div>
+                            </div>
+                            <div class="row mb-1" *ngIf="mode == 1">
+                                <div class="col-4">Sede id</div>
+                                <div class="col-8">
+                                    {{ room.headquarter_id }}
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-4">Nombre:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="room.room_name"
+                                        formControlName="room_name" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.room_name.errors && (getTheFormGroup.room_name.dirty || getTheFormGroup.room_name.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.room_name.errors.required" class="msnError">
+                                                El nombre es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.room_name.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.room_name.errors.maxlength"
+                                                class="msnError">Máximo 50 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{room.room_name}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Capacidad:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode != 1" type="number" class="form-control"
+                                        [(ngModel)]="room.room_capacity" formControlName="room_capacity" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.room_capacity.errors && (getTheFormGroup.room_capacity.dirty || getTheFormGroup.room_capacity.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.room_capacity.errors.required"
+                                                class="msnError">
+                                                La capacidad es requerida</strong>
+                                            <strong *ngIf="getTheFormGroup.room_capacity.errors.min" class="msnError">La
+                                                capacidad debe ser mayor a 0
+                                            </strong>
+                                            <strong *ngIf="getTheFormGroup.room_capacity.errors.pattern"
+                                                class="msnError">La capacidad debe ser un número</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{room.room_capacity}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Utilidades:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control"
+                                        [(ngModel)]="room.facilities" formControlName="facilities" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.facilities.errors && (getTheFormGroup.facilities.dirty || getTheFormGroup.facilities.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.facilities.errors.required" class="msnError">
+                                                El nombre es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.facilities.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.facilities.errors.maxlength"
+                                                class="msnError">Máximo 100 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{room.facilities}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Disponible:</div>
+                                <div class="col-8">
+                                    <select *ngIf="mode!=1" class="form-control" [(ngModel)]="room.is_available"
+                                        formControlName="is_available">
+                                        <option [value]='true'>Sí</option>
+                                        <option [value]='false'>No</option>
+                                    </select>
+                                    <span *ngIf="mode == 1">{{room.is_available ? 'Sí' : 'No'}}</span>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row mb-1">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                                            Crear
+                                        </button>
+                                        <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="mode == 1"  class="d-flex align-items-center justify-content-center">
+                                <div class="m-2 ">
+                                    <button type="button" class="btn btn-info" (click)="sepultures(room.id)">
+                                        Sepulturas
+                                    </button>
+                                </div>
+                                <div class="m-2">
+                                    <button type="button" class="btn btn-info" (click)="cremations(room.id)">
+                                        Cremaciones
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

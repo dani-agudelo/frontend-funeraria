@@ -15,9 +15,9 @@ export class CremationService {
     this.urlBase = `${environment.url_ms_business}/cremations`;
   }
 
-  // getCremations(): Observable<Cremation[]> {
-  //   return this.http.get<Cremation[]>(this.urlBase);
-  // }
+  getCremations(): Observable<Cremation[]> {
+    return this.http.get<Cremation[]>(this.urlBase);
+  }
 
   view(): Observable<Cremation> {
     return this.http.get<Cremation>(this.urlBase);

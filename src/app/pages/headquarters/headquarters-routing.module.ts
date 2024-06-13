@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: "create", component: ManageComponent },
   { path: "update/:id", component: ManageComponent },
   { path: "view/:id", component: ManageComponent },
+  { path: ":idHeadquarter/rooms", loadChildren: () => import("../rooms/rooms.module").then(m => m.RoomsModule) },
 ];
 
 @NgModule({

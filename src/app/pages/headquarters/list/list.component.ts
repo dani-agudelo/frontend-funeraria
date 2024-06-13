@@ -43,19 +43,26 @@ export class ListComponent implements OnInit {
 
   delete(id: string) {
     Swal.fire({
-      title: "¿Estás seguro de eliminar el registro?",
-      text: "Esta acción no se puede revertir!",
+      title: "¿Estás seguro?",
+      text: "No podrás revertir esto",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Sí, eliminar!",
-      cancelButtonText: "No, cancelar",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(id).subscribe(() => {
-          Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
-          this.ngOnInit();
+        this.service.delete(id).subscribe({
+          next: () => {
+            Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
+            this.ngOnInit();
+          },
+          error: (err) => {
+            if (err.status === 400) {
+              Swal.fire("Error", "No se pudo eliminar el registro. Hay salas asociadas", "error");
+            }
+          }
         });
       }
     });

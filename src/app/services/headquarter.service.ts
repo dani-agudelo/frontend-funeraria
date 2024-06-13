@@ -9,8 +9,10 @@ import { Observable } from 'rxjs';
 })
 export class HeadquarterService {
   baseUrl: string;
+  urlCities: string;
   constructor(private http: HttpClient) {
     this.baseUrl = `${environment.url_ms_business}/headquarters`;
+    this.urlCities = `${environment.url_cities}`;
   }
 
   getHeadquarters(): Observable<Headquarter[]> {
@@ -31,5 +33,9 @@ export class HeadquarterService {
 
   delete(id: string): Observable<Headquarter> {
     return this.http.delete<Headquarter>(`${this.baseUrl}/${id}`);
+  }
+
+  getCities(): Observable<any> {
+    return this.http.get<any>(this.urlCities);
   }
 }

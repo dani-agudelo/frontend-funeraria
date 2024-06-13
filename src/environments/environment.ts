@@ -6,6 +6,7 @@ export const environment = {
   production: true,
   url_ms_security: "http://localhost:8181",
   url_ms_business: "http://localhost:3333",
+  url_cities: "https://www.datos.gov.co/resource/xdk5-pm3f.json"
 };
 
 /*

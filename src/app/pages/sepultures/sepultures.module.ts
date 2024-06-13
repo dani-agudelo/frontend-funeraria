@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RoomsRoutingModule } from './rooms-routing.module';
+import { SepulturesRoutingModule } from './sepultures-routing.module';
 import { ManageComponent } from './manage/manage.component';
 import { ListComponent } from './list/list.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -14,10 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   ],
   imports: [
     CommonModule,
-    RoomsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-
+    SepulturesRoutingModule
   ]
 })
-export class RoomsModule { }
+export class SepulturesModule { }
