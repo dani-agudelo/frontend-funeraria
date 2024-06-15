@@ -1,14 +1,12 @@
 <div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
-<!-- Page content -->
 <div class="container-fluid mt--7">
-  <!-- Table -->
   <div class="row">
     <div class="col">
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <div class="row">
             <div class="col-3">
-              <h3 class="mb-0">Usuarios</h3>
+              <h3 class="mb-0">Permisos</h3>
             </div>
             <div class="col-6"></div>
             <div class="col-3">
@@ -23,23 +21,21 @@
             <thead>
               <tr>
                 <th class="col-1">ID</th>
-                <th class="col-3">nombre</th>
-                <th class="col-3">email</th>
-                <th class="col-3">rol</th>
+                <th class="col-3">url</th>
+                <th class="col-3">method</th>
                 <th class="col-5">Opciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let user of users">
-                <td>{{ user._id.slice(0, 5) }} ...</td>
-                <td>{{ user.name }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.role?.name.toLowerCase() || "user" }}</td>
+              <tr *ngFor="let p of permissions">
+                <td>{{ p._id.slice(0, 5) }} ...</td>
+                <td>{{ p.url }}</td>
+                <td>{{ p.method.toUpperCase() }}</td>
                 <td>
                   <button
                     type="button"
                     class="btn btn-primary"
-                    (click)="view(user._id)"
+                    (click)="view(p._id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -60,7 +56,7 @@
                   <button
                     type="button"
                     class="btn btn-warning"
-                    (click)="update(user._id)"
+                    (click)="update(p._id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -82,7 +78,7 @@
                   <button
                     type="button"
                     class="btn btn-danger"
-                    (click)="delete(user._id)"
+                    (click)="delete(p._id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

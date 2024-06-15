@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { Role } from "../models/role.model";
 import { User } from "../models/user.model";
 
 @Injectable({
@@ -10,14 +11,14 @@ import { User } from "../models/user.model";
 export class UserService {
   baseUrl: string;
   constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.url_ms_security}/api/users`;
+    this.baseUrl = `${environment.url_ms_security}/users`;
   }
 
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.baseUrl);
   }
 
-  view(id: string): Observable<User> {
+  getUser(id: string): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/${id}`);
   }
 
@@ -26,10 +27,17 @@ export class UserService {
   }
 
   update(user: User): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/${user.id}`, user);
+    return this.http.put<User>(`${this.baseUrl}/${user._id}`, user);
   }
 
   delete(id: string): Observable<User> {
     return this.http.delete<User>(`${this.baseUrl}/${id}`);
+  }
+
+  matchRole(user: User, role: Role): Observable<User> {
+    return this.http.put<User>(
+      `${this.baseUrl}/${user._id}/role/${role._id}`,
+      null,
+    );
   }
 }

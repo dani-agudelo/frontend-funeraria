@@ -18,6 +18,14 @@ export const AdminLayoutRoutes: Routes = [
       import("../../pages/users/users.module").then((m) => m.UsersModule),
   },
   {
+    path: "permissions",
+    loadChildren: () =>
+      import("../../pages/permissions/permissions.module").then(
+        (m) => m.PermissionsModule,
+      ),
+  },
+
+  {
     path: "customers",
     loadChildren: () =>
       import("../../pages/customers/customers.module").then(
@@ -29,13 +37,6 @@ export const AdminLayoutRoutes: Routes = [
     loadChildren: () =>
       import("../../pages/services/services.module").then(
         (m) => m.ServicesModule,
-      ),
-  },
-  {
-    path: "serviceexecutions",
-    loadChildren: () =>
-      import("../../pages/serviceexecutions/serviceexecutions.module").then(
-        (m) => m.ServiceexecutionsModule,
       ),
   },
   {
@@ -51,6 +52,8 @@ export const AdminLayoutRoutes: Routes = [
   {
     path: "headquarters",
     loadChildren: () =>
-      import("../../pages/headquarters/headquarters.module").then((m) => m.HeadquartersModule),
+      import("../../pages/headquarters/headquarters.module").then(
+        (m) => m.HeadquartersModule,
+      ),
   },
 ];

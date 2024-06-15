@@ -11,7 +11,7 @@
         <div class="card-body">
           <form class="form" [formGroup]="theFormGroup">
             <div class="container d-grid gap-3">
-              <div class="row mb-2">
+              <div class="row mb-2" *ngIf="mode != 2">
                 <div class="col-4">Id:</div>
                 <div class="col-8">
                   {{ chat.id }}

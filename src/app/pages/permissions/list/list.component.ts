@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
-import { User } from "src/app/models/user.model";
-import { UserService } from "src/app/services/user.service";
+import { Permission } from "src/app/models/permission.model";
+import { PermissionService } from "src/app/services/permission.service";
 import Swal from "sweetalert2";
 
 @Component({
@@ -10,12 +10,13 @@ import Swal from "sweetalert2";
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-  users: User[];
+  permissions: Permission[] = [];
+
   constructor(
-    private service: UserService,
+    private service: PermissionService,
     private route: Router,
   ) {
-    this.users = [];
+    this.permissions = [];
   }
 
   ngOnInit(): void {
@@ -23,21 +24,21 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    this.service.getUsers().subscribe((data: User[]) => {
-      this.users = data;
+    this.service.getPermissions().subscribe((data: Permission[]) => {
+      this.permissions = data;
     });
   }
 
   create() {
-    this.route.navigate(["users/create"]);
+    this.route.navigate(["permissions/create"]);
   }
 
   view(id: string) {
-    this.route.navigate(["users/view", id]);
+    this.route.navigate(["permissions/view", id]);
   }
 
   update(id: string) {
-    this.route.navigate(["users/update", id]);
+    this.route.navigate(["permissions/update", id]);
   }
 
   delete(id: string) {
