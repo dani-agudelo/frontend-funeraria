@@ -7,4 +7,5 @@ export class User {
   role?: Role;
   password?: string;
   token?: string;
+  user_github?: string;
 }
