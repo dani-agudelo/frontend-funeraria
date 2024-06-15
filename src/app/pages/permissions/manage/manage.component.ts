@@ -83,7 +83,7 @@ export class ManageComponent implements OnInit {
 
   create() {
     if (this.permission.method.match(/^ALL$/gim)) {
-      delete this.methods.ALL;
+      delete this.methods["All"];
 
       Object.keys(this.methods).forEach((method: string) =>
         this.methods[method].forEach((key: string) =>
