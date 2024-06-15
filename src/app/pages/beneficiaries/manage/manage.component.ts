@@ -16,7 +16,6 @@ export class ManageComponent implements OnInit {
   beneficiary: Beneficiary;
   customers: Customer[];
   mode: number;
-  ownerId: string;
   theFormGroup: FormGroup;
   trySend: boolean;
   url: string;
@@ -33,38 +32,18 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
     this.url =
       this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
-    this.beneficiary = {};
+    this.beneficiary = {
+      customer_id: "",
+      owner_id: this.parent.snapshot.params.ownerId,
+      age: "",
+    };
 
     this.configFormGroup();
   }
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      name: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(3),
-          Validators.maxLength(100),
-        ],
-      ],
-      email: [
-        "",
-        [
-          Validators.required,
-          Validators.email,
-          Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$"),
-        ],
-      ],
-      document: [
-        null,
-        [
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(15),
-          Validators.pattern("^[0-9]*$"),
-        ],
-      ],
+      customer_id: [null, [Validators.required]],
       age: [
         null,
         [
@@ -95,6 +74,7 @@ export class ManageComponent implements OnInit {
     }
 
     if (this.parent.snapshot.params.id) {
+      console.log(this.parent.snapshot.params);
       this.getBeneficiary(this.parent.snapshot.params.id);
     }
   }
@@ -105,12 +85,13 @@ export class ManageComponent implements OnInit {
 
   async getBeneficiary(id: string) {
     this.service.view(id).subscribe((data: Beneficiary) => {
-      this.beneficiary = data[0];
+      this.beneficiary = data;
     });
   }
 
   async listCustomers() {
     this.serviceCustomer.getCustomers().subscribe((data: Customer[]) => {
+      console.log(data);
       this.customers = data;
     });
   }
