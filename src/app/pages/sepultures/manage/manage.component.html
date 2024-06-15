@@ -19,26 +19,7 @@
                                     {{ sepulture.id }}
                                 </div>
                             </div>
-                            <div class="row mb-1">
-                                <div class="col-4">Nombre:</div>
-                                <div class="col-8">
-                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.sepulture_name"
-                                        formControlName="sepulture_name" />
-                                    <div>
-                                        <div
-                                            *ngIf="getTheFormGroup.sepulture_name.errors && (getTheFormGroup.sepulture_name.dirty || getTheFormGroup.sepulture_name.touched ||trySend)">
-                                            <strong *ngIf="getTheFormGroup.sepulture_name.errors.required" class="msnError">
-                                                El nombre es requerido</strong>
-                                            <strong *ngIf="getTheFormGroup.sepulture_name.errors.minlength"
-                                                class="msnError">Al menos 3 caracteres</strong>
-                                            <strong *ngIf="getTheFormGroup.sepulture_name.errors.maxlength"
-                                                class="msnError">Máximo 50 caracteres</strong>
-                                        </div>
-                                    </div>
-                                    <span *ngIf="mode == 1">{{sepulture.sepulture_name}}</span>
-                                </div>
-                            </div>
-
+                            
                             <div class="row mb-1">
                                 <div class="col-4">Descripción:</div>
                                 <div class="col-8">

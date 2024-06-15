@@ -33,4 +33,8 @@ export class ServicesService {
   delete(id: string): Observable<Service> {
     return this.http.delete<Service>(`${this.urlBase}/${id}`);
   }
+
+  getServiceByName(name_service: string): Observable<Service> {
+    return this.http.get<Service>(`${this.urlBase}/name/${name_service}`);
+  }
 }

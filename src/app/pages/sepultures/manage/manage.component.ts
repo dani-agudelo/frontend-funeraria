@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Sepulture } from 'src/app/models/sepulture.model';
+import { Service } from 'src/app/models/service.model';
 import { SepultureService } from 'src/app/services/sepulture.service';
+import { ServicesService } from 'src/app/services/services.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -21,7 +23,8 @@ export class ManageComponent implements OnInit {
 
   constructor(
     private parent: ActivatedRoute,
-    private service: SepultureService,
+    private serviceSepulture: SepultureService,
+    private serviceService: ServicesService,
     private route: Router,
     private theFormBuilder: FormBuilder,
   ) {
@@ -33,8 +36,8 @@ export class ManageComponent implements OnInit {
       description: '',
       cemetery_name: '',
       sepulture_type: '',
-      price: 0,
-      is_available: false,
+      price: null,
+      is_available: null,
       room_id: 0,
       service_id: 0,
     };
@@ -43,7 +46,6 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      sepulture_name: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
       description: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(500)]],
       cemetery_name: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
       sepulture_type: [null, [Validators.required, Validators.minLength(1), Validators.maxLength(255)]],
@@ -56,6 +58,10 @@ export class ManageComponent implements OnInit {
     this.roomId = Number(this.parent.snapshot.params.idRoom);
     this.headquarterId = this.parent.snapshot.params.idHeadquarter;
     this.sepulture.room_id = this.roomId;
+    this.serviceService.getServiceByName("Sepulture").subscribe((dataService: Service) => {
+      console.log(dataService[0])
+      this.sepulture.service_id = dataService[0].id;
+    });
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.theFormGroup.disable();
@@ -89,7 +95,9 @@ export class ManageComponent implements OnInit {
   }
 
   getSepulture(id: string) {
-    this.service.view(id).subscribe((data: Sepulture) => {
+    //obtener el servicio por el nombre
+    
+    this.serviceSepulture.view(id).subscribe((data: Sepulture) => {
       console.log(data);
       this.sepulture = data;
     });
@@ -102,7 +110,7 @@ export class ManageComponent implements OnInit {
       return;
     }
     console.log(this.sepulture)
-    this.service.create(this.sepulture).subscribe(() => {
+    this.serviceSepulture.create(this.sepulture).subscribe(() => {
       Swal.fire(
         "Creación exitosa",
         "La sepultura ha sido creada exitosamente",
@@ -120,7 +128,7 @@ export class ManageComponent implements OnInit {
     }
 
     console.log(this.sepulture)
-    this.service.update(this.sepulture).subscribe(() => {
+    this.serviceSepulture.update(this.sepulture).subscribe(() => {
       Swal.fire(
         "Actualización exitosa",
         "La sepultura ha sido actualizada exitosamente",
