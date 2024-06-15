@@ -47,7 +47,7 @@ export class ListComponent implements OnInit {
   create() {
 
     console.log('create de sepulture')
-    // necesito esta ruta // http://localhost:4200/#/headquarters/1/rooms/1/payments/create
+    
     this.router.navigate(['headquarters', this.headquarterId, 'rooms', this.roomId, 'sepultures', 'create']);
   }
 

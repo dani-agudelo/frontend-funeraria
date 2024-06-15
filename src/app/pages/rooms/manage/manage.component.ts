@@ -99,7 +99,7 @@ export class ManageComponent implements OnInit {
     this.service.create(this.room).subscribe(() => {
       Swal.fire(
         "Creación exitosa",
-        "La suscripción ha sido creada exitosamente",
+        "La sala ha sido creada exitosamente",
         "success"
       );
       this.route.navigate(["headquarters", this.headquarterId, "rooms", "list"]);

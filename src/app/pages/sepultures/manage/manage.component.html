@@ -1,1 +1,162 @@
-<p>manage works!</p>
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <div class="card shadow">
+                <div class="card-header bg-transparent">
+                    <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+                    <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+                    <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+                </div>
+                <div class="card-body">
+                    <form class="form" [formGroup]="theFormGroup">
+                        <div class="container d-grid gap-3">
+                            <div *ngIf="mode!=2" class="row mb-1">
+                                <div class="col-4">Sepultura Id:</div>
+                                <div class="col-8">
+                                    {{ sepulture.id }}
+                                </div>
+                            </div>
+                            <div class="row mb-1">
+                                <div class="col-4">Nombre:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.sepulture_name"
+                                        formControlName="sepulture_name" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.sepulture_name.errors && (getTheFormGroup.sepulture_name.dirty || getTheFormGroup.sepulture_name.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.sepulture_name.errors.required" class="msnError">
+                                                El nombre es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.sepulture_name.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.sepulture_name.errors.maxlength"
+                                                class="msnError">Máximo 50 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{sepulture.sepulture_name}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Descripción:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.description"
+                                        formControlName="description" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.description.errors && (getTheFormGroup.description.dirty || getTheFormGroup.description.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.description.errors.required" class="msnError">
+                                                La descripción es requerida</strong>
+                                            <strong *ngIf="getTheFormGroup.description.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.description.errors.maxlength"
+                                                class="msnError">Máximo 50 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{sepulture.description}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Cementerio:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.cemetery_name"
+                                        formControlName="cemetery_name" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.cemetery_name.errors && (getTheFormGroup.cemetery_name.dirty || getTheFormGroup.cemetery_name.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.cemetery_name.errors.required" class="msnError">
+                                                El cementerio es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.cemetery_name.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.cemetery_name.errors.maxlength"
+                                                class="msnError">Máximo 50 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{sepulture.cemetery_name}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Tipo:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.sepulture_type"
+                                        formControlName="sepulture_type" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.sepulture_type.errors && (getTheFormGroup.sepulture_type.dirty || getTheFormGroup.sepulture_type.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.sepulture_type.errors.required" class="msnError">
+                                                El tipo es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.sepulture_type.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.sepulture_type.errors.maxlength"
+                                                class="msnError">Máximo 50 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{sepulture.sepulture_type}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Precio:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="sepulture.price"
+                                        formControlName="price" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.price.errors && (getTheFormGroup.price.dirty || getTheFormGroup.price.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.price.errors.required" class="msnError">
+                                                El precio es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.price.errors.min" class="msnError">El precio debe ser
+                                                mayor a 0</strong>
+                                            <strong *ngIf="getTheFormGroup.price.errors.pattern" class="msnError">El precio
+                                                debe ser un número</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{sepulture.price}}</span>
+                                </div>
+                            </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Estado:</div>
+                                <div class="col-8">
+                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.is_available"
+                                        formControlName="is_available" />
+                                    <div>
+                                        <div
+                                            *ngIf="getTheFormGroup.is_available.errors && (getTheFormGroup.is_available.dirty || getTheFormGroup.is_available.touched ||trySend)">
+                                            <strong *ngIf="getTheFormGroup.is_available.errors.required" class="msnError">
+                                                El estado es requerido</strong>
+                                            <strong *ngIf="getTheFormGroup.is_available.errors.minlength"
+                                                class="msnError">Al menos 3 caracteres</strong>
+                                            <strong *ngIf="getTheFormGroup.is_available.errors.maxlength"
+                                                class="msnError">Máximo 50 caracteres</strong>
+                                        </div>
+                                    </div>
+                                    <span *ngIf="mode == 1">{{sepulture.is_available}}</span>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-1">
+                                <div class="col-4"></div>
+                                <div class="col-8">
+                                    <div class="d-flex align-items-center justify-content-center">
+                                        <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                                            Crear
+                                        </button>
+                                        <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                                            Actualizar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

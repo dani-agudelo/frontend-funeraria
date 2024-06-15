@@ -66,6 +66,7 @@ export class ManageComponent implements OnInit {
 
     this.sepulture = {
       id: 0,
+      sepulture_name: '',
       description: '',
       cemetery_name: '',
       sepulture_type: '',
@@ -147,6 +148,7 @@ export class ManageComponent implements OnInit {
         this.currentService = this.sepulture;
         console.log('sepulture jeje', this.currentService);
         this.serviceAttributes = [
+          { name: 'Nombre de sepultura', type: 'text', value: this.currentService.sepulture_name },
           { name: 'Descripción', type: 'text', value: this.currentService.description },
           { name: 'Cementerio', type: 'text', value: this.currentService.cemetery_name },
           { name: 'Tipo de sepultura', type: 'text', value: this.currentService.sepulture_type },

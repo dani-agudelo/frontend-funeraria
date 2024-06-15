@@ -24,16 +24,24 @@
             <thead>
               <tr>
                 <th class="col-1">Id</th>
+                <th class="col-3">Nombre</th>
                 <th class="col-3">Descripción</th>
                 <th class="col-3">Cementerio</th>
+                <th class="col-3">Tipo</th>
+                <th class="col-3">Precio</th>
+                <th class="col-3">Estado</th>
                 <th class="col-5">Opciones</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let sep of sepultures">
                 <td>{{ sep.id }}</td>
+                <td>{{ sep.sepulture_name }}</td>
                 <td>{{ sep.description }}</td> 
-                 <td>{{sep.cemetery_name}}</td>
+                <td>{{sep.cemetery_name}}</td>
+                <td>{{ sep.sepulture_type }}</td>
+                <td>{{ sep.price }}</td>
+                <td>{{ sep.is_available }}</td>
                 <td>
                   <button type="button" class="btn btn-primary" (click)="view(sep.id)">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye"
