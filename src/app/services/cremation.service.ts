@@ -12,29 +12,32 @@ export class CremationService {
 
 
   constructor(private http: HttpClient) {
-    this.urlBase = `${environment.url_ms_business}/cremations`;
+    this.urlBase = `${environment.url_ms_business}`;
   }
 
   getCremations(): Observable<Cremation[]> {
-    return this.http.get<Cremation[]>(this.urlBase);
+    return this.http.get<Cremation[]>(`${this.urlBase}/cremations`);
   }
 
-  view(): Observable<Cremation> {
-    return this.http.get<Cremation>(this.urlBase);
+  view(id: string): Observable<Cremation> {
+    return this.http.get<Cremation>(`${this.urlBase}/cremations/${id}`);
   }
 
   create(cremation: Cremation): Observable<Cremation> {
-    return this.http.post<Cremation>(this.urlBase, cremation);
+    return this.http.post<Cremation>(`${this.urlBase}/cremations`, cremation);
   }
 
   update(cremation: Cremation): Observable<Cremation> {
-    return this.http.put<Cremation>(`${this.urlBase}/${cremation.id}`, cremation);
+    return this.http.put<Cremation>(`${this.urlBase}/cremations/${cremation.id}`, cremation);
   }
 
   delete(id: string): Observable<Cremation> {
-    return this.http.delete<Cremation>(`${this.urlBase}/${id}`);
+    return this.http.delete<Cremation>(`${this.urlBase}/cremations/${id}`);
   }
 
+  getCremationsByRoom(idRoom: string): Observable<Cremation[]> {
+    return this.http.get<Cremation[]>(`${this.urlBase}/rooms/${idRoom}/cremations`);
+  }
 }
 
 

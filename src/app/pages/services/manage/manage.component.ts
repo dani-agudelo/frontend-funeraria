@@ -170,7 +170,7 @@ export class ManageComponent implements OnInit {
         }
       });
     } else if (tipo === 2) {
-      this.cremationService.view().subscribe((data: Cremation) => {
+      this.cremationService.view(id).subscribe((data: Cremation) => {
         if (Array.isArray(data) && data.length > 0) {
           this.cremation = data[0];
           this.setCurrentService();
