@@ -23,17 +23,18 @@
                 <div class="col-4">Customers</div>
                 <div class="col-8">
                   <select
-                    *ngIf="mode == 3"
                     class="form-control"
                     [(ngModel)]="owner.customer_id"
                     formControlName="customer_id"
                   >
                     <option
                       *ngFor="let customer of customers"
+                      [selected]="owner.customer_id"
                       [value]="customer.id"
+                      [disabled]="mode == 2"
                     >
-                      Nombre: {{ customer.name }} - Documento:
-                      {{ customer.document }}
+                      Nombre: {{ owner.name || customer.name }} - Documento:
+                      {{ owner.customer.document || customer.document }}
                     </option>
                   </select>
                   <div>
@@ -53,10 +54,6 @@
                       >
                     </div>
                   </div>
-                  <span *ngIf="mode != 3" class="my-5 p-1"
-                    >Nombre: {{ owner.name }} - Documento:
-                    {{ owner.customer.document }}</span
-                  >
                 </div>
               </div>
               <div class="row">

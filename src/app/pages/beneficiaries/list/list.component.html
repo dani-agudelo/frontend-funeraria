@@ -38,13 +38,13 @@
                 <td>{{ ben.id }}</td>
                 <td>{{ ben.name }}</td>
                 <td>{{ ben.email }}</td>
-                <td>{{ ben.document }}</td>
+                <td>{{ ben.customer.document }}</td>
                 <td>{{ ben.age }}</td>
                 <td>
                   <button
                     type="button"
                     class="btn btn-primary"
-                    (click)="view(owner.id)"
+                    (click)="view(ben.id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +65,7 @@
                   <button
                     type="button"
                     class="btn btn-warning"
-                    (click)="update(owner.id)"
+                    (click)="update(ben.id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -87,7 +87,7 @@
                   <button
                     type="button"
                     class="btn btn-danger"
-                    (click)="delete(owner.id)"
+                    (click)="delete(ben.id)"
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

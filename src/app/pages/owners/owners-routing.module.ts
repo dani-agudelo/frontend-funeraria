@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: "update/:id", component: ManageComponent },
   { path: "view/:id", component: ManageComponent },
   {
-    path: ":id/beneficiaries",
+    path: ":ownerId/beneficiaries",
     loadChildren: () =>
       import("../beneficiaries/beneficiaries.module").then(
         (m) => m.BeneficiariesModule,

@@ -11,17 +11,11 @@ export class BeneficiaryService {
   baseUrl: string;
 
   constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.url_ms_business}`;
-  }
-
-  getBeneficiariesByOwner(id: string): Observable<Beneficiary[]> {
-    return this.http.get<Beneficiary[]>(
-      `${this.baseUrl}/owners/${id}/beneficiaries`,
-    );
+    this.baseUrl = `${environment.url_ms_business}/beneficiaries`;
   }
 
   getBeneficiaries(): Observable<Beneficiary[]> {
-    return this.http.get<Beneficiary[]>(`${this.baseUrl}/beneficiaries`);
+    return this.http.get<Beneficiary[]>(`${this.baseUrl}`);
   }
 
   view(id: string): Observable<Beneficiary> {
@@ -38,5 +32,9 @@ export class BeneficiaryService {
 
   delete(id: string): Observable<Beneficiary> {
     return this.http.delete<Beneficiary>(`${this.baseUrl}/${id}`);
+  }
+
+  getBeneficiariesByOwner(id: string): Observable<Beneficiary[]> {
+    return this.http.get<Beneficiary[]>(`${this.baseUrl}/owner/${id}`);
   }
 }

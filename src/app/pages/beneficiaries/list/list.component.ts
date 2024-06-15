@@ -21,6 +21,7 @@ export class ListComponent implements OnInit {
   ) {
     this.url =
       this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
+    this.ownerId = this.parent.snapshot.params.ownerId;
     this.beneficiaries = [];
   }
 
@@ -29,12 +30,9 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    const id = this.parent.snapshot.params.id;
-    if (id) {
-      console.log(id);
-      this.ownerId = id;
+    if (this.ownerId) {
       this.service
-        .getBeneficiariesByOwner(id)
+        .getBeneficiariesByOwner(this.ownerId)
         .subscribe((data: Beneficiary[]) => {
           console.log(data);
           this.beneficiaries = data;
