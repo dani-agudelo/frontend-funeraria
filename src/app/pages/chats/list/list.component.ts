@@ -20,7 +20,8 @@ export class ListComponent implements OnInit {
     private router: Router,
   ) {
     this.url =
-      this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
+      this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
+
     this.serviceExecutionId = this.parent.snapshot.params.idServiceExecution;
     this.chats = [];
   }

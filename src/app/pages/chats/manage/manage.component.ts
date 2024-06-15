@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
     this.mode = 1;
     this.trySend = false;
     this.url =
-      this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
+      this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
 
     this.chat = {
       id: "",
@@ -83,6 +83,14 @@ export class ManageComponent implements OnInit {
     });
   }
 
+  messages() {
+    this.router.navigate([
+      this.url.match(/.+(?<=\/)/gim)[0],
+      this.chat.id,
+      "messages",
+    ]);
+  }
+
   create() {
     if (this.theFormGroup.invalid) {
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
@@ -92,8 +100,9 @@ export class ManageComponent implements OnInit {
 
     this.serviceChat.create(this.chat).subscribe(() => {
       Swal.fire("¡Hecho!", "Chat creado exitosamente", "success");
-      this.router.navigate([this.url.match(/.+(?<=\/).\/\w+/gim)[0], "list"]);
+      this.router.navigate([this.url, "list"]);
     });
+
   }
 
   update() {
@@ -109,7 +118,7 @@ export class ManageComponent implements OnInit {
         "Chat actualizado correctamente",
         "success",
       );
-      this.router.navigate([this.url.match(/.+(?<=\/).\/\w+/gim)[0], "list"]);
+      this.router.navigate([this.url.match(/^\/.+(?=\/)/gim)[0], "list"]);
     });
   }
 }

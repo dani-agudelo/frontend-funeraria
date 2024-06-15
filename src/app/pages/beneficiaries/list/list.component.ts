@@ -20,7 +20,8 @@ export class ListComponent implements OnInit {
     private route: Router,
   ) {
     this.url =
-      this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
+      this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
+
     this.ownerId = this.parent.snapshot.params.ownerId;
     this.beneficiaries = [];
   }

@@ -1,10 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Beneficiary } from "src/app/models/beneficiary.model";
 import { Customer } from "src/app/models/customer.model";
-import { BeneficiaryService } from "src/app/services/beneficiary.service";
+import { Message } from "src/app/models/message.model";
 import { CustomerService } from "src/app/services/customer.service";
+import { MessagesService } from "src/app/services/messages.service";
 import Swal from "sweetalert2";
 
 @Component({
@@ -13,8 +13,8 @@ import Swal from "sweetalert2";
   styleUrls: ["./manage.component.scss"],
 })
 export class ManageComponent implements OnInit {
-  beneficiary: Beneficiary;
   customers: Customer[];
+  message: Message;
   mode: number;
   theFormGroup: FormGroup;
   trySend: boolean;
@@ -23,19 +23,17 @@ export class ManageComponent implements OnInit {
   constructor(
     private parent: ActivatedRoute,
     private router: Router,
-    private service: BeneficiaryService,
     private serviceCustomer: CustomerService,
+    private serviceMessage: MessagesService,
     private theFormBuilder: FormBuilder,
   ) {
-    this.customers = [];
     this.mode = 1;
     this.trySend = false;
     this.url =
       this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
-    this.beneficiary = {
-      customer_id: "",
-      owner_id: this.parent.snapshot.params.ownerId,
-      age: "",
+
+    this.message = {
+      chat_id: this.parent.snapshot.params.chatId,
     };
 
     this.configFormGroup();
@@ -43,30 +41,47 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      customer_id: [null, [Validators.required]],
-      age: [
+      user_id: [
         null,
         [
           Validators.required,
           Validators.minLength(1),
-          Validators.maxLength(3),
-          Validators.pattern("^[0-9]*$"),
+          Validators.maxLength(100),
         ],
+      ],
+      chat_id: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(100),
+        ],
+      ],
+      content: [
+        null,
+        [
+          Validators.required,
+          Validators.minLength(1),
+          Validators.maxLength(1000),
+        ],
+      ],
+      sender: [
+        null,
+        [Validators.required, Validators.minLength(1), Validators.maxLength(1)],
       ],
     });
   }
 
   ngOnInit(): void {
-    this.listCustomers();
+    this.getCustomers();
     this.list();
   }
 
   list() {
     const currentUrl = this.parent.snapshot.url.join("/");
-
     if (currentUrl.includes("view")) {
-      this.theFormGroup.disable();
       this.mode = 1;
+      this.theFormGroup.disable();
     } else if (currentUrl.includes("update")) {
       this.mode = 2;
     } else if (currentUrl.includes("create")) {
@@ -74,8 +89,8 @@ export class ManageComponent implements OnInit {
     }
 
     if (this.parent.snapshot.params.id) {
-      console.log(this.parent.snapshot.params);
-      this.getBeneficiary(this.parent.snapshot.params.id);
+      this.message.id = this.parent.snapshot.params.id;
+      this.getMessage(this.message.id);
     }
   }
 
@@ -83,46 +98,42 @@ export class ManageComponent implements OnInit {
     return this.theFormGroup.controls;
   }
 
-  async getBeneficiary(id: string) {
-    this.service.view(id).subscribe((data: Beneficiary) => {
-      this.beneficiary = data;
+  async getCustomers() {
+    this.serviceCustomer.getCustomers().subscribe((data: Customer[]) => {
+      this.customers = data;
     });
   }
 
-  async listCustomers() {
-    this.serviceCustomer.getCustomers().subscribe((data: Customer[]) => {
-      console.log(data);
-      this.customers = data;
+  async getMessage(id: string) {
+    this.serviceMessage.view(id).subscribe((data: Message) => {
+      this.message = data;
     });
   }
 
   create() {
     if (this.theFormGroup.invalid) {
-      this.trySend = true;
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
+      this.trySend = true;
       return;
     }
-    this.service.create(this.beneficiary).subscribe(() => {
-      Swal.fire(
-        "Creación exitosa",
-        "Se ha creado un nuevo registro",
-        "success",
-      );
+
+    this.serviceMessage.create(this.message).subscribe(() => {
+      Swal.fire("¡Hecho!", "Chat creado exitosamente", "success");
       this.router.navigate([this.url, "list"]);
     });
   }
 
   update() {
     if (this.theFormGroup.invalid) {
-      this.trySend = true;
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
+      this.trySend = true;
       return;
     }
 
-    this.service.update(this.beneficiary).subscribe(() => {
+    this.serviceMessage.update(this.message).subscribe(() => {
       Swal.fire(
-        "Actualización exitosa",
-        "Cliente actualizado correctamente",
+        "actualización con exito",
+        "Chat actualizado correctamente",
         "success",
       );
       this.router.navigate([this.url.match(/^\/.+(?=\/)/gim)[0], "list"]);

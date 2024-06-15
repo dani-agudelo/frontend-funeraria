@@ -18,6 +18,7 @@ export class ManageComponent implements OnInit {
   formGroup: FormGroup;
   services: Service[];
   trySend: boolean;
+  url: string;
 
   constructor(
     private service: ServiceexecutionService,
@@ -29,6 +30,9 @@ export class ManageComponent implements OnInit {
     this.mode = 1;
     this.services = [];
     this.trySend = false;
+    this.url =
+      this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
+
     this.serviceExecution = {
       id: "",
       customer_id: this.parent.snapshot.params.idCustomer,
@@ -93,12 +97,7 @@ export class ManageComponent implements OnInit {
     }
 
     this.service.create(this.serviceExecution).subscribe(() => {
-      this.router.navigate([
-        "customers",
-        this.serviceExecution.customer_id,
-        "serviceexecutions",
-        "list",
-      ]);
+      this.router.navigate([this.url, "list"]);
     });
   }
 
@@ -110,41 +109,22 @@ export class ManageComponent implements OnInit {
     }
 
     this.service.update(this.serviceExecution).subscribe(() => {
-      this.router.navigate([
-        "customers",
-        this.serviceExecution.customer_id,
-        "serviceexecutions",
-        "list",
-      ]);
+      this.router.navigate([this.url.match(/^\/.+(?=\/)/gim)[0], "list"]);
     });
   }
 
   chats() {
     console.log(this.serviceExecution.customer_id, this.serviceExecution.id);
     this.router.navigate([
-      "customers",
-      this.serviceExecution.customer_id,
-      "serviceexecutions",
+      this.url.match(/.+(?<=\/)/gim)[0],
       this.serviceExecution.id,
       "chats",
     ]);
   }
 
-  messages() {
-    this.router.navigate([
-      "customers",
-      this.serviceExecution.customer_id,
-      "serviceexecutions",
-      this.serviceExecution.id,
-      "messages",
-    ]);
-  }
-
   comments() {
     this.router.navigate([
-      "customers",
-      this.serviceExecution.customer_id,
-      "serviceexecutions",
+      this.url.match(/.+(?<=\/)/gim)[0],
       this.serviceExecution.id,
       "comments",
     ]);

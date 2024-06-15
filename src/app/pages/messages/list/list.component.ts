@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Serviceexecution } from "src/app/models/serviceexecution.model";
-import { ServiceexecutionService } from "src/app/services/serviceexecution.service";
+import { Message } from "src/app/models/message.model";
+import { MessagesService } from "src/app/services/messages.service";
 import Swal from "sweetalert2";
 
 @Component({
@@ -10,19 +10,20 @@ import Swal from "sweetalert2";
   styleUrls: ["./list.component.scss"],
 })
 export class ListComponent implements OnInit {
-  serviceexecutions: Serviceexecution[];
-  customerId: string;
+  messages: Message[];
+  chatId: string;
   url: string;
 
   constructor(
-    private service: ServiceexecutionService,
+    private service: MessagesService,
     private parent: ActivatedRoute,
     private router: Router,
   ) {
-    this.serviceexecutions = [];
-    this.customerId = this.parent.snapshot.params.idCustomer;
     this.url =
       this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
+
+    this.chatId = this.parent.snapshot.params.chatId;
+    this.messages = [];
   }
 
   ngOnInit(): void {
@@ -30,27 +31,24 @@ export class ListComponent implements OnInit {
   }
 
   list() {
-    this.service
-      .getServiceexecutionsByCustomer(this.customerId)
-      .subscribe((data: Serviceexecution[]) => {
-        console.log(data);
-        this.serviceexecutions = data;
-      });
+    this.service.getMessagesByChat(this.chatId).subscribe((data: Message[]) => {
+      this.messages = data;
+    });
   }
 
   create() {
     this.router.navigate([this.url, "create"]);
   }
 
-  view(id: number) {
+  view(id: string) {
     this.router.navigate([this.url, "view", id]);
   }
 
-  update(id: number) {
+  update(id: string) {
     this.router.navigate([this.url, "update", id]);
   }
 
-  delete(id: number) {
+  delete(id: string) {
     Swal.fire({
       title: "¿Estás seguro?",
       text: "No podrás revertir esto",
@@ -62,20 +60,9 @@ export class ListComponent implements OnInit {
       cancelButtonText: "Cancelar",
     }).then((result) => {
       if (result.isConfirmed) {
-        this.service.delete(id).subscribe({
-          next: () => {
-            Swal.fire(
-              "Eliminado!",
-              "El registro ha sido eliminado.",
-              "success",
-            );
-            this.ngOnInit();
-          },
-          error: (err) => {
-            if (err.status === 400) {
-              Swal.fire("Error", "No se pudo eliminar el registro.", "error");
-            }
-          },
+        this.service.delete(id).subscribe(() => {
+          Swal.fire("Eliminado!", "El registro ha sido eliminado.", "success");
+          this.ngOnInit();
         });
       }
     });
