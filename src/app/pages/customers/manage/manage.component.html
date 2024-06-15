@@ -28,18 +28,36 @@
               <div class="row mb-1">
                 <div class="col-4">Nombre:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="customer.name" formControlName="name" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="customer.name"
+                    formControlName="name"
+                  />
                   <div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         getTheFormGroup.name.errors &&
                         (getTheFormGroup.name.dirty ||
                           getTheFormGroup.name.touched ||
                           trySend)
-                      ">
-                      <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">
-                        Nombre es requerido</strong>
-                      <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">Inválido</strong>
-                      <strong *ngIf="getTheFormGroup.name.errors.maxlength" class="msnError">
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.name.errors.required"
+                        class="msnError"
+                      >
+                        Nombre es requerido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.name.errors.minlength"
+                        class="msnError"
+                        >Inválido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.name.errors.maxlength"
+                        class="msnError"
+                      >
                         Invalido
                       </strong>
                     </div>
@@ -50,18 +68,33 @@
               <div class="row mb-1">
                 <div class="col-4">Email:</div>
                 <div class="col-8">
-                  <input type="email" class="form-control" [(ngModel)]="customer.email" formControlName="email" />
+                  <input
+                    type="email"
+                    class="form-control"
+                    [(ngModel)]="customer.email"
+                    formControlName="email"
+                  />
                   <div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         getTheFormGroup.email.errors &&
                         (getTheFormGroup.email.dirty ||
                           getTheFormGroup.email.touched ||
                           trySend)
-                      ">
-                      <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">
-                        Email es requerido</strong>
-                      <strong *ngIf="getTheFormGroup.email.errors.pattern" class="msnError">
-                        Email inválido</strong>
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.email.errors.required"
+                        class="msnError"
+                      >
+                        Email es requerido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.email.errors.pattern"
+                        class="msnError"
+                      >
+                        Email inválido</strong
+                      >
                     </div>
                   </div>
                 </div>
@@ -69,22 +102,45 @@
               <div class="row mb-1">
                 <div class="col-4">Document:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="customer.document" formControlName="document" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="customer.document"
+                    formControlName="document"
+                  />
                   <div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         getTheFormGroup.document.errors &&
                         (getTheFormGroup.document.dirty ||
                           getTheFormGroup.document.touched ||
                           trySend)
-                      ">
-                      <strong *ngIf="getTheFormGroup.document.errors.required" class="msnError">
-                        Documento es requerido</strong>
-                      <strong *ngIf="getTheFormGroup.document.errors.minlength" class="msnError">
-                        Invalido</strong>
-                      <strong *ngIf="getTheFormGroup.document.errors.maxlength" class="msnError">
-                        Invalido</strong>
-                      <strong *ngIf="getTheFormGroup.document.errors.pattern" class="msnError">
-                        Invalido</strong>
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.document.errors.required"
+                        class="msnError"
+                      >
+                        Documento es requerido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.document.errors.minlength"
+                        class="msnError"
+                      >
+                        Invalido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.document.errors.maxlength"
+                        class="msnError"
+                      >
+                        Invalido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.document.errors.pattern"
+                        class="msnError"
+                      >
+                        Invalido</strong
+                      >
                     </div>
                   </div>
                 </div>
@@ -93,22 +149,45 @@
               <div class="row mb-1">
                 <div class="col-4">Celular:</div>
                 <div class="col-8">
-                  <input type="text" class="form-control" [(ngModel)]="customer.phone" formControlName="phone" />
+                  <input
+                    type="text"
+                    class="form-control"
+                    [(ngModel)]="customer.phone"
+                    formControlName="phone"
+                  />
                   <div>
-                    <div *ngIf="
+                    <div
+                      *ngIf="
                         getTheFormGroup.phone.errors &&
                         (getTheFormGroup.phone.dirty ||
                           getTheFormGroup.phone.touched ||
                           trySend)
-                      ">
-                      <strong *ngIf="getTheFormGroup.phone.errors.required" class="msnError">
-                        Celular es requerido</strong>
-                      <strong *ngIf="getTheFormGroup.phone.errors.minlength" class="msnError">
-                        Invalido</strong>
-                      <strong *ngIf="getTheFormGroup.phone.errors.maxlength" class="msnError">
-                        Invalido</strong>
-                      <strong *ngIf="getTheFormGroup.phone.errors.pattern" class="msnError">
-                        Invalido</strong>
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.phone.errors.required"
+                        class="msnError"
+                      >
+                        Celular es requerido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.phone.errors.minlength"
+                        class="msnError"
+                      >
+                        Invalido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.phone.errors.maxlength"
+                        class="msnError"
+                      >
+                        Invalido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.phone.errors.pattern"
+                        class="msnError"
+                      >
+                        Invalido</strong
+                      >
                     </div>
                   </div>
                 </div>
@@ -117,19 +196,29 @@
               <div class="row mb-1">
                 <div class="col-4">Genero:</div>
                 <div class="col-8">
-                  <select class="form-control" [(ngModel)]="customer.gender" formControlName="gender">
+                  <select
+                    class="form-control"
+                    [(ngModel)]="customer.gender"
+                    formControlName="gender"
+                  >
                     <option value="M">Masculino</option>
                     <option value="F">Femenino</option>
                     <option value="O">Otro</option>
                   </select>
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       getTheFormGroup.gender.errors &&
                       (getTheFormGroup.gender.dirty ||
                         getTheFormGroup.gender.touched ||
                         trySend)
-                    ">
-                    <strong *ngIf="getTheFormGroup.gender.errors.required" class="msnError">
-                      Genero es requerido</strong>
+                    "
+                  >
+                    <strong
+                      *ngIf="getTheFormGroup.gender.errors.required"
+                      class="msnError"
+                    >
+                      Genero es requerido</strong
+                    >
                   </div>
                 </div>
               </div>
@@ -137,10 +226,18 @@
                 <div class="col-4"></div>
                 <div class="col-8">
                   <div class="d-flex align-items-center justify-content-center">
-                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                    <button
+                      *ngIf="mode == 2"
+                      class="btn btn-primary btn-block"
+                      (click)="create()"
+                    >
                       Crear
                     </button>
-                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                    <button
+                      *ngIf="mode == 3"
+                      class="btn btn-primary btn-block"
+                      (click)="update()"
+                    >
                       Actualizar
                     </button>
                   </div>
@@ -148,10 +245,18 @@
               </div>
               <div *ngIf="mode == 1" class="mt-2">
                 <div class="d-flex align-items-center justify-content-center">
-                  <button type="button" class="btn btn-info" (click)="subscriptions()">
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    (click)="subscriptions()"
+                  >
                     Suscripciones
                   </button>
-                  <button type="button" class="btn btn-info" (click)="serviceexecutions()">
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    (click)="serviceexecutions()"
+                  >
                     Servicios en ejecución
                   </button>
                 </div>

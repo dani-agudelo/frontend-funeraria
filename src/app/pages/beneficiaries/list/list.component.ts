@@ -12,12 +12,15 @@ import Swal from "sweetalert2";
 export class ListComponent implements OnInit {
   beneficiaries: Beneficiary[];
   ownerId: string;
+  url: string;
 
   constructor(
     private service: BeneficiaryService,
     private parent: ActivatedRoute,
     private route: Router,
   ) {
+    this.url =
+      this.parent.snapshot["_routerState"].url.match(/(?<=^\/).+(?=\/)/gim)[0];
     this.beneficiaries = [];
   }
 
@@ -33,7 +36,7 @@ export class ListComponent implements OnInit {
       this.service
         .getBeneficiariesByOwner(id)
         .subscribe((data: Beneficiary[]) => {
-          console.log(data)
+          console.log(data);
           this.beneficiaries = data;
         });
     } else {
@@ -44,15 +47,15 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    this.route.navigate(["beneficiaries/create"]);
+    this.route.navigate([this.url, "create"]);
   }
 
   view(id: string) {
-    this.route.navigate(["beneficiaries/view", id]);
+    this.route.navigate([this.url, "view", id]);
   }
 
   update(id: string) {
-    this.route.navigate(["beneficiaries/update", id]);
+    this.route.navigate([this.url, "update", id]);
   }
 
   delete(id: string) {

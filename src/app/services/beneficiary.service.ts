@@ -24,6 +24,18 @@ export class BeneficiaryService {
     return this.http.get<Beneficiary[]>(`${this.baseUrl}/beneficiaries`);
   }
 
+  view(id: string): Observable<Beneficiary> {
+    return this.http.get<Beneficiary>(`${this.baseUrl}/${id}`);
+  }
+
+  create(data: Beneficiary): Observable<Beneficiary> {
+    return this.http.post<Beneficiary>(`${this.baseUrl}`, data);
+  }
+
+  update(data: Beneficiary): Observable<Beneficiary> {
+    return this.http.put<Beneficiary>(`${this.baseUrl}/${data.id}`, data);
+  }
+
   delete(id: string): Observable<Beneficiary> {
     return this.http.delete<Beneficiary>(`${this.baseUrl}/${id}`);
   }

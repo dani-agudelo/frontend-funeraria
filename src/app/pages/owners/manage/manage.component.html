@@ -7,8 +7,8 @@
       <div class="card shadow">
         <div class="card-header bg-transparent">
           <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
-          <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
-          <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+          <h3 *ngIf="mode == 2" class="mb-0">Actualizar</h3>
+          <h3 *ngIf="mode == 3" class="mb-0">Crear</h3>
         </div>
         <div class="card-body">
           <form class="form" [formGroup]="theFormGroup">
@@ -23,28 +23,40 @@
                 <div class="col-4">Customers</div>
                 <div class="col-8">
                   <select
+                    *ngIf="mode == 3"
                     class="form-control"
                     [(ngModel)]="owner.customer_id"
                     formControlName="customer_id"
                   >
-                    <!-- <div *ngIf="mode == 3"> -->
-                      <option
-                        *ngFor="let customer of customers"
-                        [value]="customer.id"
-                      >
-                        Nombre: {{ customer.name }} - Documento:
-                        {{ customer.document }}
-                      </option>
-                    <!-- </div> -->
                     <option
-                      [value]="owner.customer_id"
-                      *ngIf="mode == 2 || mode == 1"
-                      disabled
+                      *ngFor="let customer of customers"
+                      [value]="customer.id"
                     >
-                      Id: {{ owner.customer_id }} - Documento:
-                      {{ owner.customer.document }}
+                      Nombre: {{ customer.name }} - Documento:
+                      {{ customer.document }}
                     </option>
                   </select>
+                  <div>
+                    <div
+                      *ngIf="
+                        getTheFormGroup.customer_id.errors &&
+                        (getTheFormGroup.customer_id.dirty ||
+                          getTheFormGroup.customer_id.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.customer_id.errors.required"
+                        class="msnError"
+                      >
+                        Cliente es requerido</strong
+                      >
+                    </div>
+                  </div>
+                  <span *ngIf="mode != 3" class="my-5 p-1"
+                    >Nombre: {{ owner.name }} - Documento:
+                    {{ owner.customer.document }}</span
+                  >
                 </div>
               </div>
               <div class="row">
@@ -105,7 +117,7 @@
                 </div>
               </div>
 
-              <div class="row">
+              <div class="row mb-1">
                 <div class="col-4"></div>
                 <div class="col-8">
                   <button
@@ -125,13 +137,15 @@
                 </div>
               </div>
               <div *ngIf="mode == 1" class="mt-2">
-                <button
-                  type="button"
-                  class="btn btn-info"
-                  (click)="beneciaries()"
-                >
-                  Beneficiarios
-                </button>
+                <div class="d-flex align-items-center justify-content-center">
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    (click)="beneficiaries()"
+                  >
+                    Beneficiarios
+                  </button>
+                </div>
               </div>
             </div>
           </form>

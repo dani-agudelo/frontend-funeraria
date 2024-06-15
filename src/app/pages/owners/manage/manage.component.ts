@@ -92,7 +92,7 @@ export class ManageComponent implements OnInit {
     });
   }
 
-  beneciaries() {
+  beneficiaries() {
     this.router.navigate(["owners", this.owner.id, "beneficiaries"]);
   }
 
