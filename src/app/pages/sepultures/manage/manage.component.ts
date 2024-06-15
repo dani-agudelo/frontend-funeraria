@@ -30,7 +30,6 @@ export class ManageComponent implements OnInit {
 
     this.sepulture = {
       id: 0,
-      sepulture_name: '',
       description: '',
       cemetery_name: '',
       sepulture_type: '',
@@ -90,7 +89,7 @@ export class ManageComponent implements OnInit {
   }
 
   getSepulture(id: string) {
-    this.service.view().subscribe((data: Sepulture) => {
+    this.service.view(id).subscribe((data: Sepulture) => {
       console.log(data);
       this.sepulture = data;
     });

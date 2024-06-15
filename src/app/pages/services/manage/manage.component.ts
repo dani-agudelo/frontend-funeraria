@@ -66,7 +66,6 @@ export class ManageComponent implements OnInit {
 
     this.sepulture = {
       id: 0,
-      sepulture_name: '',
       description: '',
       cemetery_name: '',
       sepulture_type: '',
@@ -118,7 +117,7 @@ export class ManageComponent implements OnInit {
       } else if (this.service.name_service === 'Sepulture') {
         this.typeService = 3;
       }
-      this.viewTypeService(this.typeService);
+      this.viewTypeService(this.typeService, id);
     });
   }
 
@@ -159,7 +158,7 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  async viewTypeService(tipo: number) {
+  async viewTypeService(tipo: number, id:string) {
     if (tipo === 1) {
       this.relocationService.view().subscribe((data: Relocation) => {
         console.log('relocation data', data);
@@ -180,7 +179,7 @@ export class ManageComponent implements OnInit {
         }
       });
     } else if (tipo === 3) {
-      this.sepultureService.view().subscribe((data: Sepulture) => {
+      this.sepultureService.view(id).subscribe((data: Sepulture) => {
         if (Array.isArray(data) && data.length > 0) {
           this.sepulture = data[0];
           this.setCurrentService();

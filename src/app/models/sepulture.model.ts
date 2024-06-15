@@ -1,6 +1,5 @@
 export class Sepulture {
     id?: number;
-    sepulture_name?: string;
     description?: string;
     cemetery_name?: string;
     sepulture_type?: string;

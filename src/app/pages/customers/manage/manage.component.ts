@@ -81,6 +81,7 @@ export class ManageComponent implements OnInit {
 
   ngOnInit(): void {
     const currentUrl = this.parent.snapshot.url.join("/");
+    console.log(currentUrl)
     if (currentUrl.includes("view")) {
       this.theFormGroup.disable();
       this.mode = 1;

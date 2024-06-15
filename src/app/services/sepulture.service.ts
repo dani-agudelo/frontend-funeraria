@@ -18,8 +18,13 @@ export class SepultureService {
     return this.http.get<Sepulture[]>(`${this.urlBase}/sepultures`);
   }
 
-  view(): Observable<Sepulture> {
-    return this.http.get<Sepulture>(`${this.urlBase}/sepultures`);
+  // organizar
+  // view(): Observable<Sepulture> {
+  //   return this.http.get<Sepulture>(`${this.urlBase}/sepultures`);
+  // }
+
+  view(id: string): Observable<Sepulture> {
+    return this.http.get<Sepulture>(`${this.urlBase}/sepultures/${id}`);
   }
 
   create(sepulture: Sepulture): Observable<Sepulture> {

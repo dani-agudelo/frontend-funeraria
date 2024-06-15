@@ -27,7 +27,7 @@
                     [(ngModel)]="owner.customer_id"
                     formControlName="customer_id"
                   >
-                    <div *ngIf="mode == 3">
+                    <!-- <div *ngIf="mode == 3"> -->
                       <option
                         *ngFor="let customer of customers"
                         [value]="customer.id"
@@ -35,7 +35,7 @@
                         Nombre: {{ customer.name }} - Documento:
                         {{ customer.document }}
                       </option>
-                    </div>
+                    <!-- </div> -->
                     <option
                       [value]="owner.customer_id"
                       *ngIf="mode == 2 || mode == 1"
