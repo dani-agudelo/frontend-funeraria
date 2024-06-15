@@ -12,42 +12,42 @@
           <form class="form" [formGroup]="theFormGroup">
             <div class="container d-grid gap-3">
               <div class="row mb-1" *ngIf="mode == 1">
-                <div class="col-4">Permission id</div>
+                <div class="col-4">Role id</div>
                 <div class="col-8">
-                  {{ permission._id }}
+                  {{ role._id }}
                 </div>
               </div>
               <div class="row mb-1">
-                <div class="col-4">Url:</div>
+                <div class="col-4">Nombre:</div>
                 <div class="col-8">
                   <input
                     type="text"
                     class="form-control"
-                    [(ngModel)]="permission.url"
-                    formControlName="url"
+                    [(ngModel)]="role.name"
+                    formControlName="name"
                   />
                   <div>
                     <div
                       *ngIf="
-                        getTheFormGroup.url.errors &&
-                        (getTheFormGroup.url.dirty ||
-                          getTheFormGroup.url.touched ||
+                        getTheFormGroup.name.errors &&
+                        (getTheFormGroup.name.dirty ||
+                          getTheFormGroup.name.touched ||
                           trySend)
                       "
                     >
                       <strong
-                        *ngIf="getTheFormGroup.url.errors.required"
+                        *ngIf="getTheFormGroup.name.errors.required"
                         class="msnError"
                       >
-                        Url es requerido</strong
+                        Descripción es requerido</strong
                       >
                       <strong
-                        *ngIf="getTheFormGroup.url.errors.minlength"
+                        *ngIf="getTheFormGroup.name.errors.minlength"
                         class="msnError"
                         >Inválido</strong
                       >
                       <strong
-                        *ngIf="getTheFormGroup.url.errors.maxlength"
+                        *ngIf="getTheFormGroup.name.errors.maxlength"
                         class="msnError"
                       >
                         Invalido
@@ -58,40 +58,45 @@
               </div>
 
               <div class="row mb-1">
-                <div class="col-4">Methods</div>
+                <div class="col-4">Description:</div>
                 <div class="col-8">
-                  <select
+                  <input
+                    type="text"
                     class="form-control"
-                    [(ngModel)]="permission.method"
-                    formControlName="method"
-                  >
-                    <option
-                      *ngFor="let method of keys"
-                      [selected]="method == permission?.method"
-                      [value]="method"
-                    >
-                      {{ method }}
-                    </option>
-                  </select>
+                    [(ngModel)]="role.description"
+                    formControlName="description"
+                  />
                   <div>
                     <div
                       *ngIf="
-                        getTheFormGroup.method.errors &&
-                        (getTheFormGroup.method.dirty ||
-                          getTheFormGroup.method.touched ||
+                        getTheFormGroup.description.errors &&
+                        (getTheFormGroup.description.dirty ||
+                          getTheFormGroup.description.touched ||
                           trySend)
                       "
                     >
                       <strong
-                        *ngIf="getTheFormGroup.method.errors.required"
+                        *ngIf="getTheFormGroup.description.errors.required"
                         class="msnError"
                       >
-                        Method es requerido</strong
+                        Nombre es requerido</strong
                       >
+                      <strong
+                        *ngIf="getTheFormGroup.description.errors.minlength"
+                        class="msnError"
+                        >Inválido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.description.errors.maxlength"
+                        class="msnError"
+                      >
+                        Invalido
+                      </strong>
                     </div>
                   </div>
                 </div>
               </div>
+
               <div class="row mb-1">
                 <div class="col-4"></div>
                 <div class="col-8">
@@ -111,6 +116,17 @@
                       Crear
                     </button>
                   </div>
+                </div>
+              </div>
+              <div *ngIf="mode == 1" class="mt-2">
+                <div class="d-flex align-items-center justify-content-center">
+                  <button
+                    type="button"
+                    class="btn btn-info"
+                    (click)="permissions()"
+                  >
+                    Permisos
+                  </button>
                 </div>
               </div>
             </div>
