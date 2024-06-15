@@ -27,13 +27,13 @@ export class SecurityService {
     return this.http.post<User>(`${environment.url_ms_security}/public/security/login`, user);
   }
 
-   /**
-   * Verifica el código 2FA enviado por el usuario y devuelve un token JWT y el objeto User.
-   * @param userId ID del usuario
-   * @param code2fa Código 2FA enviado al correo del usuario
-   * @returns Observable con un HashMap que contiene el token JWT y el objeto User
-   */
-   verify2fa(userId: string, code2fa: string): Observable<any> {
+  /**
+  * Verifica el código 2FA enviado por el usuario y devuelve un token JWT y el objeto User.
+  * @param userId ID del usuario
+  * @param code2fa Código 2FA enviado al correo del usuario
+  * @returns Observable con un HashMap que contiene el token JWT y el objeto User
+  */
+  verify2fa(userId: string, code2fa: string): Observable<any> {
     return this.http.post<any>(`${environment.url_ms_security}/public/security/users/${userId}/verify-2fa/${code2fa}`, {});
   }
 
@@ -56,7 +56,7 @@ export class SecurityService {
     // Cualquier componente que esté 'escuchando' este evento, podrá obtener la información del usuario
     this.theUser.next(user);
   }
-  
+
   /**
   * Permite obtener la información del usuario
   * con datos tales como el identificador y el token
@@ -78,13 +78,14 @@ export class SecurityService {
       email: dataSesion["user"]["email"],
       password: "",
       role: dataSesion["user"]["role"],
-      token: dataSesion["token"]
+      token: dataSesion["token"],
+      user_github: dataSesion["user"]["user_github"]
     };
     // Se guarda la información del usuario en el local storage
     localStorage.setItem('sesion', JSON.stringify(data));
     this.setUser(data);
   }
-  
+
   /**
   * Permite cerrar la sesión del usuario
   * que estaba previamente logueado
@@ -123,6 +124,10 @@ export class SecurityService {
   getSessionData() {
     let sesionActual = localStorage.getItem('sesion');
     return sesionActual;
+  }
+
+  getGithubProfileImage(username: string) {
+    return `https://avatars.githubusercontent.com/${username}`
   }
 
 }

@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.theSecurityService.verify2fa(this.theUser._id, code2fa).subscribe({
       next: (response) => {
         console.log('2FA verification successful.', response);
-        //* Guardar la sesión en el local storage
+        //* Guardar la sesión en el local storage (user y token)
         this.theSecurityService.saveSession(response);
         //* Redireccionar al dashboard porque la verificación fue exitosa
         this.router.navigate(['dashboard']);
