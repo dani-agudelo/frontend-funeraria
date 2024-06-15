@@ -89,7 +89,7 @@ export class ListComponent implements OnInit {
           },
           error: (err) => {
             if (err.status === 400) {
-              Swal.fire("Error", "No se pudo eliminar el registro.", "error");
+              Swal.fire("Error", "No se pudo eliminar el registro. Hay sepulturas o cremaciones asociadas", "error");
             }
           }
         });

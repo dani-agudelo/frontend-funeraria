@@ -13,6 +13,7 @@ export class ListComponent implements OnInit {
 
   payments: Payment[];
   subscriptionId: string;
+  planId: string;
   customerId: string;
 
   constructor(
@@ -28,16 +29,16 @@ export class ListComponent implements OnInit {
   }
 
   list() {
+    this.planId = this.parent.snapshot.params.idPlan;
     this.customerId = this.parent.snapshot.params.idCustomer;
     this.subscriptionId = this.parent.snapshot.params.idSubscription;
-    console.log('Id de la suscripcion: ' + this.subscriptionId);
-    console.log('Id del cliente: ' + this.customerId);
-    if (this.subscriptionId && this.customerId) {
+    if ((this.subscriptionId && this.customerId) || (this.subscriptionId && this.planId)) {
       this.service.getPaymentsBySubscription(this.subscriptionId).subscribe((data: Payment[]) => {
         this.payments = data;
         console.log('paymentssssss', this.payments);
       });
-    } else {
+    }
+    else {
       this.service.getPayments().subscribe((data: Payment[]) => {
         this.payments = data;
       });
@@ -45,19 +46,27 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    console.log(this.parent.snapshot.paramMap.get('idcustomer'));
-
-    console.log('create de payment')
-    // necesito esta ruta // http://localhost:4200/#/customers/1/subscriptions/1/payments/create
-    this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'create']);
+    if (this.customerId) {
+      this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'create']);
+    } else {
+      this.router.navigate(['plans', this.planId, 'subscriptions', this.subscriptionId, 'payments', 'create']);
+    }
   }
 
   view(id: string) {
-    this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'view', id]);
+    if (this.customerId) {
+      this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'view', id]);
+    } else {
+      this.router.navigate(['plans', this.planId, 'subscriptions', this.subscriptionId, 'payments', 'view', id]);
+    }
   }
 
   update(id: string) {
-    this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'update', id]);
+    if (this.customerId) {
+      this.router.navigate(['customers', this.customerId, 'subscriptions', this.subscriptionId, 'payments', 'update', id]);
+    } else{
+      this.router.navigate(['plans', this.planId, 'subscriptions', this.subscriptionId, 'payments', 'update', id]);
+    }
   }
 
   delete(id: string) {

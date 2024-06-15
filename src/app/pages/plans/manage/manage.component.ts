@@ -118,5 +118,8 @@ export class ManageComponent implements OnInit {
     this.router.navigate(["plans", this.plan.id, "serviceplans"]);
   }
 
-  
+  subscriptions() {
+    this.router.navigate(["plans", this.plan.id, "subscriptions"]);
+  }
+
 }

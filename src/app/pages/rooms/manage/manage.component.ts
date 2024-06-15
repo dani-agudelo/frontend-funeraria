@@ -31,9 +31,9 @@ export class ManageComponent implements OnInit {
       id: 0,
       headquarter_id: 0,
       room_name: "",
-      room_capacity: 0,
+      room_capacity: null,
       facilities: "",
-      is_available: false,
+      is_available: null,
     };
     this.configFormGroup();
   }
@@ -86,6 +86,8 @@ export class ManageComponent implements OnInit {
     this.service.view(id).subscribe((data: Room) => {
       console.log(data);
       this.room = data;
+      const isAvailable = this.room.is_available ? true : false;
+      this.theFormGroup.get('is_available').setValue(isAvailable);
     });
   }
 

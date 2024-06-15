@@ -78,7 +78,7 @@ export class ManageComponent implements OnInit {
 
   getServicePlan(id: string) {
     this.service.view(id).subscribe((data: ServicePlan) => {
-      console.log(data);
+      console.log('asi esta sp',data);
       this.servicePlan = data;
     });
   }

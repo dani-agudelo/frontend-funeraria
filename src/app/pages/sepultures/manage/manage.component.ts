@@ -85,6 +85,7 @@ export class ManageComponent implements OnInit {
       } else if (values.is_available === 'false') {
         this.theFormGroup.get('is_available').setValue(false, { emitEvent: false });
       }
+
     });
 
 
@@ -96,10 +97,12 @@ export class ManageComponent implements OnInit {
 
   getSepulture(id: string) {
     //obtener el servicio por el nombre
-    
+
     this.serviceSepulture.view(id).subscribe((data: Sepulture) => {
       console.log(data);
       this.sepulture = data;
+      const isAvailable = this.sepulture.is_available ? true : false;
+      this.theFormGroup.get('is_available').setValue(isAvailable);
     });
   }
 

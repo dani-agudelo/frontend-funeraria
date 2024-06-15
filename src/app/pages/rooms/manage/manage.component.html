@@ -44,7 +44,6 @@
                                     <span *ngIf="mode == 1">{{room.room_name}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Capacidad:</div>
                                 <div class="col-8">
@@ -66,7 +65,6 @@
                                     <span *ngIf="mode == 1">{{room.room_capacity}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Facilidades:</div>
                                 <div class="col-8">
@@ -76,7 +74,7 @@
                                         <div
                                             *ngIf="getTheFormGroup.facilities.errors && (getTheFormGroup.facilities.dirty || getTheFormGroup.facilities.touched ||trySend)">
                                             <strong *ngIf="getTheFormGroup.facilities.errors.required" class="msnError">
-                                                El nombre es requerido</strong>
+                                                Las facilidades son requeridas</strong>
                                             <strong *ngIf="getTheFormGroup.facilities.errors.minlength"
                                                 class="msnError">Al menos 3 caracteres</strong>
                                             <strong *ngIf="getTheFormGroup.facilities.errors.maxlength"
@@ -86,7 +84,6 @@
                                     <span *ngIf="mode == 1">{{room.facilities}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Disponible:</div>
                                 <div class="col-8">
@@ -98,9 +95,6 @@
                                     <span *ngIf="mode == 1">{{room.is_available ? 'Sí' : 'No'}}</span>
                                 </div>
                             </div>
-
-
-
                             <div class="row mb-1">
                                 <div class="col-4"></div>
                                 <div class="col-8">

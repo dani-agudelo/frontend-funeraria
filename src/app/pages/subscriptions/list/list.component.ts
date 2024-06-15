@@ -12,7 +12,7 @@ import Swal from "sweetalert2";
 export class ListComponent implements OnInit {
   subscriptions: Subscriptions[];
   customerId: string;
-
+  planId: string;
   constructor(
     private service: SubscriptionsService,
     private parent: ActivatedRoute,
@@ -28,11 +28,19 @@ export class ListComponent implements OnInit {
   list() {
     // we get the customer id from the parent route
     this.customerId = this.parent.snapshot.params.idCustomer;
+    this.planId = this.parent.snapshot.params.idPlan;
     if (this.customerId) {
       // we get the subscriptions by customer
       this.service.getSubscriptionsByCustomer(this.customerId)
         .subscribe((data: Subscriptions[]) => {
-          console.log(data);
+          console.log('de cliente', data);
+          this.subscriptions = data;
+        });
+    } else if (this.planId) {
+      // we get the subscriptions by plan
+      this.service.getSubscriptionsByPlan(this.planId)
+        .subscribe((data: Subscriptions[]) => {
+          console.log('de plan', data);
           this.subscriptions = data;
         });
     } else {
@@ -43,32 +51,61 @@ export class ListComponent implements OnInit {
   }
 
   create() {
-    this.router.navigate([
-      "customers",
-      this.customerId,
-      "subscriptions",
-      "create",
-    ]);
+    if (this.customerId) {
+      this.router.navigate([
+        "customers",
+        this.customerId,
+        "subscriptions",
+        "create",
+      ]);
+    } else {
+      this.router.navigate([
+        "plans",
+        this.planId,
+        "subscriptions",
+        "create",
+      ]);
+    }
   }
 
   view(id: string) {
-    this.router.navigate([
-      "customers",
-      this.customerId,
-      "subscriptions",
-      "view",
-      id,
-    ]);
+    if (this.customerId) {
+      this.router.navigate([
+        "customers",
+        this.customerId,
+        "subscriptions",
+        "view",
+        id,
+      ]);
+    } else {
+      this.router.navigate([
+        "plans",
+        this.planId,
+        "subscriptions",
+        "view",
+        id,
+      ]);
+    }
   }
 
   update(id: string) {
-    this.router.navigate([
-      "customers",
-      this.customerId,
-      "subscriptions",
-      "update",
-      id,
-    ]);
+    if (this.customerId) {
+      this.router.navigate([
+        "customers",
+        this.customerId,
+        "subscriptions",
+        "update",
+        id,
+      ]);
+    } else {
+      this.router.navigate([
+        "plans",
+        this.planId,
+        "subscriptions",
+        "update",
+        id,
+      ]);
+    }
   }
 
   delete(id: string) {
@@ -99,12 +136,22 @@ export class ListComponent implements OnInit {
   }
 
   pagos(id: string) {
-    this.router.navigate([
-      "customers",
-      this.customerId,
-      "subscriptions",
-      id,
-      "payments"
-    ]);
+    if (this.customerId) {
+      this.router.navigate([
+        "customers",
+        this.customerId,
+        "subscriptions",
+        id,
+        "payments"
+      ]);
+    } else {
+      this.router.navigate([
+        "plans",
+        this.planId,
+        "subscriptions",
+        id,
+        "payments"
+      ]);
+    }
   }
 }

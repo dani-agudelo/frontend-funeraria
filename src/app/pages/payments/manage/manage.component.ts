@@ -16,6 +16,7 @@ export class ManageComponent implements OnInit {
   theFormGroup: FormGroup;
   subscriptionId: number;
   customerId: number;
+  planId: number;
   trySend: boolean;
 
 
@@ -59,9 +60,8 @@ export class ManageComponent implements OnInit {
   ngOnInit(): void {
     this.subscriptionId = Number(this.parent.snapshot.params.idSubscription);
     this.customerId = this.parent.snapshot.params.idCustomer;
+    this.planId = this.parent.snapshot.params.idPlan;
     this.payment.subscription_id = this.subscriptionId;
-    console.log('Id de la suscripcion: ' + this.subscriptionId);
-    console.log('Id del cliente: ' + this.customerId);
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.theFormGroup.disable();
@@ -101,7 +101,11 @@ export class ManageComponent implements OnInit {
         "Se ha creado un nuevo registro",
         "success",
       );
-      this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
+      if (this.customerId) {
+        this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
+      } else {
+        this.route.navigate(["plans", this.planId, "subscriptions", this.subscriptionId, "payments", "list"]);
+      }
     }, error => {
       console.error(error);
       if (error.status === 422 && error.error.errors[0].rule === 'unique') {
@@ -133,7 +137,11 @@ export class ManageComponent implements OnInit {
         "Pago actualizado correctamente",
         "success",
       );
-      this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
+      if (this.customerId) {
+        this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
+      } else {
+        this.route.navigate(["plans", this.planId, "subscriptions", this.subscriptionId, "payments", "list"]);
+      }
     });
   }
 }

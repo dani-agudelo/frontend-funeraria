@@ -19,7 +19,6 @@
                                     {{ sepulture.id }}
                                 </div>
                             </div>
-                            
                             <div class="row mb-1">
                                 <div class="col-4">Descripción:</div>
                                 <div class="col-8">
@@ -39,7 +38,6 @@
                                     <span *ngIf="mode == 1">{{sepulture.description}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Cementerio:</div>
                                 <div class="col-8">
@@ -59,7 +57,6 @@
                                     <span *ngIf="mode == 1">{{sepulture.cemetery_name}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Tipo:</div>
                                 <div class="col-8">
@@ -79,7 +76,6 @@
                                     <span *ngIf="mode == 1">{{sepulture.sepulture_type}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Precio:</div>
                                 <div class="col-8">
@@ -99,28 +95,24 @@
                                     <span *ngIf="mode == 1">{{sepulture.price}}</span>
                                 </div>
                             </div>
-
                             <div class="row mb-1">
                                 <div class="col-4">Estado:</div>
                                 <div class="col-8">
-                                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="sepulture.is_available"
-                                        formControlName="is_available" />
+                                    <select *ngIf="mode!=1" class="form-control" [(ngModel)]="sepulture.is_available"
+                                        formControlName="is_available">
+                                        <option [value]='true'>Sí</option>
+                                        <option [value]='false'>No</option>
+                                    </select>
                                     <div>
                                         <div
                                             *ngIf="getTheFormGroup.is_available.errors && (getTheFormGroup.is_available.dirty || getTheFormGroup.is_available.touched ||trySend)">
                                             <strong *ngIf="getTheFormGroup.is_available.errors.required" class="msnError">
                                                 El estado es requerido</strong>
-                                            <strong *ngIf="getTheFormGroup.is_available.errors.minlength"
-                                                class="msnError">Al menos 3 caracteres</strong>
-                                            <strong *ngIf="getTheFormGroup.is_available.errors.maxlength"
-                                                class="msnError">Máximo 50 caracteres</strong>
                                         </div>
                                     </div>
-                                    <span *ngIf="mode == 1">{{sepulture.is_available}}</span>
+                                    <span *ngIf="mode == 1">{{sepulture.is_available ? 'Sí' : 'No'}}</span>
                                 </div>
                             </div>
-
-
                             <div class="row mb-1">
                                 <div class="col-4"></div>
                                 <div class="col-8">
