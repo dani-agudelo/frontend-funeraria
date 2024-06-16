@@ -28,10 +28,10 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
     this.methods = {
       All: ["ALL"],
-      GET: ["", "/:id"],
+      GET: ["", "/?"],
       POST: [""],
-      PUT: ["/:id"],
-      DELETE: ["/:id"],
+      PUT: ["/?"],
+      DELETE: ["/?"],
     };
     this.keys = Object.keys(this.methods);
 
