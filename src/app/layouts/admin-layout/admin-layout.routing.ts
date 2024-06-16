@@ -15,19 +15,19 @@ export const AdminLayoutRoutes: Routes = [
   { path: "maps", component: MapsComponent },
   {
     path: "users",
-    canActivate:[AuthGuard],
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/users/users.module").then((m) => m.UsersModule),
   },
   {
     path: "roles",
-    canActivate:[AuthGuard],
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/roles/roles.module").then((m) => m.RolesModule),
   },
   {
     path: "permissions",
-    canActivate:[AuthGuard],
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/permissions/permissions.module").then(
         (m) => m.PermissionsModule,
@@ -36,6 +36,7 @@ export const AdminLayoutRoutes: Routes = [
 
   {
     path: "customers",
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/customers/customers.module").then(
         (m) => m.CustomersModule,
@@ -43,6 +44,7 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "services",
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/services/services.module").then(
         (m) => m.ServicesModule,
@@ -50,16 +52,19 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "owners",
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/owners/owners.module").then((m) => m.OwnersModule),
   },
   {
     path: "plans",
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/plans/plans.module").then((m) => m.PlansModule),
   },
   {
     path: "headquarters",
+    // canActivate:[AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/headquarters/headquarters.module").then(
         (m) => m.HeadquartersModule,
