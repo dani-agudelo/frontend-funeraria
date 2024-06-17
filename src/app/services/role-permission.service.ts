@@ -10,7 +10,7 @@ import { RolePermission } from "../models/role-permission.model";
 export class RolePermissionService {
   baseUrl: string;
   constructor(private http: HttpClient) {
-    this.baseUrl = `${environment.url_ms_security}/role-permission`;
+    this.baseUrl = `${environment.url_ms_security}/role_permission`;
   }
 
   getRolePermissionsByRole(roleId: string): Observable<RolePermission[]> {

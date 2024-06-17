@@ -6,7 +6,9 @@ export const environment = {
   production: true,
   url_ms_security: "http://localhost:8181/api",
   url_ms_business: "http://localhost:3333",
-  url_cities: "https://www.datos.gov.co/resource/xdk5-pm3f.json"
+  url_cities: "https://www.datos.gov.co/resource/xdk5-pm3f.json",
+  MP_ACCESS_TOKEN:
+    "APP_USR-7220098818057376-061612-29d4768a64c99a3621e0efd40554bed4-1859157151",
 };
 
 /*

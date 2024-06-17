@@ -21,12 +21,12 @@
             <thead>
               <tr>
                 <th class="col-1">id</th>
-                <th class="col-3">user id</th>
+                <th class="col-1">user id</th>
                 <th class="col-3">name</th>
-                <th class="col-3">email</th>
-                <th class="col-3">document</th>
-                <th class="col-3">phone</th>
-                <th class="col-3">gender</th>
+                <th class="col-2">document</th>
+                <th class="col-2">phone</th>
+                <th class="col-1">gender</th>
+                <th class="col-1">is alive</th>
                 <th class="col-5">Opciones</th>
               </tr>
             </thead>
@@ -35,10 +35,13 @@
                 <td>{{ customer.id }}</td>
                 <td>{{ customer.user_id.slice(0, 5) }} ...</td>
                 <td>{{ customer.name }}</td>
-                <td>{{ customer.email }}</td>
                 <td>{{ customer.document }}</td>
                 <td>{{ customer.phone }}</td>
                 <td>{{ customer.gender }}</td>
+                <td>
+                  <span *ngIf="customer.is_alive" class="text-success">✔</span>
+                  <span *ngIf="!customer.is_alive" class="text-danger">✖</span>
+                </td>
                 <td>
                   <button
                     type="button"

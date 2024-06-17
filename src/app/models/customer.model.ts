@@ -6,5 +6,6 @@ export class Customer {
   document?: string;
   phone?: string;
   gender?: string;
+  is_alive?: boolean;
   password?: string;
 }
