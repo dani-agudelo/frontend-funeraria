@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { throws } from "assert";
 import { Permission } from "src/app/models/permission.model";
 import { RolePermission } from "src/app/models/role-permission.model";
 import { PermissionService } from "src/app/services/permission.service";
@@ -148,18 +149,26 @@ export class ManageComponent implements OnInit {
       this._create(this.rolePermission);
     }
 
-    Swal.fire("Creación exitosa", "Se ha creado un nuevo registro", "success");
-
     this.router.navigate([this.url, "list"]);
   }
 
-  _create(rolePermission: RolePermission) {
+  async _create(rolePermission: RolePermission) {
     if (this.theFormGroup.invalid) {
       this.trySend = true;
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
 
-    this.rolePermissionService.create(rolePermission).subscribe();
+    this.rolePermissionService.create(rolePermission).subscribe((data) => {
+      if (data) {
+        Swal.fire(
+          "Creación exitosa",
+          "Se ha creado un nuevo registro",
+          "success",
+        );
+      } else {
+        Swal.fire("Error", "Ha ocurrido un error", "error");
+      }
+    });
   }
 }

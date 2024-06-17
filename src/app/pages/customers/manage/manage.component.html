@@ -223,6 +223,36 @@
                 </div>
               </div>
               <div class="row mb-1">
+                <div class="col-4">Is Alive</div>
+                <div class="col-8">
+                  <select
+                    class="form-control"
+                    formControlName="is_alive"
+                    [(ngModel)]="customer.is_alive"
+                  >
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                  </select>
+                  <div>
+                    <div
+                      *ngIf="
+                        getTheFormGroup.is_alive.errors &&
+                        (getTheFormGroup.is_alive.dirty ||
+                          getTheFormGroup.is_alive.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.is_alive.errors.required"
+                        class="msnError"
+                      >
+                        Alive es requerido</strong
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-1">
                 <div class="col-4"></div>
                 <div class="col-8">
                   <div class="d-flex align-items-center justify-content-center">

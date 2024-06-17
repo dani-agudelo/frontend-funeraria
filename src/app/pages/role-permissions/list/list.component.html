@@ -33,7 +33,7 @@
               <tbody>
                 <tr *ngFor="let rp of rolePermissions">
                   <td>{{ rp._id.slice(0, 8) }} ...</td>
-                  <td>{{ rp.role?._id.slice(0, 8) }} ...</td>
+                  <td>{{ roleId.slice(0, 8) }} ...</td>
                   <td>{{ rp.permission?._id.slice(0, 8) }} ...</td>
                   <td>{{ rp.permission?.url }}</td>
                   <td>{{ rp.permission?.method }}</td>

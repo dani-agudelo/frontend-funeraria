@@ -76,6 +76,7 @@ export class ManageComponent implements OnInit {
         "",
         [Validators.required, Validators.minLength(1), Validators.maxLength(1)],
       ],
+      is_alive: [null, [Validators.required]],
     });
   }
 

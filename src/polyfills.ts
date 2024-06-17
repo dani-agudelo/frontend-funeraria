@@ -47,9 +47,19 @@ import '@angular/localize/init';
  * Zone JS is required by default for Angular itself.
  */
 import 'zone.js/dist/zone';  // Included with Angular CLI.
+import { environment } from './environments/environment';
 
 
 
 /***************************************************************************************************
  * APPLICATION IMPORTS
  */
+
+/***************************************************************************************************
+  * Process global object
+  * Required by `mercadopago` library
+  */
+ (window as any).process = {
+  env: { DEBUG: undefined },
+  version: 'v20.13.1',
+};
