@@ -130,13 +130,13 @@ export class SecurityService {
     return `https://avatars.githubusercontent.com/${username}`
   }
 
-    // Método para verificar el rol del usuario
-    hasRole(role: string): boolean {
-      let sesionActual = this.getSessionData();
-      if (sesionActual) {
-        let user = JSON.parse(sesionActual) as User;
-        return user.role.name === role;
-      }
-      return false;
+  // Método para verificar el rol del usuario
+  hasRole(role: string): boolean {
+    let sesionActual = this.getSessionData();
+    if (sesionActual) {
+      let user = JSON.parse(sesionActual) as User;
+      return user.role.name === role;
     }
+    return false;
+  }
 }

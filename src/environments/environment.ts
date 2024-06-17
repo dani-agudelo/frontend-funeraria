@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: true,
+  production: false,
   url_ms_security: "http://localhost:8181/api",
-  url_ms_business: "http://localhost:3333",
+  url_ms_business:  "http://127.0.0.1:3333",
   url_cities: "https://www.datos.gov.co/resource/xdk5-pm3f.json"
 };
 
