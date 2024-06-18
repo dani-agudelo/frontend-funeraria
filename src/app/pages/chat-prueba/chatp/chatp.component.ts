@@ -44,8 +44,8 @@ export class ChatpComponent implements OnInit, AfterViewChecked {
   sendMessage() {
     if (this.newMessage.trim()) {
       const message: MessageP = {
-        text: this.newMessage,
-        sender: this.theUser._id , 
+        content: this.newMessage,
+        user_id: this.theUser._id , 
         timestamp: new Date().toLocaleTimeString()
       };
       this.webSocketService.sendMessage(message);

@@ -61,4 +61,8 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.theSecurityService.logout();
   }
+
+  request_service(){
+    this.router.navigate(['/request-service']);
+  }
 }

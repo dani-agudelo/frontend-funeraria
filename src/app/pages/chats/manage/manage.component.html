@@ -17,7 +17,7 @@
                   {{ chat.id }}
                 </div>
               </div>
-              <div class="row mb-1">
+              <div class="row mb-1" *ngIf="mode!=1">
                 <div class="col-4">Servicio ejecutado id</div>
                 <div class="col-8">
                   <input
@@ -28,8 +28,18 @@
                     disabled
                   />
                 </div>
+                <div class="col-8" *ngIf="mode==1">
+                  {{chat.service_execution_id}}
+                </div>
               </div>
-              <div class="row mb-1">
+              <div class="row mb-1" *ngIf="mode == 1">
+                <div class="col-4">Código</div>
+                <div class="col-8">
+                  {{chat.code_chat}}
+                </div>
+              </div>
+              
+              <div class="row mb-1" *ngIf="mode!=1">
                 <div class="col-4">Estado</div>
                 <div class="col-8">
                   <select

@@ -7,13 +7,16 @@ import { UserProfileComponent } from "../../pages/user-profile/user-profile.comp
 import { TablesComponent } from "../../pages/tables/tables.component";
 import { AuthGuard } from "src/app/guards/auth.guard";
 import { AdminGuard } from "src/app/guards/admin.guard";
+import { HomeComponent } from "../home/home/home.component";
+import { AppComponent } from "src/app/app.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
-  { path: "user-profile", canActivate:[AuthGuard], component: UserProfileComponent },
+  { path: "user-profile", canActivate: [AuthGuard], component: UserProfileComponent },
   { path: "tables", component: TablesComponent },
   { path: "icons", component: IconsComponent },
   { path: "maps", component: MapsComponent },
+  { path: "request-service", loadChildren: () => import("../../pages/request-service/request-service.module").then(m => m.RequestServiceModule) },
   {
     path: "users",
     // canActivate:[AuthGuard, AdminGuard],
@@ -37,7 +40,7 @@ export const AdminLayoutRoutes: Routes = [
 
   {
     path: "customers",
-    canActivate:[AuthGuard, AdminGuard],
+    canActivate: [AuthGuard, AdminGuard],
     loadChildren: () =>
       import("../../pages/customers/customers.module").then(
         (m) => m.CustomersModule,

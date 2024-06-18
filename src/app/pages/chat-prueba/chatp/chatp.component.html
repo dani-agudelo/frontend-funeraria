@@ -14,13 +14,13 @@
                   <div #scrollMe class="card-body" data-mdb-perfect-scrollbar-init
                     style="position: relative; height: 400px; overflow-y: auto;">
                     <div *ngFor="let message of messages" class="d-flex"
-                      [ngClass]="{'justify-content-end': message.sender === theUser._id, 'justify-content-start': message.sender !== theUser._id}">
+                      [ngClass]="{'justify-content-end': message.user_id === theUser._id, 'justify-content-start': message.user_id !== theUser._id}">
                       <div style="max-width: 70%;">
                         <p [ngClass]="{
-        'small p-2 ms-3 mb-1 rounded border border-secondary bg-body-tertiary': message.sender !== theUser._id, 
-        'small p-2 me-3 mb-1 text-white rounded border border-primary bg-primary': message.sender === theUser._id
+        'small p-2 ms-3 mb-1 rounded border border-secondary bg-body-tertiary': message.user_id !== theUser._id, 
+        'small p-2 me-3 mb-1 text-white rounded border border-primary bg-primary': message.user_id === theUser._id
       }">
-                          {{ message.text }}
+                          {{ message.content }}
                         </p>
                         <p class="small ms-3 mb-3 rounded-3 text-muted">{{ message.timestamp }}</p>
                       </div>

@@ -27,7 +27,6 @@
                 <th class="col-1">Chat id</th>
                 <th class="col-1">User id</th>
                 <th class="col-3">Content</th>
-                <th class="col-3">Sender</th>
                 <th class="col-5">Opciones</th>
               </tr>
             </thead>
@@ -37,10 +36,6 @@
                 <td>{{ message.chat_id }}</td>
                 <td>{{ message.user_id }}</td>
                 <td>{{ message.content.slice(0, 16) }} ...</td>
-                <td>
-                  <span *ngIf="message.sender" class="text-success">✔</span>
-                  <span *ngIf="!message.sender" class="text-danger">✖</span>
-                </td>
                 <td>
                   <button
                     type="button"

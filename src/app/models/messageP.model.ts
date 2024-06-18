@@ -1,6 +1,6 @@
 export interface MessageP {
-    text: string;
-    sender: string;
+    content: string;
+    user_id: string;
     timestamp: string;
   }
   

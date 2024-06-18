@@ -27,6 +27,7 @@
               <tr>
                 <th class="col-1">Id</th>
                 <th class="col-3">Servicio ejecutado id</th>
+                <th class="col-3">Código</th>
                 <th class="col-3">Estado</th>
                 <th class="col-5">Opciones</th>
               </tr>
@@ -35,6 +36,7 @@
               <tr *ngFor="let chat of chats">
                 <td>{{ chat.id }}</td>
                 <td>{{ chat.service_execution_id }}</td>
+                <td>{{ chat.code_chat }}</td>
                 <td>
                   <span *ngIf="chat.status" class="text-success">✔</span>
                   <span *ngIf="!chat.status" class="text-danger">✖</span>
