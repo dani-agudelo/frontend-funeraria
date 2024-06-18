@@ -15,6 +15,7 @@ import { ComponentsModule } from "./components/components.module";
 import { AuthGuard } from "./guards/auth.guard";
 import { AuthInterceptor } from "./auth.interceptor";
 import { PaymentLayoutComponent } from './layouts/payment-layout/payment-layout.component';
+import { HomeComponent } from "./layouts/home/home/home.component";
 
 @NgModule({
   imports: [
@@ -26,7 +27,7 @@ import { PaymentLayoutComponent } from './layouts/payment-layout/payment-layout.
     RouterModule,
     AppRoutingModule,
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, PaymentLayoutComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, PaymentLayoutComponent, HomeComponent],
   providers: [
     //AuthGuard,
     //{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
