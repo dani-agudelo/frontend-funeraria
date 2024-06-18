@@ -5,7 +5,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
-import { PaymentLayoutComponent } from "./layouts/payment-layout/payment-layout.component";
 import { HomeComponent } from "./layouts/home/home/home.component";
 import { PQRComponent } from "./layouts/pqr-layout/pqr.component";
 

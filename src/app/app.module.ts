@@ -14,7 +14,7 @@ import { AppRoutingModule } from "./app.routing";
 import { ComponentsModule } from "./components/components.module";
 import { AuthGuard } from "./guards/auth.guard";
 import { AuthInterceptor } from "./auth.interceptor";
-import { PaymentLayoutComponent } from './layouts/payment-layout/payment-layout.component';
+
 import { HomeComponent } from "./layouts/home/home/home.component";
 import { PQRComponent } from './layouts/pqr-layout/pqr.component';
 
@@ -28,7 +28,7 @@ import { PQRComponent } from './layouts/pqr-layout/pqr.component';
     RouterModule,
     AppRoutingModule,
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, PaymentLayoutComponent, HomeComponent, PQRComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, HomeComponent, PQRComponent],
   providers: [
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
