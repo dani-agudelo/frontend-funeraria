@@ -5,7 +5,6 @@ import { Routes, RouterModule } from "@angular/router";
 
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
-import { PaymentLayoutComponent } from "./layouts/payment-layout/payment-layout.component";
 
 const routes: Routes = [
   {
@@ -35,19 +34,6 @@ const routes: Routes = [
         loadChildren: () =>
           import("src/app/layouts/auth-layout/auth-layout.module").then(
             (m) => m.AuthLayoutModule,
-          ),
-      },
-    ],
-  },
-  {
-    path: "payment",
-    component: PaymentLayoutComponent,
-    children: [
-      {
-        path: "",
-        loadChildren: () =>
-          import("src/app/layouts/payment-layout/payment-layout.module").then(
-            (m) => m.PaymentLayoutModule,
           ),
       },
     ],

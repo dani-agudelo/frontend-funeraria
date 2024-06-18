@@ -13,7 +13,7 @@
         <div class="card-body">
           <form class="form" [formGroup]="theFormGroup">
             <div class="container d-grid gap-3">
-              <div *ngIf="mode!=2" class="row mb-1">
+              <div *ngIf="mode != 2" class="row mb-1">
                 <div class="col-4">Suscripción Id:</div>
                 <div class="col-8">
                   {{ subscription.id }}
@@ -21,92 +21,206 @@
               </div>
               <div class="row mb-1" *ngIf="customerId && !planId">
                 <div class="col-4">Plan:</div>
-                <div class="col-8" *ngIf="mode!=1">
-                  <select class="form-control" formControlName="idPlan" [(ngModel)]="subscription.plan.id">
-                    <option *ngFor="let option of plans" [value]="option.id">Id:
-                      {{option.id}} - Nombre: {{option.name}}
+                <div class="col-8" *ngIf="mode != 1">
+                  <select
+                    class="form-control"
+                    formControlName="idPlan"
+                    [(ngModel)]="subscription.plan.id"
+                  >
+                    <option *ngFor="let option of plans" [value]="option.id">
+                      Id: {{ option.id }} - Nombre: {{ option.name }}
                     </option>
                   </select>
                   <div
-                    *ngIf="getTheFormGroup.idPlan.errors && (getTheFormGroup.idPlan.dirty || getTheFormGroup.idPlan.touched ||trySend)">
-                    <strong *ngIf="getTheFormGroup.idPlan.errors.required" class="msnError">
-                      El plan es requerido</strong>
+                    *ngIf="
+                      getTheFormGroup.idPlan.errors &&
+                      (getTheFormGroup.idPlan.dirty ||
+                        getTheFormGroup.idPlan.touched ||
+                        trySend)
+                    "
+                  >
+                    <strong
+                      *ngIf="getTheFormGroup.idPlan.errors.required"
+                      class="msnError"
+                    >
+                      El plan es requerido</strong
+                    >
                   </div>
                 </div>
-                <div class="col-8" *ngIf="customerId && !planId && mode==1">
-                  {{subscription.plan.id}} - {{subscription.plan.name}}
+                <div class="col-8" *ngIf="customerId && !planId && mode == 1">
+                  {{ subscription.plan.id }} - {{ subscription.plan.name }}
                 </div>
               </div>
 
               <div class="row mb-1" *ngIf="!customerId && planId">
                 <div class="col-4">Cliente Id:</div>
-                <div class="col-8" *ngIf="mode!=1">
-                  <select class="form-control" formControlName="idCustomer" [(ngModel)]="subscription.customer.id">
-                    <option *ngFor="let option of customers" [value]="option.id">Id:
-                      {{option.id}} - Nombre: {{option.name}}
+                <div class="col-8" *ngIf="mode != 1">
+                  <select
+                    class="form-control"
+                    formControlName="idCustomer"
+                    [(ngModel)]="subscription.customer.id"
+                  >
+                    <option
+                      *ngFor="let option of customers"
+                      [value]="option.id"
+                    >
+                      Id: {{ option.id }} - Nombre: {{ option.name }}
                     </option>
                   </select>
                   <div
-                    *ngIf="getTheFormGroup.idCustomer.errors && (getTheFormGroup.idCustomer.dirty || getTheFormGroup.idCustomer.touched ||trySend)">
-                    <strong *ngIf="getTheFormGroup.idCustomer.errors.required" class="msnError">
-                      El cliente es requerido</strong>
+                    *ngIf="
+                      getTheFormGroup.idCustomer.errors &&
+                      (getTheFormGroup.idCustomer.dirty ||
+                        getTheFormGroup.idCustomer.touched ||
+                        trySend)
+                    "
+                  >
+                    <strong
+                      *ngIf="getTheFormGroup.idCustomer.errors.required"
+                      class="msnError"
+                    >
+                      El cliente es requerido</strong
+                    >
                   </div>
                 </div>
-                <div class="col-8" *ngIf="mode==1">
-                  {{subscription.customer.id}}
+                <div class="col-8" *ngIf="mode == 1">
+                  {{ subscription.customer.id }}
                 </div>
               </div>
 
               <div class="row mb-1">
                 <div class="col-4">Fecha de inicio:</div>
                 <div class="col-8">
-                  <input *ngIf="mode != 1" type="date" class="form-control" [(ngModel)]="subscription.start_date"
-                    formControlName="start_date" />
+                  <input
+                    *ngIf="mode != 1"
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="subscription.start_date"
+                    formControlName="start_date"
+                  />
                   <div>
                     <div
-                      *ngIf="getTheFormGroup.start_date.errors && (getTheFormGroup.start_date.dirty || getTheFormGroup.start_date.touched ||trySend)">
-                      <strong *ngIf="getTheFormGroup.start_date.errors.required" class="msnError">
-                        La fecha de inicio es requerida</strong>
+                      *ngIf="
+                        getTheFormGroup.start_date.errors &&
+                        (getTheFormGroup.start_date.dirty ||
+                          getTheFormGroup.start_date.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.start_date.errors.required"
+                        class="msnError"
+                      >
+                        La fecha de inicio es requerida</strong
+                      >
                     </div>
                   </div>
-                  <span *ngIf="mode == 1">{{subscription.start_date | date: 'dd/MM/yyyy'}}</span>
+                  <span *ngIf="mode == 1">{{
+                    subscription.start_date | date: "dd/MM/yyyy"
+                  }}</span>
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-4">Fecha Fin:</div>
                 <div class="col-8">
-                  <input *ngIf="mode!=1" type="date" class="form-control" [(ngModel)]="subscription.end_date"
-                    formControlName="end_date" />
+                  <input
+                    *ngIf="mode != 1"
+                    type="date"
+                    class="form-control"
+                    [(ngModel)]="subscription.end_date"
+                    formControlName="end_date"
+                  />
                   <div>
                     <div
-                      *ngIf="getTheFormGroup.end_date.errors && (getTheFormGroup.end_date.dirty || getTheFormGroup.end_date.touched ||trySend)">
-                      <strong *ngIf="getTheFormGroup.end_date.errors.required" class="msnError">
-                        La fecha de fin es requerida</strong>
+                      *ngIf="
+                        getTheFormGroup.end_date.errors &&
+                        (getTheFormGroup.end_date.dirty ||
+                          getTheFormGroup.end_date.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.end_date.errors.required"
+                        class="msnError"
+                      >
+                        La fecha de fin es requerida</strong
+                      >
                     </div>
                   </div>
-                  <span *ngIf="mode == 1">{{subscription.end_date | date: 'dd/MM/yyyy'}}</span>
+                  <span *ngIf="mode == 1">{{
+                    subscription.end_date | date: "dd/MM/yyyy"
+                  }}</span>
                 </div>
               </div>
 
               <div class="row mb-1">
                 <div class="col-4">Monto Mensual:</div>
                 <div class="col-8">
-                  <input *ngIf="mode!=1" type="number" class="form-control" [(ngModel)]="subscription.monthly_fee"
-                    formControlName="monthly_fee" />
+                  <input
+                    *ngIf="mode != 1"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="subscription.monthly_fee"
+                    formControlName="monthly_fee"
+                  />
                   <div>
                     <div
-                      *ngIf="getTheFormGroup.monthly_fee.errors && (getTheFormGroup.monthly_fee.dirty || getTheFormGroup.monthly_fee.touched ||trySend)">
-                      <strong *ngIf="getTheFormGroup.monthly_fee.errors.required" class="msnError">
-                        El monto es requerido</strong>
-                      <strong *ngIf="getTheFormGroup.monthly_fee.errors.min" class="msnError">El monto debe ser mayor
-                        a
-                        0
+                      *ngIf="
+                        getTheFormGroup.monthly_fee.errors &&
+                        (getTheFormGroup.monthly_fee.dirty ||
+                          getTheFormGroup.monthly_fee.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.monthly_fee.errors.required"
+                        class="msnError"
+                      >
+                        El monto es requerido</strong
+                      >
+                      <strong
+                        *ngIf="getTheFormGroup.monthly_fee.errors.min"
+                        class="msnError"
+                        >El monto debe ser mayor a 0
                       </strong>
-                      <strong *ngIf="getTheFormGroup.monthly_fee.errors.pattern" class="msnError">El monto debe ser un
-                        número</strong>
+                      <strong
+                        *ngIf="getTheFormGroup.monthly_fee.errors.pattern"
+                        class="msnError"
+                        >El monto debe ser un número</strong
+                      >
                     </div>
                   </div>
-                  <span *ngIf="mode == 1">${{subscription.monthly_fee}}</span>
+                  <span *ngIf="mode == 1">${{ subscription.monthly_fee }}</span>
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-4">Estado</div>
+                <div class="col-8">
+                  <select
+                    class="form-control"
+                    formControlName="status"
+                    [(ngModel)]="subscription.status"
+                  >
+                    <option value="1">Activo</option>
+                    <option value="0">Inactivo</option>
+                  </select>
+                  <div>
+                    <div
+                      *ngIf="
+                        getTheFormGroup.status.errors &&
+                        (getTheFormGroup.status.dirty ||
+                          getTheFormGroup.status.touched ||
+                          trySend)
+                      "
+                    >
+                      <strong
+                        *ngIf="getTheFormGroup.status.errors.required"
+                        class="msnError"
+                      >
+                        Status es requerido</strong
+                      >
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -114,13 +228,33 @@
                 <div class="col-4"></div>
                 <div class="col-8">
                   <div class="d-flex align-items-center justify-content-center">
-                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                    <button
+                      *ngIf="mode == 2"
+                      class="btn btn-primary btn-block"
+                      (click)="create()"
+                    >
                       Crear
                     </button>
-                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                    <button
+                      *ngIf="mode == 3"
+                      class="btn btn-primary btn-block"
+                      (click)="update()"
+                    >
                       Actualizar
                     </button>
                   </div>
+                </div>
+              </div>
+              <div *ngIf="mode == 1" class="mt-2">
+                <div class="d-flex align-items-center justify-content-center">
+                  <button
+                    type="button"
+                    class="btn btn-info mb-4 m-e2"
+                    (click)="pagos()"
+                  >
+                    Pagos
+                  </button>
+                  <div *ngIf="mode == 1" id="wallet_container"></div>
                 </div>
               </div>
             </div>

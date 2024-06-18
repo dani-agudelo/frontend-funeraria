@@ -1,24 +1,27 @@
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { MercadoPagoConfig, Preference } from "mercadopago";
+import { Observable } from "rxjs";
+import { Preference } from "../models/preference.model";
 import { environment } from "src/environments/environment";
 
 @Injectable({
   providedIn: "root",
 })
 export class MercadopagoService {
-  mercadopago: MercadoPagoConfig;
-  preference: Preference;
-
-  constructor() {
-    this.mercadopago = new MercadoPagoConfig({
-      accessToken: environment.MP_ACCESS_TOKEN,
-      options: { timeout: 5000, idempotencyKey: "abc" },
-    });
-
-    this.preference = new Preference(this.mercadopago);
+  baseUrl: string;
+  constructor(private http: HttpClient) {
+    this.baseUrl = environment.url_mp_api;
   }
 
-  createPreference(preference: any) {
-    return this.preference.create(preference);
+  createPreference(data: Preference): Observable<Preference> {
+    return this.http.post<Preference>(`${this.baseUrl}/preference`, data);
+  }
+
+  getPreference(id: string): Observable<Preference> {
+    return this.http.get<Preference>(`${this.baseUrl}/preference/${id}`);
+  }
+
+  getPayment(id: string): Observable<any> {
+    return this.http.get(`${this.baseUrl}/payment/${id}`);
   }
 }

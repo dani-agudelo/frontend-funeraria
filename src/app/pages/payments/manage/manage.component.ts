@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Payment } from 'src/app/models/payment.model';
-import { PaymentService } from 'src/app/services/payment.service';
-import Swal from 'sweetalert2';
+import { Payment } from "src/app/models/payment.model";
+import { PaymentService } from "src/app/services/payment.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-manage",
@@ -18,16 +18,17 @@ export class ManageComponent implements OnInit {
   customerId: number;
   planId: number;
   trySend: boolean;
-
+  restrict: boolean;
 
   constructor(
     private parent: ActivatedRoute,
     private service: PaymentService,
     private route: Router,
-    private theFormBuilder: FormBuilder,
+    private theFormBuilder: FormBuilder
   ) {
     this.mode = 1;
     this.trySend = false;
+    this.restrict = false;
 
     this.payment = {
       id: 1,
@@ -42,18 +43,16 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      amount: [
-        0,
-        [Validators.required, Validators.min(1)],
-      ],
+      amount: [0, [Validators.required, Validators.min(1)]],
       payment_method: [
         "",
-        [Validators.required, Validators.minLength(3), Validators.maxLength(50)],
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(50),
+        ],
       ],
-      payment_date: [
-        null,
-        [Validators.required],
-      ],
+      payment_date: [null, [Validators.required]],
     });
   }
 
@@ -62,6 +61,8 @@ export class ManageComponent implements OnInit {
     this.customerId = this.parent.snapshot.params.idCustomer;
     this.planId = this.parent.snapshot.params.idPlan;
     this.payment.subscription_id = this.subscriptionId;
+    this.restrict = !(this.customerId && this.planId);
+    
     const currentUrl = this.parent.snapshot.url.join("/");
     if (currentUrl.includes("view")) {
       this.theFormGroup.disable();
@@ -95,33 +96,46 @@ export class ManageComponent implements OnInit {
       return;
     }
 
-    this.service.create(this.payment).subscribe(() => {
-      Swal.fire(
-        "Creación exitosa",
-        "Se ha creado un nuevo registro",
-        "success",
-      );
-      if (this.customerId) {
-        this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
-      } else {
-        this.route.navigate(["plans", this.planId, "subscriptions", this.subscriptionId, "payments", "list"]);
-      }
-    }, error => {
-      console.error(error);
-      if (error.status === 422 && error.error.errors[0].rule === 'unique') {
+    this.service.create(this.payment).subscribe(
+      () => {
         Swal.fire(
-          "Error",
-          "Ya existe un pago para esta suscripción en la fecha seleccionada",
-          "error",
+          "Creación exitosa",
+          "Se ha creado un nuevo registro",
+          "success"
         );
-      } else {
-        Swal.fire(
-          "Error",
-          "Ocurrió un error al crear el registro",
-          "error",
-        );
+        if (this.customerId) {
+          this.route.navigate([
+            "customers",
+            this.customerId,
+            "subscriptions",
+            this.subscriptionId,
+            "payments",
+            "list",
+          ]);
+        } else {
+          this.route.navigate([
+            "plans",
+            this.planId,
+            "subscriptions",
+            this.subscriptionId,
+            "payments",
+            "list",
+          ]);
+        }
+      },
+      (error) => {
+        console.error(error);
+        if (error.status === 422 && error.error.errors[0].rule === "unique") {
+          Swal.fire(
+            "Error",
+            "Ya existe un pago para esta suscripción en la fecha seleccionada",
+            "error"
+          );
+        } else {
+          Swal.fire("Error", "Ocurrió un error al crear el registro", "error");
+        }
       }
-    });
+    );
   }
 
   update() {
@@ -135,12 +149,26 @@ export class ManageComponent implements OnInit {
       Swal.fire(
         "Actualización exitosa",
         "Pago actualizado correctamente",
-        "success",
+        "success"
       );
       if (this.customerId) {
-        this.route.navigate(["customers", this.customerId, "subscriptions", this.subscriptionId, "payments", "list"]);
+        this.route.navigate([
+          "customers",
+          this.customerId,
+          "subscriptions",
+          this.subscriptionId,
+          "payments",
+          "list",
+        ]);
       } else {
-        this.route.navigate(["plans", this.planId, "subscriptions", this.subscriptionId, "payments", "list"]);
+        this.route.navigate([
+          "plans",
+          this.planId,
+          "subscriptions",
+          this.subscriptionId,
+          "payments",
+          "list",
+        ]);
       }
     });
   }
