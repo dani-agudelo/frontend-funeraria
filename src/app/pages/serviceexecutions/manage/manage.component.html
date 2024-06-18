@@ -48,6 +48,24 @@
                   </select>
                 </div>
               </div>
+              <div class="row">
+                <div class="col-4">
+                    Sede
+                </div>
+                <div class="col-8">
+                    <select class="form-control" formControlName="idHeadquarter"
+                        [(ngModel)]="serviceExecution.headquarter.id">
+                        <option *ngFor="let option of headquarters" [value]="option.id">Id:
+                            {{option.id}} - Nombre: {{option.name}} - Ciudad:{{option.city}} </option>
+                    </select>
+                </div>
+              </div>
+              <div class="row mb-2" *ngIf="mode == 1">
+                <div class="col-4">Código:</div>
+                <div class="col-8">
+                  {{ serviceExecution.unique_code }}
+                </div>
+              </div>
               <div class="row mb-1">
                 <div class="col-4"></div>
                 <div class="col-8">

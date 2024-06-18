@@ -67,36 +67,6 @@
                 </div>
               </div>
               <div class="row mb-1">
-                <div class="col-4">Estado</div>
-                <div class="col-8">
-                  <select
-                    class="form-control"
-                    formControlName="sender"
-                    [(ngModel)]="message.sender"
-                  >
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                  </select>
-                  <div>
-                    <div
-                      *ngIf="
-                        getTheFormGroup.sender.errors &&
-                        (getTheFormGroup.sender.dirty ||
-                          getTheFormGroup.sender.touched ||
-                          trySend)
-                      "
-                    >
-                      <strong
-                        *ngIf="getTheFormGroup.sender.errors.required"
-                        class="msnError"
-                      >
-                        Sender es requerido</strong
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row mb-1">
                 <div class="col-4">Contenido</div>
                 <div class="col-8">
                   <textarea

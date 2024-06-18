@@ -14,6 +14,7 @@ import { SecurityService } from 'src/app/services/security.service';
 export class NavbarComponent implements OnInit {
   theUser: User;
   subscription: Subscription;
+  urlPhoto: string;
 
   public focus;
   public listTitles: any[];
@@ -35,8 +36,8 @@ export class NavbarComponent implements OnInit {
     // nos suscribimos al observable
     this.subscription = this.theSecurityService.getUser().subscribe(user => {
       this.theUser = user;
-      this.getUrlPhoto();
     });
+    this.getUrlPhoto();
   }
 
   getTitle(){
@@ -50,15 +51,18 @@ export class NavbarComponent implements OnInit {
             return this.listTitles[item].title;
         }
     }
-    return 'Dashboard';
+    return '';
   }
 
   getUrlPhoto() {
-    this.theUser.user_github = this.theSecurityService.getGithubProfileImage(this.theUser.user_github);
-    console.log(this.theUser.user_github);
+    this.urlPhoto = this.theSecurityService.getGithubProfileImage(this.theUser.user_github);
   }
 
   logout() {
     this.theSecurityService.logout();
+  }
+
+  request_service(){
+    this.router.navigate(['/request-service']);
   }
 }

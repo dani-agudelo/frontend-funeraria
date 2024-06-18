@@ -7,6 +7,8 @@ import { UserProfileComponent } from "../../pages/user-profile/user-profile.comp
 import { TablesComponent } from "../../pages/tables/tables.component";
 import { AuthGuard } from "src/app/guards/auth.guard";
 import { AdminGuard } from "src/app/guards/admin.guard";
+import { HomeComponent } from "../home/home/home.component";
+import { AppComponent } from "src/app/app.component";
 
 export const AdminLayoutRoutes: Routes = [
   {
@@ -99,4 +101,11 @@ export const AdminLayoutRoutes: Routes = [
         (m) => m.SubscriptionsModule,
       ),
   },
+  {
+    path: "chatsp",
+    loadChildren: () =>
+      import("../../pages/chat-prueba/chat-prueba.module").then(
+        (m) => m.ChatPruebaModule,
+      ),
+  }
 ];

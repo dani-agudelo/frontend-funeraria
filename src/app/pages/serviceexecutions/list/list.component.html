@@ -25,6 +25,7 @@
                 <th class="col-1">id</th>
                 <th class="col-3">customer id</th>
                 <th class="col-3">service id</th>
+                <th class="col-3">Código del servicio</th>
                 <th class="col-3">service name</th>
               </tr>
             </thead>
@@ -36,6 +37,7 @@
                 <td>{{ serviceexecution.id }}</td>
                 <td>{{ serviceexecution.customer_id }}</td>
                 <td>{{ serviceexecution.service_id }}</td>
+                <td>{{ serviceexecution.unique_code }}</td>
                 <td>{{ serviceexecution.service.name_service }}</td>
                 <td>
                   <button

@@ -1,6 +1,9 @@
-import { Component, OnInit } from "@angular/core";
-import { Router } from "@angular/router";
-import { SecurityService } from "src/app/services/security.service";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { User } from 'src/app/models/user.model';
+import { SecurityService } from 'src/app/services/security.service';
+import { WebSocketService } from 'src/app/services/web-socket.service';
 
 declare interface RouteInfo {
   path: string;
@@ -31,16 +34,20 @@ export const ROUTES: RouteInfo[] = [
   styleUrls: ["./sidebar.component.scss"],
 })
 export class SidebarComponent implements OnInit {
+
+  theUser: User;
+  subscription: Subscription;
   public menuItems: any[];
   public isCollapsed = true;
 
-  constructor(
-    private router: Router,
-    private securityService: SecurityService,
-  ) {}
+  constructor(private router: Router, private theSecurityService: SecurityService, private theWebSocketService: WebSocketService) { }
+
+  getSecurityService() {
+    return this.theSecurityService;
+  }
 
   ngOnInit() {
-    if (this.securityService.hasRole("Cliente")) {
+    if (this.theSecurityService.hasRole("Cliente")) {
       ROUTES.push({
         path: `/subscriptions`,
         title: "Suscripciones",
@@ -53,5 +60,12 @@ export class SidebarComponent implements OnInit {
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });
+    this.subscription = this.theSecurityService.getUser().subscribe(data => {
+      this.theUser = data;
+    });
+    // this.theWebSocketService.setNameEvent('news');
+    // this.theWebSocketService.callback.subscribe((data) => {
+    //   console.log('Llegando desde el backend' + JSON.stringify(data));
+    // })
   }
 }

@@ -4,6 +4,8 @@ import { Chat } from "src/app/models/chat.model";
 import { ChatService } from "src/app/services/chat.service";
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ServiceexecutionService } from "src/app/services/serviceexecution.service";
+import { get } from "http";
 
 @Component({
   selector: "app-manage",
@@ -22,6 +24,7 @@ export class ManageComponent implements OnInit {
     private parent: ActivatedRoute,
     private router: Router,
     private serviceChat: ChatService,
+    private serviceServiceExecution: ServiceexecutionService,
     private theFormBuilder: FormBuilder,
   ) {
     this.mode = 1;
@@ -32,6 +35,7 @@ export class ManageComponent implements OnInit {
     this.chat = {
       id: "",
       status: null,
+      code_chat: null,
       service_execution_id: this.parent.snapshot.params.idServiceExecution,
       service_execution: {},
     };
@@ -62,6 +66,7 @@ export class ManageComponent implements OnInit {
       this.mode = 1;
       this.theFormGroup.disable();
     } else if (currentUrl.includes("create")) {
+      this.getCodeByServiceExecution(this.chat.service_execution_id);
       this.mode = 2;
     } else if (currentUrl.includes("update")) {
       this.mode = 3;
@@ -80,6 +85,13 @@ export class ManageComponent implements OnInit {
   async getChat(id: string) {
     this.serviceChat.view(id).subscribe((data: Chat) => {
       this.chat = data;
+      console.log('viendo uno', this.chat);
+    });
+  }
+
+  async getCodeByServiceExecution(id: string) {
+    this.serviceServiceExecution.view(id).subscribe((data) => {
+      this.chat.code_chat = data.unique_code;
     });
   }
 
@@ -97,7 +109,8 @@ export class ManageComponent implements OnInit {
       this.trySend = true;
       return;
     }
-
+    this.getCodeByServiceExecution(this.chat.service_execution_id);
+    console.log(this.chat)
     this.serviceChat.create(this.chat).subscribe(() => {
       Swal.fire("¡Hecho!", "Chat creado exitosamente", "success");
       this.router.navigate([this.url, "list"]);

@@ -64,11 +64,7 @@ export class ManageComponent implements OnInit {
           Validators.minLength(1),
           Validators.maxLength(1000),
         ],
-      ],
-      sender: [
-        null,
-        [Validators.required, Validators.minLength(1), Validators.maxLength(1)],
-      ],
+      ]
     });
   }
 

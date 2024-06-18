@@ -1,8 +1,10 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Headquarter } from "src/app/models/headquarter.model";
 import { Service } from "src/app/models/service.model";
 import { Serviceexecution } from "src/app/models/serviceexecution.model";
+import { HeadquarterService } from "src/app/services/headquarter.service";
 import { ServiceexecutionService } from "src/app/services/serviceexecution.service";
 import { ServicesService } from "src/app/services/services.service";
 import Swal from "sweetalert2";
@@ -17,27 +19,33 @@ export class ManageComponent implements OnInit {
   serviceExecution: Serviceexecution;
   formGroup: FormGroup;
   services: Service[];
+  headquarters: Headquarter[];
   trySend: boolean;
   url: string;
 
   constructor(
     private service: ServiceexecutionService,
     private servicesService: ServicesService,
+    private headquarterService: HeadquarterService,
     private formBuilder: FormBuilder,
     private parent: ActivatedRoute,
     private router: Router,
   ) {
     this.mode = 1;
     this.services = [];
+    this.headquarters = [];
     this.trySend = false;
     this.url =
       this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
 
     this.serviceExecution = {
-      id: "",
+      id: null,
       customer_id: this.parent.snapshot.params.idCustomer,
-      service_id: "",
-    };
+      service_id: null,
+      headquarter: {
+        id: null
+      }
+    }
 
     this.configFormGroup();
   }
@@ -46,11 +54,13 @@ export class ManageComponent implements OnInit {
     this.formGroup = this.formBuilder.group({
       idCustomer: [null, Validators.required],
       idService: [null, Validators.required],
+      idHeadquarter: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.servicesList();
+    this.headquarterList();
     this.list();
   }
 
@@ -87,6 +97,14 @@ export class ManageComponent implements OnInit {
       console.log(data);
       this.services = data;
     });
+  }
+
+  headquarterList() {
+    this.headquarterService
+      .getHeadquarters().subscribe((data: Headquarter[]) => {
+        console.log(data);
+        this.headquarters = data;
+      });
   }
 
   create() {
