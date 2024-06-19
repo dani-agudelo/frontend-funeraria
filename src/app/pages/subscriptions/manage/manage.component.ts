@@ -13,6 +13,8 @@ import { SubscriptionsService } from "src/app/services/subscriptions.service";
 import { environment } from "src/environments/environment";
 import Swal from "sweetalert2";
 import { DatePipe } from "@angular/common";
+import { SecurityService } from "src/app/services/security.service";
+import { User } from "src/app/models/user.model";
 
 declare var window: any;
 @Component({
@@ -42,7 +44,8 @@ export class ManageComponent implements OnInit {
     private mercadopagoService: MercadopagoService,
     private paymentService: PaymentService,
     private route: Router,
-    private theFormBuilder: FormBuilder
+    private theFormBuilder: FormBuilder,
+    private securityService: SecurityService
   ) {
     this.datePipe = new DatePipe("en-US");
     this.mode = 1;
@@ -89,13 +92,13 @@ export class ManageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customersList();
     this.plansList();
 
     this.customerId = Number(this.parent.snapshot.params.idCustomer);
     this.planId = Number(this.parent.snapshot.params.idPlan);
 
     if (this.planId) {
+      this.customersList();
       this.subscription.plan.id = this.planId;
     }
     if (this.customerId) {
@@ -127,13 +130,13 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  addMercadopago() {
+  addMercadopago(user: User) {
     if (this.subscription.status) {
       return;
     }
 
     if (!this.preference) {
-      this.createPreference();
+      this.createPreference(user);
     }
 
     if (this.preference) {
@@ -151,40 +154,38 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  createPreference() {
+  createPreference(user: User) {
     const plan = this.plans.find((p) => p.id === this.subscription.plan.id);
-    const customer = this.customers.find(
-      (c) => c.id === this.subscription.customer.id
-    );
 
-    if (plan && customer) {
-      const preference = {
-        items: [
-          {
-            id: plan.id.toString(),
-            title: plan.name,
-            description: plan.description,
-            category_id: plan.id.toString(),
-            quantity: 1,
-            unit_price: this.subscription.monthly_fee,
-          },
-        ],
-        payer: { name: customer.name, email: customer.email },
-        external_reference: `SUB_${this.subscription.id}`,
-        back_urls: {
-          success: `${environment.host}/subscriptions/${this.subscription.id}/success`,
-          pending: `${environment.host}/subscriptions/${this.subscription.id}/pending`,
-          failure: `${environment.host}/subscriptions/${this.subscription.id}/failure`,
+    console.log(plan);
+    console.log(user);
+
+    const preference = {
+      items: [
+        {
+          id: plan.id.toString(),
+          title: plan.name,
+          description: plan.description,
+          category_id: plan.id.toString(),
+          quantity: 1,
+          unit_price: this.subscription.monthly_fee,
         },
-      };
+      ],
+      payer: { name: user.name, email: user.email },
+      external_reference: `SUB_${this.subscription.id}`,
+      back_urls: {
+        success: `${environment.host}/subscriptions/${this.subscription.id}/success`,
+        pending: `${environment.host}/subscriptions/${this.subscription.id}/pending`,
+        failure: `${environment.host}/subscriptions/${this.subscription.id}/failure`,
+      },
+    };
 
-      this.mercadopagoService
-        .createPreference(preference)
-        .subscribe((data: any) => {
-          this.preference = data.id;
-          this.addMercadopago();
-        });
-    }
+    this.mercadopagoService
+      .createPreference(preference)
+      .subscribe((data: any) => {
+        this.preference = data.id;
+        this.addMercadopago(user);
+      });
   }
 
   get getTheFormGroup() {
@@ -206,8 +207,10 @@ export class ManageComponent implements OnInit {
   getSubscription(id: string) {
     this.serviceSubscription.view(id).subscribe((data: Subscriptions) => {
       this.subscription = data;
-      if (this.mode === 1) {
-        this.addMercadopago();
+      if (this.mode === 1 && this.subscription) {
+        this.securityService.getUser().subscribe((user: User) => {
+          this.addMercadopago(user);
+        });
       }
     });
   }
@@ -309,6 +312,7 @@ export class ManageComponent implements OnInit {
           };
           this.paymentService.create(payment).subscribe(() => {
             this.subscription.status = true;
+
             this.subscription.reference = data.id;
             this.serviceSubscription.update(this.subscription).subscribe(() => {
               Swal.fire(

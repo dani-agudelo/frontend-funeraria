@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
     private securityService: SecurityService,
     private service: SubscriptionsService,
     private parent: ActivatedRoute,
-    private router: Router,
+    private router: Router
   ) {
     this.subscriptions = [];
     this.restrict = false;
@@ -35,6 +35,8 @@ export class ListComponent implements OnInit {
     // we get the customer id from the parent route
     this.customerId = this.parent.snapshot.params.idCustomer;
     this.planId = this.parent.snapshot.params.idPlan;
+    this.restrict = !(this.customerId || this.planId);
+
     if (this.customerId) {
       // we get the subscriptions by customer
       this.service
@@ -53,8 +55,6 @@ export class ListComponent implements OnInit {
         });
     } else {
       this.securityService.getCustomer().subscribe((customer: Customer) => {
-        this.restrict = true;
-
         if (customer) {
           this.service
             .getSubscriptionsByCustomer(customer.id.toString())
@@ -63,12 +63,12 @@ export class ListComponent implements OnInit {
             });
         }
       });
+    }
 
-      if (this.restrict) {
-        this.service.getSubscriptions().subscribe((data: Subscriptions[]) => {
-          this.subscriptions = data;
-        });
-      }
+    if (!this.restrict) {
+      this.service.getSubscriptions().subscribe((data: Subscriptions[]) => {
+        this.subscriptions = data;
+      });
     }
   }
 
@@ -141,7 +141,7 @@ export class ListComponent implements OnInit {
             Swal.fire(
               "Eliminado!",
               "El registro ha sido eliminado.",
-              "success",
+              "success"
             );
             this.ngOnInit();
           },
