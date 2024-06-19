@@ -109,6 +109,14 @@ export const AdminLayoutRoutes: Routes = [
       ),
   },
   {
+    path: "pqrs",
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () =>
+      import("../../pages/pqrs/pqrs.module").then(
+        (m) => m.PqrsModule,
+      ),
+  },
+  {
     path: "request-service",
     // canActivate: [AuthGuard],
     loadChildren: () =>

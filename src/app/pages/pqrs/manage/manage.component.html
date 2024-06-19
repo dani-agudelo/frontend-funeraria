@@ -1,0 +1,113 @@
+<div class="header bg-gradient-danger pb-8 pt-5 pt-md-8"></div>
+<!-- Page content -->
+<div class="container-fluid mt--7">
+  <!-- Table -->
+  <div class="row">
+    <div class="col">
+      <div class="card shadow">
+        <div class="card-header bg-transparent">
+          <h3 *ngIf="mode == 1" class="mb-0">Visualizar</h3>
+          <h3 *ngIf="mode == 2" class="mb-0">Crear</h3>
+          <h3 *ngIf="mode == 3" class="mb-0">Actualizar</h3>
+        </div>
+        <div class="card-body">
+          <form class="form" [formGroup]="theFormGroup">
+            <div class="container d-grid gap-3">
+              <div *ngIf="mode!=2" class="row mb-2">
+                <div class="col-4">Id PQR:</div>
+                <div class="col-8">
+                  {{ pqr.id }}
+                </div>
+              </div>
+              <div class="row mb-1">
+                <div class="col-4">Nombre:</div>
+                <div class="col-8">
+                  <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="pqr.name"
+                    formControlName="name" />
+                  <div>
+                    <div *ngIf="
+                        getTheFormGroup.name.errors &&
+                        (getTheFormGroup.name.dirty ||
+                          getTheFormGroup.name.touched ||
+                          trySend)
+                      ">
+                      <strong *ngIf="getTheFormGroup.name.errors.required" class="msnError">
+                        Nombre es requerido</strong>
+                      <strong *ngIf="getTheFormGroup.name.errors.minlength" class="msnError">Inválido</strong>
+                      <strong *ngIf="getTheFormGroup.name.errors.maxlength" class="msnError">
+                        Invalido
+                      </strong>
+                    </div>
+                  </div>
+                  <span *ngIf="mode == 1">{{pqr.name}}</span>
+                </div>
+              </div>
+
+                <div class="row mb-1">
+                    <div class="col-4">Correo:</div>
+                    <div class="col-8">
+                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="pqr.email"
+                        formControlName="email" />
+                    <div>
+                        <div *ngIf="
+                            getTheFormGroup.email.errors &&
+                            (getTheFormGroup.email.dirty ||
+                            getTheFormGroup.email.touched ||
+                            trySend)
+                        ">
+                        <strong *ngIf="getTheFormGroup.email.errors.required" class="msnError">
+                            Correo es requerido</strong>
+                        <strong *ngIf="getTheFormGroup.email.errors.minlength" class="msnError">Inválido</strong>
+                        <strong *ngIf="getTheFormGroup.email.errors.maxlength" class="msnError">
+                            Invalido
+                        </strong>
+                        </div>
+                    </div>
+                    <span *ngIf="mode == 1">{{pqr.email}}</span>
+                    </div>
+                </div>
+
+                <div class="row mb-1">
+                    <div class="col-4">Mensaje:</div>
+                    <div class="col-8">
+                    <input *ngIf="mode!=1" type="text" class="form-control" [(ngModel)]="pqr.message"
+                        formControlName="message" />
+                    <div>
+                        <div *ngIf="
+                            getTheFormGroup.message.errors &&
+                            (getTheFormGroup.message.dirty ||
+                            getTheFormGroup.message.touched ||
+                            trySend)
+                        ">
+                        <strong *ngIf="getTheFormGroup.message.errors.required" class="msnError">
+                            Mensaje es requerido</strong>
+                        <strong *ngIf="getTheFormGroup.message.errors.minlength" class="msnError">Inválido</strong>
+                        <strong *ngIf="getTheFormGroup.message.errors.maxlength" class="msnError">
+                            Invalido
+                        </strong>
+                        </div>
+                    </div>
+                    <span *ngIf="mode == 1">{{pqr.message}}</span>
+                    </div>
+                </div>
+
+              <div class="row mb-1">
+                <div class="col-4"></div>
+                <div class="col-8">
+                  <div class="d-flex align-items-center justify-content-center">
+                    <button *ngIf="mode == 2" class="btn btn-primary btn-block" (click)="create()">
+                      Crear
+                    </button>
+                    <button *ngIf="mode == 3" class="btn btn-primary btn-block" (click)="update()">
+                      Actualizar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
