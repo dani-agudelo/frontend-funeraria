@@ -1,0 +1,22 @@
+.navbar {
+    background-color: #cfac7d;
+    /* Beige más oscuro */
+}
+
+.navbar-brand,
+.nav-link {
+    color: #FFFFFF !important;
+    /* Color del texto */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    /* Sombreado del texto */
+}
+
+.nav-link:hover {
+    color: #7A5A3B !important;
+    /* Color del texto al pasar el mouse */
+}
+
+.navbar-nav {
+    margin-left: 300px;
+    justify-content: center;
+}

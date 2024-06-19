@@ -115,5 +115,5 @@ export const AdminLayoutRoutes: Routes = [
       import("../../pages/request-service/request-service.module").then(
         (m) => m.RequestServiceModule,
       ),
-  }
+  },
 ];

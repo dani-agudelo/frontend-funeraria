@@ -10,7 +10,13 @@ import { PQRComponent } from "./layouts/pqr-layout/pqr.component";
 
 const routes: Routes = [
 
-  { path: 'home', component: HomeComponent },
+  // {
+  //   path: 'home',
+  //   loadChildren: () =>
+  //     import("src/app/layouts/home/home.module").then(
+  //       (m) => m.HomeModule,
+  //     ),
+  // },
   { path: 'pqr', component: PQRComponent },
 
   {
@@ -69,4 +75,4 @@ const routes: Routes = [
   ],
   exports: [],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
