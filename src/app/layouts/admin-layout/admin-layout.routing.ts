@@ -107,5 +107,13 @@ export const AdminLayoutRoutes: Routes = [
       import("../../pages/chat-prueba/chat-prueba.module").then(
         (m) => m.ChatPruebaModule,
       ),
+  },
+  {
+    path: "pqrs",
+    canActivate: [AuthGuard, AdminGuard],
+    loadChildren: () =>
+      import("../../pages/pqrs/pqrs.module").then(
+        (m) => m.PqrsModule,
+      ),
   }
 ];
