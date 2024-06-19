@@ -107,5 +107,13 @@ export const AdminLayoutRoutes: Routes = [
       import("../../pages/chat-prueba/chat-prueba.module").then(
         (m) => m.ChatPruebaModule,
       ),
+  },
+  {
+    path: "request-service",
+    // canActivate: [AuthGuard],
+    loadChildren: () =>
+      import("../../pages/request-service/request-service.module").then(
+        (m) => m.RequestServiceModule,
+      ),
   }
 ];

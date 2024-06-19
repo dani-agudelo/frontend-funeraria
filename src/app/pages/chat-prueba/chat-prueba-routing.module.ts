@@ -3,8 +3,8 @@ import { RouterModule, Routes } from '@angular/router';
 import { ChatpComponent } from './chatp/chatp.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'chatp', pathMatch: 'full' },
-  { path: "list", component: ChatpComponent },
+  { path: '', redirectTo: 'chatsp', pathMatch: 'full' },
+  { path: "", component: ChatpComponent },
 ];
 
 @NgModule({
