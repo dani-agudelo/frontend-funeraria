@@ -6,7 +6,7 @@ import { Routes, RouterModule } from "@angular/router";
 import { AdminLayoutComponent } from "./layouts/admin-layout/admin-layout.component";
 import { AuthLayoutComponent } from "./layouts/auth-layout/auth-layout.component";
 import { HomeComponent } from "./layouts/home/home/home.component";
-import { PQRComponent } from "./layouts/pqr-layout/pqr.component";
+import { PQRComponent } from "./pages/pqr-layout/pqr.component";
 
 const routes: Routes = [
 
@@ -17,7 +17,6 @@ const routes: Routes = [
   //       (m) => m.HomeModule,
   //     ),
   // },
-  { path: 'pqr', component: PQRComponent },
 
   {
     path: "",

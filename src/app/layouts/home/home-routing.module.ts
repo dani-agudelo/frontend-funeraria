@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { SectionHomeComponent } from 'src/app/components/section-home/section-home.component';
+import { PQRComponent } from 'src/app/pages/pqr-layout/pqr.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -16,6 +17,10 @@ const routes: Routes = [
         (m) => m.VerifyChatModule,
       ),
   },
+  {
+    path: "pqr",
+    component: PQRComponent,
+  }
 ];
 
 @NgModule({
