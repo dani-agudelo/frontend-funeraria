@@ -42,7 +42,6 @@ export class ListComponent implements OnInit {
       this.service
         .getSubscriptionsByCustomer(this.customerId)
         .subscribe((data: Subscriptions[]) => {
-          console.log("de cliente", data);
           this.subscriptions = data;
         });
     } else if (this.planId) {
@@ -62,12 +61,6 @@ export class ListComponent implements OnInit {
               this.subscriptions = data;
             });
         }
-      });
-    }
-
-    if (!this.restrict) {
-      this.service.getSubscriptions().subscribe((data: Subscriptions[]) => {
-        this.subscriptions = data;
       });
     }
   }
