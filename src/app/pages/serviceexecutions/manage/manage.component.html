@@ -20,24 +20,18 @@
                 </div>
               </div>
               <div class="row mb-1">
-                <div class="col-4">User id</div>
+                <div class="col-4">Cliente id</div>
                 <div class="col-8">
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="idCustomer"
-                    [(ngModel)]="serviceExecution.customer_id"
-                    disabled
-                  />
+                  {{serviceExecution.customer_id}}
                 </div>
               </div>
               <div class="row mb-1">
                 <div class="col-4">Servicio</div>
-                <div class="col-8">
+                <div class="col-8" *ngIf="mode!=1">
                   <select
                     class="form-control"
                     formControlName="idService"
-                    [(ngModel)]="serviceExecution.service_id"
+                    [(ngModel)]="serviceExecution.service.id"
                   >
                     <option
                       *ngFor="let service of services"
@@ -47,19 +41,42 @@
                     </option>
                   </select>
                 </div>
+                <div class="col-8" *ngIf="mode==1">
+                  {{serviceExecution.service.name_service}}
+                </div>
               </div>
-              <div class="row">
+              <div class="row mb-2" *ngIf="showHeadquarterAndRoom">
                 <div class="col-4">
                     Sede
                 </div>
-                <div class="col-8">
+                <div class="col-8" *ngIf="mode!=1">
                     <select class="form-control" formControlName="idHeadquarter"
                         [(ngModel)]="serviceExecution.headquarter.id">
                         <option *ngFor="let option of headquarters" [value]="option.id">Id:
                             {{option.id}} - Nombre: {{option.name}} - Ciudad:{{option.city}} </option>
                     </select>
                 </div>
+                <div class="col-8" *ngIf="mode==1">
+                  {{serviceExecution.headquarter.id}} - {{serviceExecution.headquarter.name}}- {{serviceExecution.headquarter.city}}
+                </div>
               </div>
+
+              <div class="row mb-2" *ngIf="showHeadquarterAndRoom">
+                <div class="col-4">
+                    Sala
+                </div>
+                <div class="col-8" *ngIf="mode!=1">
+                    <select class="form-control" formControlName="idRoom"
+                        [(ngModel)]="serviceExecution.room.id">
+                        <option *ngFor="let option of rooms" [value]="option.id">Nombre:
+                          {{option.room_name}} - Capacidad: {{option.room_capacity}} - Disponible: {{option.is_available ? 'Sí' : 'No'}} </option>
+                    </select>
+                </div>
+                <div class="col-8" *ngIf="mode==1">
+                  {{serviceExecution.room.name}} - {{serviceExecution.room.capacity}}
+                </div>
+              </div>
+              
               <div class="row mb-2" *ngIf="mode == 1">
                 <div class="col-4">Código:</div>
                 <div class="col-8">

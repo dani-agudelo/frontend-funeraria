@@ -4,6 +4,5 @@ export class Relocation {
     destination?: string;
     date?: Date;
     price?: number;
-    is_available?: boolean;
     service_id?: number;
   }

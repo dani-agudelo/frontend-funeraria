@@ -34,7 +34,7 @@
               <tr *ngFor="let sub of subscriptions">
                 <td>{{ sub.id }}</td>
                 <td>{{ sub.start_date | date: 'dd/MM/yyyy' }}</td>
-                <td>La suscripción es vigente</td>
+                <td>{{ sub.end_date | date: 'dd/MM/yyyy' }}</td>
                 <td>${{ sub.monthly_fee }}</td>
                 <td>
                   <button type="button" class="btn btn-primary" (click)="view(sub.id)">

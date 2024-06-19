@@ -38,4 +38,8 @@ export class HeadquarterService {
   getCities(): Observable<any> {
     return this.http.get<any>(this.urlCities);
   }
+
+  getRoomsByHeadquarter(id: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/${id}/rooms`);
+  }
 }

@@ -52,25 +52,20 @@ export class ManageComponent implements OnInit {
       destination: '',
       date: new Date(),
       price: 0,
-      is_available: false,
     };
 
 
     this.cremation = {
       id: 0,
-      location: '',
       date: new Date(),
       price: 0,
-      is_available: false
     };
 
     this.sepulture = {
       id: 0,
       description: '',
-      cemetery_name: '',
       sepulture_type: '',
       price: 0,
-      is_available: false
     };
 
     this.configFormGroup();

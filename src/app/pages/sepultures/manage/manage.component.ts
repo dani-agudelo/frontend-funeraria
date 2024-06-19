@@ -34,11 +34,8 @@ export class ManageComponent implements OnInit {
     this.sepulture = {
       id: 0,
       description: '',
-      cemetery_name: '',
       sepulture_type: '',
       price: null,
-      is_available: null,
-      room_id: 0,
       service_id: 0,
     };
     this.configFormGroup();
@@ -57,7 +54,6 @@ export class ManageComponent implements OnInit {
   ngOnInit(): void {
     this.roomId = Number(this.parent.snapshot.params.idRoom);
     this.headquarterId = this.parent.snapshot.params.idHeadquarter;
-    this.sepulture.room_id = this.roomId;
     this.serviceService.getServiceByName("Sepulture").subscribe((dataService: Service) => {
       console.log(dataService[0])
       this.sepulture.service_id = dataService[0].id;
@@ -101,8 +97,8 @@ export class ManageComponent implements OnInit {
     this.serviceSepulture.view(id).subscribe((data: Sepulture) => {
       console.log(data);
       this.sepulture = data;
-      const isAvailable = this.sepulture.is_available ? true : false;
-      this.theFormGroup.get('is_available').setValue(isAvailable);
+      // const isAvailable = this.sepulture.is_available ? true : false;
+      // this.theFormGroup.get('is_available').setValue(isAvailable);
     });
   }
 

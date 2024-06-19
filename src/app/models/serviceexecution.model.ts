@@ -1,5 +1,6 @@
 import { Customer } from "./customer.model";
 import { Headquarter } from "./headquarter.model";
+import { Room } from "./room.model";
 import { Service } from "./service.model";
 
 export class Serviceexecution {
@@ -10,5 +11,7 @@ export class Serviceexecution {
   service?: Service;
   headquarter_id?: number;
   headquarter?: Headquarter;
+  room_id?: number;
+  room?: Room;
   customer?: Customer;
 }

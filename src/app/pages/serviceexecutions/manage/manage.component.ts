@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Headquarter } from "src/app/models/headquarter.model";
+import { Room } from "src/app/models/room.model";
 import { Service } from "src/app/models/service.model";
 import { Serviceexecution } from "src/app/models/serviceexecution.model";
 import { HeadquarterService } from "src/app/services/headquarter.service";
@@ -20,8 +21,10 @@ export class ManageComponent implements OnInit {
   formGroup: FormGroup;
   services: Service[];
   headquarters: Headquarter[];
+  rooms: Room[];
   trySend: boolean;
   url: string;
+  showHeadquarterAndRoom: boolean;
 
   constructor(
     private service: ServiceexecutionService,
@@ -34,6 +37,7 @@ export class ManageComponent implements OnInit {
     this.mode = 1;
     this.services = [];
     this.headquarters = [];
+    this.rooms = [];
     this.trySend = false;
     this.url =
       this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
@@ -41,8 +45,13 @@ export class ManageComponent implements OnInit {
     this.serviceExecution = {
       id: null,
       customer_id: this.parent.snapshot.params.idCustomer,
-      service_id: null,
+      service: {
+        id: null
+      },
       headquarter: {
+        id: null
+      },
+      room:{
         id: null
       }
     }
@@ -52,21 +61,26 @@ export class ManageComponent implements OnInit {
 
   configFormGroup() {
     this.formGroup = this.formBuilder.group({
-      idCustomer: [null, Validators.required],
       idService: [null, Validators.required],
       idHeadquarter: [null, Validators.required],
+      idRoom: [null, Validators.required],
     });
   }
 
   ngOnInit(): void {
     this.servicesList();
     this.headquarterList();
+    this.roomListByHeadquarter();
+    this.showHeadquarterAndRoomByService();
     this.list();
   }
 
   get getFormGroup() {
+    console.log(this.formGroup.controls);
     return this.formGroup.controls;
   }
+
+  
 
   list() {
     const currentUrl = this.parent.snapshot.url.join("/");
@@ -89,6 +103,7 @@ export class ManageComponent implements OnInit {
   getServiceExecution(id: string) {
     this.service.view(id).subscribe((data: Serviceexecution) => {
       this.serviceExecution = data;
+      console.log('sev', this.serviceExecution);
     });
   }
 
@@ -107,13 +122,52 @@ export class ManageComponent implements OnInit {
       });
   }
 
+  showHeadquarterAndRoomByService() {
+    this.formGroup.controls.idService.valueChanges.subscribe((value) => {
+      if (value !== null && value !== undefined) {
+        this.servicesService.view(value.toString()).subscribe((data: Service) => {
+          console.log(data);
+          this.showHeadquarterAndRoom = data.name_service !== 'Traslado';
+  
+          // Si el servicio es 'Traslado', elimina las validaciones de 'Sede' y 'Sala'
+          if (data.name_service === 'Traslado') {
+            this.formGroup.controls.idHeadquarter.clearValidators();
+            this.formGroup.controls.idRoom.clearValidators();
+          } else {
+            // Si el servicio no es 'Traslado', agrega las validaciones necesarias
+            this.formGroup.controls.idHeadquarter.setValidators([Validators.required]);
+            this.formGroup.controls.idRoom.setValidators([Validators.required]);
+          }
+  
+          // Actualiza el estado de las validaciones
+          this.formGroup.controls.idHeadquarter.updateValueAndValidity();
+          this.formGroup.controls.idRoom.updateValueAndValidity();
+        })
+      }
+    });
+  }
+
+  roomListByHeadquarter() {
+    this.formGroup.controls.idHeadquarter.valueChanges.subscribe((value) => {
+      console.log(value)
+      if (value) {
+        this.headquarterService
+          .getRoomsByHeadquarter(value).subscribe((data: Room[]) => {
+            console.log('rooms de headquarter', data);
+            this.rooms = data;
+          });
+      }
+    });
+  }
+
   create() {
     if (this.formGroup.invalid) {
+      console.log(this.formGroup.controls);
       this.trySend = true;
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
-
+    console.log(this.serviceExecution)
     this.service.create(this.serviceExecution).subscribe(() => {
       this.router.navigate([this.url, "list"]);
     });

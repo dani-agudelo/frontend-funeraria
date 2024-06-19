@@ -27,7 +27,7 @@ export class ManageComponent implements OnInit {
     this.trySend = false;
 
     this.headquarter = {
-      id: "",
+      id:null,
       name: "",
       adress: "",
       city: "",
@@ -91,7 +91,7 @@ export class ManageComponent implements OnInit {
 
     if (this.parent.snapshot.params.id) {
       this.headquarter.id = this.parent.snapshot.params.id;
-      this.getHeadquarter(this.headquarter.id);
+      this.getHeadquarter(this.headquarter.id.toString());
     }
   }
 

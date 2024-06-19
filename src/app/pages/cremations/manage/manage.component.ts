@@ -33,11 +33,8 @@ export class ManageComponent implements OnInit {
 
     this.cremation = {
       id: 0,
-      location: '',
       date: null,
       price: null,
-      is_available: null,
-      room_id: 0,
       service_id: 0,
     };
     this.configFormGroup();
@@ -55,7 +52,6 @@ export class ManageComponent implements OnInit {
   ngOnInit(): void {
     this.roomId = Number(this.parent.snapshot.params.idRoom);
     this.headquarterId = this.parent.snapshot.params.idHeadquarter;
-    this.cremation.room_id = this.roomId;
     this.serviceService.getServiceByName("Cremation").subscribe((dataService: Service) => {
       console.log(dataService[0])
       this.cremation.service_id = dataService[0].id;
@@ -98,8 +94,8 @@ export class ManageComponent implements OnInit {
     this.serviceCremation.view(id).subscribe((data: Cremation) => {
       console.log(data);
       this.cremation = data;
-      const isAvailable = this.cremation.is_available ? true : false;
-      this.theFormGroup.get('is_available').setValue(isAvailable);
+      // const isAvailable = this.cremation.is_available ? true : false;
+      // this.theFormGroup.get('is_available').setValue(isAvailable);
     });
   }
 
