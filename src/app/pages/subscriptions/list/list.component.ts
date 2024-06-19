@@ -49,7 +49,6 @@ export class ListComponent implements OnInit {
       this.service
         .getSubscriptionsByPlan(this.planId)
         .subscribe((data: Subscriptions[]) => {
-          console.log("de plan", data);
           this.subscriptions = data;
         });
     } else {
