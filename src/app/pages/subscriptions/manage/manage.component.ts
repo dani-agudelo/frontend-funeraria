@@ -15,6 +15,7 @@ import Swal from "sweetalert2";
 import { DatePipe } from "@angular/common";
 import { SecurityService } from "src/app/services/security.service";
 import { User } from "src/app/models/user.model";
+import { NotificationService } from "src/app/services/notification.service";
 
 declare var window: any;
 @Component({
@@ -45,7 +46,8 @@ export class ManageComponent implements OnInit {
     private paymentService: PaymentService,
     private route: Router,
     private theFormBuilder: FormBuilder,
-    private securityService: SecurityService
+    private securityService: SecurityService,
+    private notificationService: NotificationService
   ) {
     this.datePipe = new DatePipe("en-US");
     this.mode = 1;
@@ -130,7 +132,7 @@ export class ManageComponent implements OnInit {
     }
   }
 
-  addMercadopago(user: User) {
+  async addMercadopago(user: User) {
     if (this.subscription.status) {
       return;
     }
@@ -140,10 +142,10 @@ export class ManageComponent implements OnInit {
     }
 
     if (this.preference) {
-      this.mp.bricks().create("wallet", "wallet_container", {
+      await this.mp.bricks().create("wallet", "wallet_container", {
         initialization: {
           preferenceId: this.preference,
-          redirectMode: "modal",
+          redirectMode: "self",
         },
         customization: {
           texts: {
@@ -156,10 +158,7 @@ export class ManageComponent implements OnInit {
 
   createPreference(user: User) {
     const plan = this.plans.find((p) => p.id === this.subscription.plan.id);
-
-    console.log(plan);
-    console.log(user);
-
+    
     const preference = {
       items: [
         {
@@ -295,6 +294,12 @@ export class ManageComponent implements OnInit {
   }
 
   success() {
+    if (this.subscription.status) {
+      this.route.navigate(["subscriptions", this.subscription.id, "payments"]);
+      Swal.fire("Error", "El pago ya ha sido realizado anteriormente", "error");
+      return;
+    }
+
     const paymentid = this.parent.snapshot.queryParams.payment_id;
 
     this.mercadopagoService.getPayment(paymentid).subscribe((data: any) => {
@@ -310,17 +315,27 @@ export class ManageComponent implements OnInit {
             payment_date: this.datePipe.transform(date_approved, "yyyy-MM-dd"),
             subscription_id: Number(this.subscription.id),
           };
+
           this.paymentService.create(payment).subscribe(() => {
             this.subscription.status = true;
 
             this.subscription.reference = data.id;
             this.serviceSubscription.update(this.subscription).subscribe(() => {
+              this.securityService.getUser().subscribe((u: User) => {
+                this.notificationService
+                  .sendInvoice({
+                    username: u.name,
+                    email: u.email,
+                    payment_info: data,
+                  })
+                  .subscribe();
+              });
+
               Swal.fire(
                 "Pago exitoso",
                 "El pago ha sido realizado exitosamente",
                 "success"
               );
-
               this.route.navigate([
                 "subscriptions",
                 this.subscription.id,

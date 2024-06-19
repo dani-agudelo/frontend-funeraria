@@ -42,12 +42,6 @@ export class ListComponent implements OnInit {
           this.payments = data;
         });
     }
-
-    if (!this.restrict) {
-      this.service.getPayments().subscribe((data: Payment[]) => {
-        this.payments = data;
-      });
-    }
   }
 
   create() {
