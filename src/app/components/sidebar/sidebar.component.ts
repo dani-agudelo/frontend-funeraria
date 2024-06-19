@@ -16,15 +16,14 @@ export const ROUTES: RouteInfo[] = [
     path: "/dashboard",
     title: "Dashboard",
     icon: "ni-tv-2 text-primary",
-    class: "",
+    class: "2",
   },
-  { path: "/icons", title: "Icons", icon: "ni-planet text-blue", class: "" },
-  { path: "/maps", title: "Maps", icon: "ni-pin-3 text-orange", class: "" },
+  { path: "/icons", title: "Icons", icon: "ni-planet text-blue", class: "2" },
   {
     path: "/user-profile",
-    title: "User profile",
+    title: "Perfil",
     icon: "ni-single-02 text-yellow",
-    class: "",
+    class: "1",
   },
 ];
 
@@ -37,7 +36,7 @@ export class SidebarComponent implements OnInit {
   theUser: User;
   subscription: Subscription;
   public menuItems: any[];
-  public isCollapsed = true;
+  public isCollapsed = true  ;
 
   constructor(
     private router: Router,
@@ -55,10 +54,9 @@ export class SidebarComponent implements OnInit {
         path: `/subscriptions`,
         title: "Suscripciones",
         icon: "ni-bullet-list-67 text-red",
-        class: "",
+        class: "2",
       });
     }
-
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;

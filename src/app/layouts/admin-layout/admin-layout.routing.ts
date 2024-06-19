@@ -115,5 +115,13 @@ export const AdminLayoutRoutes: Routes = [
       import("../../pages/pqrs/pqrs.module").then(
         (m) => m.PqrsModule,
       ),
+  },
+  {
+    path: "request-service",
+    // canActivate: [AuthGuard],
+    loadChildren: () =>
+      import("../../pages/request-service/request-service.module").then(
+        (m) => m.RequestServiceModule,
+      ),
   }
 ];
