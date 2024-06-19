@@ -12,20 +12,26 @@ declare interface RouteInfo {
   class: string;
 }
 export const ROUTES: RouteInfo[] = [
-  // 1-> si hay sesion, 0-> no hay 2-> no importa
-  { path: '/dashboard', title: 'Dashboard', icon: 'ni-tv-2 text-primary', class: '2' },
-  { path: '/icons', title: 'Icons', icon: 'ni-planet text-blue', class: '2' },
-  { path: '/maps', title: 'Maps', icon: 'ni-pin-3 text-orange', class: '2' },
-  { path: '/user-profile', title: 'User profile', icon: 'ni-single-02 text-yellow', class: '1' },
-  { path: '/tables', title: 'Tables', icon: 'ni-bullet-list-67 text-red', class: '2' },
-  { path: '/login', title: 'Login', icon: 'ni-key-25 text-info', class: '0' },
-  { path: '/register', title: 'Register', icon: 'ni-circle-08 text-pink', class: '0' }
+  {
+    path: "/dashboard",
+    title: "Dashboard",
+    icon: "ni-tv-2 text-primary",
+    class: "",
+  },
+  { path: "/icons", title: "Icons", icon: "ni-planet text-blue", class: "" },
+  { path: "/maps", title: "Maps", icon: "ni-pin-3 text-orange", class: "" },
+  {
+    path: "/user-profile",
+    title: "User profile",
+    icon: "ni-single-02 text-yellow",
+    class: "",
+  },
 ];
 
 @Component({
-  selector: 'app-sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: "app-sidebar",
+  templateUrl: "./sidebar.component.html",
+  styleUrls: ["./sidebar.component.scss"],
 })
 export class SidebarComponent implements OnInit {
 
@@ -41,7 +47,16 @@ export class SidebarComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.menuItems = ROUTES.filter(menuItem => menuItem);
+    if (this.theSecurityService.hasRole("Cliente")) {
+      ROUTES.push({
+        path: `/subscriptions`,
+        title: "Suscripciones",
+        icon: "ni-bullet-list-67 text-red",
+        class: "",
+      });
+    }
+
+    this.menuItems = ROUTES.filter((menuItem) => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
     });

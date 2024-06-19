@@ -19,7 +19,7 @@ export class SessionGuard implements CanActivate {
         this.securityService.logout();
         return true;
       } else {
-        this.router.navigate(["dashboard"]);
+        this.router.navigate(["user-profile"]);
         return false;
       }
     }

@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaymentLayoutComponent } from './payment-layout.component';
+import { PQRComponent } from './pqr.component';
 
-describe('PaymentLayoutComponent', () => {
-  let component: PaymentLayoutComponent;
-  let fixture: ComponentFixture<PaymentLayoutComponent>;
+describe('PQRComponent', () => {
+  let component: PQRComponent;
+  let fixture: ComponentFixture<PQRComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PaymentLayoutComponent ]
+      declarations: [ PQRComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PaymentLayoutComponent);
+    fixture = TestBed.createComponent(PQRComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

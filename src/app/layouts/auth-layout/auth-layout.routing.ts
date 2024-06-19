@@ -6,5 +6,5 @@ import { SessionGuard } from "src/app/guards/session.guard";
 
 export const AuthLayoutRoutes: Routes = [
   { path: "login", canActivate:[SessionGuard], component: LoginComponent },
-  { path: "register", component: RegisterComponent },
+  { path: "register", canActivate:[SessionGuard], component: RegisterComponent },
 ];

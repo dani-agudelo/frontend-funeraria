@@ -10,6 +10,9 @@ const routes: Routes = [
   { path: "create", component: ManageComponent },
   { path: "update/:id", component: ManageComponent },
   { path: "view/:id", component: ManageComponent },
+  { path: ":id/success", component: ManageComponent },
+  { path: ":id/failure", component: ManageComponent },
+  { path: ":id/pending", component: ManageComponent },
   {
     path: ':idSubscription/payments',
     loadChildren: () => import('../payments/payments.module').then((m) => m.PaymentsModule)

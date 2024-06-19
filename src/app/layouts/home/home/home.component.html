@@ -14,27 +14,27 @@
           <a class="nav-link" href="#">Servicios</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">PQR</a>
+          <a class="nav-link" routerLink="/pqr" routerLinkActive="active">PQR</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Nosotros</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Chats</a>
-        </li>
       </ul>
-      <ul class="navbar-nav">
+      <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="#">Login</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/login']">
+            Login
+          </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Registro</a>
+          <a class="nav-link" routerLinkActive="active" [routerLink]="['/register']">
+            Registro
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-
 
 <div class="hero-section text-center">
   <div class="container">
@@ -47,7 +47,6 @@
     </div>
   </div>
 </div>
-
 
 <section class="features-section">
   <div class="container">
@@ -77,11 +76,26 @@
   </div>
 </section>
 
-<footer class="footer justify-content-center">
+<section class="mission-section text-center">
+  <div class="container">
+    <h2 class="section-title">Nuestra Misión</h2>
+    <p class="section-description">Proveer servicios funerarios con la más alta calidad y atención personalizada, asegurando un trato respetuoso y solidario en los momentos más difíciles.</p>
+  </div>
+</section>
+
+<section class="vision-section text-center">
+  <div class="container">
+    <h2 class="section-title">Nuestra Visión</h2>
+    <p class="section-description">Ser la funeraria líder en la región, reconocida por nuestra dedicación, profesionalismo y compromiso con el bienestar de nuestras comunidades.</p>
+  </div>
+</section>
+
+<footer class="footer text-center">
   <div class="container">
     <p>&copy; 2024 Funeraria San José. Todos los derechos reservados.</p>
   </div>
 </footer>
+
 
 
 
