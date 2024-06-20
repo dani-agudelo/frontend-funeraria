@@ -62,10 +62,10 @@ export class SidebarComponent implements OnInit {
 
     this.routesAdmin = [
       {
-        path: "/users/list",
-        title: "Users",
-        icon: "ni ni-single-02 text-blue",
-        class: "1",
+        path: "/permissions/list",
+        title: "Permisos",
+        icon: "ni ni-key-25 text-yellow",
+        class: "2",
       },
       {
         path: "/roles/list",
@@ -74,9 +74,21 @@ export class SidebarComponent implements OnInit {
         class: "2",
       },
       {
-        path: "/permissions/list",
-        title: "Permisos",
-        icon: "ni ni-key-25 text-yellow",
+        path: "/users/list",
+        title: "Users",
+        icon: "ni ni-single-02 text-blue",
+        class: "2",
+      },
+      {
+        path: "/customers/list",
+        title: "Clientes",
+        icon: "ni ni-single-02 text-blue",
+        class: "2",
+      },
+      {
+        path: "/owners/list",
+        title: "Titulares",
+        icon: "ni ni-single-02 text-blue",
         class: "2",
       },
     ];
@@ -88,7 +100,7 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     if (this.theSecurityService.hasRole("Cliente")) {
-      ROUTES.concat(this.routesClient);
+      ROUTES.push(...this.routesClient);
     }
 
     if (this.theSecurityService.hasRole("Administrador")) {
