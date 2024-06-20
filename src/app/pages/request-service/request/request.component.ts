@@ -1,25 +1,26 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import { Chat } from 'src/app/models/chat.model';
-import { Headquarter } from 'src/app/models/headquarter.model';
-import { Room } from 'src/app/models/room.model';
-import { Service } from 'src/app/models/service.model';
-import { Serviceexecution } from 'src/app/models/serviceexecution.model';
-import { User } from 'src/app/models/user.model';
-import { ChatService } from 'src/app/services/chat.service';
-import { CustomerService } from 'src/app/services/customer.service';
-import { HeadquarterService } from 'src/app/services/headquarter.service';
-import { SecurityService } from 'src/app/services/security.service';
-import { ServiceexecutionService } from 'src/app/services/serviceexecution.service';
-import { ServicesService } from 'src/app/services/services.service';
-import Swal from 'sweetalert2';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { Subscription } from "rxjs";
+import { Chat } from "src/app/models/chat.model";
+import { Headquarter } from "src/app/models/headquarter.model";
+import { Room } from "src/app/models/room.model";
+import { Service } from "src/app/models/service.model";
+import { Serviceexecution } from "src/app/models/serviceexecution.model";
+import { User } from "src/app/models/user.model";
+import { ChatService } from "src/app/services/chat.service";
+import { CustomerService } from "src/app/services/customer.service";
+import { HeadquarterService } from "src/app/services/headquarter.service";
+import { NotificationService } from "src/app/services/notification.service";
+import { SecurityService } from "src/app/services/security.service";
+import { ServiceexecutionService } from "src/app/services/serviceexecution.service";
+import { ServicesService } from "src/app/services/services.service";
+import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-request',
-  templateUrl: './request.component.html',
-  styleUrls: ['./request.component.scss']
+  selector: "app-request",
+  templateUrl: "./request.component.html",
+  styleUrls: ["./request.component.scss"],
 })
 export class RequestComponent implements OnInit {
   theUser: User;
@@ -38,6 +39,7 @@ export class RequestComponent implements OnInit {
     private service: ServiceexecutionService,
     private servicesService: ServicesService,
     private headquarterService: HeadquarterService,
+    private notificationService: NotificationService,
     private customerService: CustomerService,
     private chatService: ChatService,
     private theSecurityService: SecurityService,
@@ -49,20 +51,20 @@ export class RequestComponent implements OnInit {
     this.headquarters = [];
     this.rooms = [];
     this.trySend = false;
-    
+
     this.serviceExecution = {
       id: null,
       customer_id: this.parent.snapshot.params.idCustomer,
       service: {
-        id: null
+        id: null,
       },
       headquarter: {
-        id: null
+        id: null,
       },
-      room:{
-        id: null
-      }
-    }
+      room: {
+        id: null,
+      },
+    };
 
     this.configFormGroup();
   }
@@ -83,7 +85,7 @@ export class RequestComponent implements OnInit {
     this.subscription = this.theSecurityService.getUser().subscribe((data) => {
       this.theUser = data;
       this.getCustomerByUser();
-      console.log('theUserrrr', this.theUser);
+      console.log("theUserrrr", this.theUser);
     });
   }
 
@@ -93,16 +95,18 @@ export class RequestComponent implements OnInit {
   }
 
   getCustomerByUser() {
-    this.customerService.getCustomersByUser(this.theUser._id).subscribe((data) => {
-      console.log('customerrrr', data);
-      this.serviceExecution.customer_id = data.id;
-    });
+    this.customerService
+      .getCustomersByUser(this.theUser._id)
+      .subscribe((data) => {
+        console.log("customerrrr", data);
+        this.serviceExecution.customer_id = data.id;
+      });
   }
 
   getServiceExecution(id: string) {
     this.service.view(id).subscribe((data: Serviceexecution) => {
       this.serviceExecution = data;
-      console.log('sev', this.serviceExecution);
+      console.log("sev", this.serviceExecution);
     });
   }
 
@@ -115,7 +119,8 @@ export class RequestComponent implements OnInit {
 
   headquarterList() {
     this.headquarterService
-      .getHeadquarters().subscribe((data: Headquarter[]) => {
+      .getHeadquarters()
+      .subscribe((data: Headquarter[]) => {
         console.log(data);
         this.headquarters = data;
       });
@@ -124,35 +129,42 @@ export class RequestComponent implements OnInit {
   showHeadquarterAndRoomByService() {
     this.formGroup.controls.idService.valueChanges.subscribe((value) => {
       if (value !== null && value !== undefined) {
-        this.servicesService.view(value.toString()).subscribe((data: Service) => {
-          console.log(data);
-          this.showHeadquarterAndRoom = data.name_service !== 'Traslado';
-  
-          // Si el servicio es 'Traslado', elimina las validaciones de 'Sede' y 'Sala'
-          if (data.name_service === 'Traslado') {
-            this.formGroup.controls.idHeadquarter.clearValidators();
-            this.formGroup.controls.idRoom.clearValidators();
-          } else {
-            // Si el servicio no es 'Traslado', agrega las validaciones necesarias
-            this.formGroup.controls.idHeadquarter.setValidators([Validators.required]);
-            this.formGroup.controls.idRoom.setValidators([Validators.required]);
-          }
-  
-          // Actualiza el estado de las validaciones
-          this.formGroup.controls.idHeadquarter.updateValueAndValidity();
-          this.formGroup.controls.idRoom.updateValueAndValidity();
-        })
+        this.servicesService
+          .view(value.toString())
+          .subscribe((data: Service) => {
+            console.log(data);
+            this.showHeadquarterAndRoom = data.name_service !== "Traslado";
+
+            // Si el servicio es 'Traslado', elimina las validaciones de 'Sede' y 'Sala'
+            if (data.name_service === "Traslado") {
+              this.formGroup.controls.idHeadquarter.clearValidators();
+              this.formGroup.controls.idRoom.clearValidators();
+            } else {
+              // Si el servicio no es 'Traslado', agrega las validaciones necesarias
+              this.formGroup.controls.idHeadquarter.setValidators([
+                Validators.required,
+              ]);
+              this.formGroup.controls.idRoom.setValidators([
+                Validators.required,
+              ]);
+            }
+
+            // Actualiza el estado de las validaciones
+            this.formGroup.controls.idHeadquarter.updateValueAndValidity();
+            this.formGroup.controls.idRoom.updateValueAndValidity();
+          });
       }
     });
   }
 
   roomListByHeadquarter() {
     this.formGroup.controls.idHeadquarter.valueChanges.subscribe((value) => {
-      console.log(value)
+      console.log(value);
       if (value) {
         this.headquarterService
-          .getRoomsByHeadquarter(value).subscribe((data: Room[]) => {
-            console.log('rooms de headquarter', data);
+          .getRoomsByHeadquarter(value)
+          .subscribe((data: Room[]) => {
+            console.log("rooms de headquarter", data);
             this.rooms = data;
           });
       }
@@ -166,37 +178,45 @@ export class RequestComponent implements OnInit {
       Swal.fire("Error", "Por favor complete los campos requeridos", "error");
       return;
     }
-    
-    console.log(this.serviceExecution)
+
+    console.log(this.serviceExecution);
     this.service.create(this.serviceExecution).subscribe((newService) => {
-      console.log('serv base',newService);
       this.chat = {
         id: null,
         service_execution_id: newService.id,
         code_chat: newService.unique_code,
-        status: true
-      }
+        status: true,
+      };
       this.chatService.create(this.chat).subscribe((chat) => {
-        console.log('chatbase',chat);
+        console.log("chatbase", chat);
       });
+
       Swal.fire({
-        title: '¡Solicitud creada!',
-        text: 'El código del servicio y demás datos fueron enviados a su correo.',
-        icon: 'success',
-        confirmButtonText: 'OK'
+        title: "¡Solicitud creada!",
+        text: "El código del servicio y demás datos fueron enviados a su correo.",
+        icon: "success",
+        confirmButtonText: "OK",
       }).then((result) => {
         if (result.isConfirmed) {
-          this.router.navigate(['/home']);
+          this.router.navigate(["/home"]);
         }
+      });
+
+      this.service.view(newService.id).subscribe((data) => {
+        this.notificationService
+          .sendConfirmService({
+            username: this.theUser.name,
+            email: this.theUser.email,
+            service_info: {
+              date: data.created_at,
+              unique_code: data.unique_code,
+              city: data.headquarter?.city,
+              headquarter_name: data.headquarter?.name,
+              room: data.room?.room_name,
+            },
+          })
+          .subscribe();
       });
     });
   }
-
-
 }
-
-
-
-
-
-
