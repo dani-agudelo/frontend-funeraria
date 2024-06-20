@@ -5,11 +5,13 @@
 export const environment = {
   production: false,
   host: "http://localhost:4200/#",
+  url_ms_notifications: "http://localhost:5001/notifications",
   url_ms_security: "http://localhost:8181/api",
   url_ms_business: "http://localhost:3333",
   url_cities: "https://www.datos.gov.co/resource/xdk5-pm3f.json",
   url_mp_api:"https://mercadopago-api-rz3k.onrender.com/api",
   mp_public_token: "APP_USR-0333d5ba-6675-449c-818b-5a39515cb3c3",
+
 };
 
 /*

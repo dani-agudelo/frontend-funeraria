@@ -16,6 +16,8 @@ import { AuthGuard } from "./guards/auth.guard";
 import { AuthInterceptor } from "./auth.interceptor";
 
 import { HomeComponent } from "./layouts/home/home/home.component";
+import { ServiciosLayoutComponent } from './pages/servicios-layout/servicios-layout.component';
+import { PlanesLayoutComponent } from './pages/planes-layout/planes-layout.component';
 
 @NgModule({
   imports: [
@@ -27,7 +29,7 @@ import { HomeComponent } from "./layouts/home/home/home.component";
     RouterModule,
     AppRoutingModule,
   ],
-  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, HomeComponent],
+  declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, HomeComponent, ServiciosLayoutComponent, PlanesLayoutComponent],
   providers: [
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
