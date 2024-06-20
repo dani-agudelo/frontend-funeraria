@@ -68,9 +68,9 @@ export class SidebarComponent implements OnInit {
         class: "2",
       },
       {
-        path: "/subscriptions/list",
-        title: "Suscripciones",
-        icon: "ni ni-bullet-list-67 text-red",
+        path: "/roles/list",
+        title: "Roles",
+        icon: "ni ni-support-16 text-blue",
         class: "2",
       },
       {
@@ -89,12 +89,6 @@ export class SidebarComponent implements OnInit {
         path: "/owners/list",
         title: "Titulares",
         icon: "ni ni-single-02 text-blue",
-        class: "2",
-      },
-      {
-        path: "/roles/list",
-        title: "Roles",
-        icon: "ni ni-support-16 text-blue",
         class: "2",
       },
     ];
