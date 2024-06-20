@@ -8,6 +8,7 @@ import {
   chartExample1,
   chartExample2
 } from "../../variables/charts";
+import { MessagesService } from 'src/app/services/messages.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,6 +17,8 @@ import {
 })
 export class DashboardComponent implements OnInit {
 
+  constructor(private messageService: MessagesService){}
+
   public datasets: any;
   public data: any;
   public salesChart;
@@ -23,6 +26,7 @@ export class DashboardComponent implements OnInit {
   public clicked1: boolean = false;
 
   ngOnInit() {
+    this.getMessagesCountByDate();
 
     this.datasets = [
       [0, 20, 10, 30, 15, 40, 20, 60, 60],
@@ -55,6 +59,12 @@ export class DashboardComponent implements OnInit {
   public updateOptions() {
     this.salesChart.data.datasets[0].data = this.data;
     this.salesChart.update();
+  }
+
+  getMessagesCountByDate() {
+    this.messageService.getMessagesCountByDate().subscribe((data) => {
+      console.log(data);
+    });
   }
 
 }

@@ -41,4 +41,8 @@ export class MessagesService {
   deleteMessagesByChat(chatId: string): Observable<Message[]> {
     return this.http.delete<Message[]>(`${this.baseUrl}/chat/${chatId}`);
   }
+
+  getMessagesCountByDate(): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/count`);
+  }
 }

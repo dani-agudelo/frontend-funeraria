@@ -16,10 +16,9 @@ export class ChatGuard implements CanActivate {
       //obtiene el codigo del chat
       const codeChat = this.theSecurityService.getCodeChat();
       this.router.navigate(["chatsp", codeChat]);
-      return true;
-    } else {
-      this.router.navigate(["verify-chat"]);
       return false;
+    } else {
+      return true;
     }
   }
 
