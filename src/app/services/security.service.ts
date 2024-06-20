@@ -14,7 +14,7 @@ export class SecurityService {
   theUser = new BehaviorSubject<User>(new User());
   constructor(
     private customerService: CustomerService,
-    private http: HttpClient
+    private http: HttpClient,
   ) {
     // Se verifica si hay una sesión activa al momento de cargar el servicio
     this.verifyActualSession();
@@ -31,7 +31,7 @@ export class SecurityService {
   login(user: User): Observable<User> {
     return this.http.post<User>(
       `${environment.url_ms_security}/public/security/login`,
-      user
+      user,
     );
   }
 
@@ -44,7 +44,21 @@ export class SecurityService {
   verify2fa(userId: string, code2fa: string): Observable<any> {
     return this.http.post<any>(
       `${environment.url_ms_security}/public/security/users/${userId}/verify-2fa/${code2fa}`,
-      {}
+      {},
+    );
+  }
+
+  passwordReset(email: string): Observable<any> {
+    return this.http.post<any>(
+      `${environment.url_ms_security}/public/security/password-reset`,
+      { email },
+    );
+  }
+
+  register(user: User): Observable<User> {
+    return this.http.post<User>(
+      `${environment.url_ms_security}/public/security/register`,
+      user,
     );
   }
 
