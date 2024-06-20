@@ -7,6 +7,7 @@ import { ChatService } from 'src/app/services/chat.service';
 import { MessagesService } from 'src/app/services/messages.service';
 import { SecurityService } from 'src/app/services/security.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-chatp',
@@ -75,6 +76,31 @@ export class ChatpComponent implements OnInit, AfterViewChecked {
       this.webSocketService.sendMessage(message);
       this.newMessage = '';
     }
+  }
+
+  deleteMessages(){
+    // Confirmar antes de eliminar los mensajes con Swal
+    Swal.fire({
+      title: '¿Estás seguro?',
+      text: "No podrás revertir esto!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Sí, bórralo!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // llama al servicio para eliminar los mensajes
+        this.messageService.deleteMessagesByChat(this.chat_id.toString()).subscribe(data => {
+          this.messages = [];
+          Swal.fire(
+            'Eliminado!',
+            'Los mensajes han sido eliminados.',
+            'success'
+          )
+        });
+      }
+    })
   }
 
   private scrollToBottom(): void {

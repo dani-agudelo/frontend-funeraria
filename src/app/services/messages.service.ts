@@ -37,4 +37,8 @@ export class MessagesService {
   getMessagesByChat(chatId: string): Observable<Message[]> {
     return this.http.get<Message[]>(`${this.baseUrl}/chat/${chatId}`);
   }
+
+  deleteMessagesByChat(chatId: string): Observable<Message[]> {
+    return this.http.delete<Message[]>(`${this.baseUrl}/chat/${chatId}`);
+  }
 }
