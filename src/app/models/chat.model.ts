@@ -1,7 +1,7 @@
 import { Serviceexecution } from "./serviceexecution.model";
 
 export class Chat {
-  id?: string;
+  id?: number;
   status?: boolean;
   code_chat: string;
   service_execution_id?: string;

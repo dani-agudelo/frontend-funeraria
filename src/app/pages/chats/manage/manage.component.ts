@@ -33,7 +33,7 @@ export class ManageComponent implements OnInit {
       this.parent.snapshot["_routerState"].url.match(/^\/.+(?=\/)/gim)[0];
 
     this.chat = {
-      id: "",
+      id: null,
       status: null,
       code_chat: null,
       service_execution_id: this.parent.snapshot.params.idServiceExecution,
@@ -74,7 +74,7 @@ export class ManageComponent implements OnInit {
 
     if (this.parent.snapshot.params.id) {
       this.chat.id = this.parent.snapshot.params.id;
-      this.getChat(this.chat.id);
+      this.getChat(this.chat.id.toString());
     }
   }
 

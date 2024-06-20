@@ -21,21 +21,32 @@
                             </div>
                             <div class="row mb-1">
                                 <div class="col-4">Nombre:</div>
-                                <div class="col-8">
-                                    <input *ngIf="mode!=1" type="text" class="form-control"
-                                        [(ngModel)]="service.name_service" formControlName="name_service" />
-                                    <div>
-                                        <div
-                                            *ngIf="getTheFormGroup.name_service.errors && (getTheFormGroup.name_service.dirty ||getTheFormGroup.name_service.touched ||trySend)">
-                                            <strong *ngIf="getTheFormGroup.name_service.errors.required"
-                                                class="msnError">
-                                                Nombre es requerido</strong>
+                                    <div class="col-8">
+                                        <select *ngIf="mode!=1" class="form-control" [(ngModel)]="service.name_service" formControlName="name_service">
+                                          <option value="Traslado">Traslado</option>
+                                          <option value="Sepultura">Sepultura</option>
+                                          <option value="Cremacion">Cremación</option>
+                                        </select>
+                                        <div>
+                                          <div *ngIf="getTheFormGroup.name_service.errors && (getTheFormGroup.name_service.dirty || getTheFormGroup.name_service.touched || trySend)">
+                                            <strong *ngIf="getTheFormGroup.name_service.errors.required" class="msnError">Nombre es requerido</strong>
+                                          </div>
                                         </div>
-                                    </div>
-                                    <span *ngIf="mode == 1">{{service.name_service}}</span>
-
-                                </div>
+                                        <span *ngIf="mode == 1">{{service.name_service}}</span>
+                                      </div>
                             </div>
+
+                            <div class="row mb-1">
+                                <div class="col-4">Disponible</div>
+                                <div class="col-8">
+                                  <select *ngIf="mode!=1" class="form-control" [(ngModel)]="service.is_available" formControlName="is_available">
+                                    <option value="true">Si</option>
+                                    <option value="false">No</option>
+                                  </select>
+                                  <span *ngIf="mode == 1">{{service.is_available ? 'Si' : 'No'}}</span>
+                                </div>
+                              </div>
+                            
                             <div *ngIf="mode==1 && currentService">
                                 <div class="row mb-1" *ngFor="let attribute of serviceAttributes">
                                     <div class="col-4">{{ attribute.name }}:</div>
@@ -62,12 +73,12 @@
                                 <div class="col-4"></div>
                                 <div class="col-8">
                                     <div *ngIf="mode == 1" class="mt-2">
-                                        <div  class="d-flex align-items-center justify-content-center">
+                                        <div class="d-flex align-items-center justify-content-center">
                                             <button *ngIf="!currentService" type="button" class="btn btn-info"
                                                 (click)="createServiceWithAttributes()">
                                                 Continuar creando
                                             </button>
-                                            <button *ngIf="currentService"type="button" class="btn btn-info"
+                                            <button *ngIf="currentService" type="button" class="btn btn-info"
                                                 (click)="updateServiceWithAttributes(service.id)">
                                                 Actualizar
                                             </button>

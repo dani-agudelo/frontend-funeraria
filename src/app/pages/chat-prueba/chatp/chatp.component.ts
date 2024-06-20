@@ -1,7 +1,10 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { MessageP } from 'src/app/models/messageP.model';
 import { User } from 'src/app/models/user.model';
+import { ChatService } from 'src/app/services/chat.service';
+import { MessagesService } from 'src/app/services/messages.service';
 import { SecurityService } from 'src/app/services/security.service';
 import { WebSocketService } from 'src/app/services/web-socket.service';
 
@@ -13,24 +16,44 @@ import { WebSocketService } from 'src/app/services/web-socket.service';
 export class ChatpComponent implements OnInit, AfterViewChecked {
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   theUser: User;
+  code_chat: string;
+  chat_id: number;
   messages: MessageP[] = [];
+  messagesDB: any;
   newMessage: string = '';
   messageSubscription: Subscription;
   userSubscription: Subscription;
   urlPhoto: string;
 
-  constructor(private webSocketService: WebSocketService, private theSecurityService: SecurityService, ) { }
+  constructor(private webSocketService: WebSocketService, private theSecurityService: SecurityService, private activatedRoute: ActivatedRoute,
+    private chatService: ChatService, private messageService: MessagesService
+   ) { }
 
   getSecurityService() {
     return this.theSecurityService;
   }
 
   ngOnInit() {
-    console.log('ChatpComponent.ngOnInit');
-    this.messageSubscription = this.webSocketService.onMessage().subscribe((msg: MessageP) => {
-      this.messages.push(msg);
-      this.scrollToBottom();
-    });
+    this.code_chat = this.activatedRoute.snapshot.params.code;
+    console.log(this.code_chat);
+    this.chatService.getChatByCode(this.code_chat).subscribe(data => {
+      this.chat_id = data[0].id;
+      this.messageService.getMessagesByChat(this.chat_id.toString()).subscribe(data => {
+        this.messagesDB = data;
+        console.log('mensajes db', this.messagesDB)
+        this.messagesDB.forEach((msg: MessageP) => {
+          this.messages.push(msg);
+        });
+        this.scrollToBottom();
+      });
+      this.messageSubscription = this.webSocketService.onMessage().subscribe((msg: MessageP) => {
+        msg.chat_id = this.chat_id;
+        this.messages.push(msg);
+        this.scrollToBottom();
+      });
+    })
+    console.log('ChatpComponent.ngOnInit', this.chat_id);
+    
     this.userSubscription = this.theSecurityService.getUser().subscribe(data => {
       this.theUser = data;
     });
@@ -46,7 +69,8 @@ export class ChatpComponent implements OnInit, AfterViewChecked {
       const message: MessageP = {
         content: this.newMessage,
         user_id: this.theUser._id , 
-        timestamp: new Date().toLocaleTimeString()
+        timestamp: new Date().toLocaleTimeString(),
+        chat_id: this.chat_id,
       };
       this.webSocketService.sendMessage(message);
       this.newMessage = '';

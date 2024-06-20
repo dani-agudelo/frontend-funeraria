@@ -44,6 +44,7 @@ export class ManageComponent implements OnInit {
     this.service = {
       id: 0,
       name_service: "",
+      is_available: null,
     };
 
     this.relocation = {
@@ -74,6 +75,7 @@ export class ManageComponent implements OnInit {
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
       name_service: [null, [Validators.required]],
+      is_available: [null, [Validators.required]],
     });
   }
 
@@ -96,11 +98,22 @@ export class ManageComponent implements OnInit {
       this.service.id = this.parent.snapshot.params.id;
       this.getService(this.service.id.toString());
     }
+
+    this.theFormGroup.valueChanges.subscribe(values => {
+      // Convertir el valor de 'is_available' a un booleano
+      if (values.is_available === 'true') {
+        this.theFormGroup.get('is_available').setValue(true, { emitEvent: false });
+      } else if (values.is_available === 'false') {
+        this.theFormGroup.get('is_available').setValue(false, { emitEvent: false });
+      }
+    });
   }
 
   get getTheFormGroup() {
     return this.theFormGroup.controls;
   }
+
+  
 
   async getService(id: string) {
     this.servicesService.view(id).subscribe((data: Service) => {

@@ -27,7 +27,7 @@ export class VerifyComponent implements OnInit {
 
   configFormGroup() {
     this.theFormGroup = this.theFormBuilder.group({
-      code: [0, [Validators.required, Validators.min(1)]],
+      code: [null, [Validators.required, Validators.min(1)]],
     });
   }
 

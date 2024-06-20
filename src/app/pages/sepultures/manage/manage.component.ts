@@ -81,7 +81,6 @@ export class ManageComponent implements OnInit {
       } else if (values.is_available === 'false') {
         this.theFormGroup.get('is_available').setValue(false, { emitEvent: false });
       }
-
     });
 
 

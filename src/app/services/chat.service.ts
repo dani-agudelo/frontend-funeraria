@@ -21,6 +21,10 @@ export class ChatService {
     return this.http.get<Chat[]>(`${this.urlBase}/service_executions/${id}`);
   }
 
+  getChatByCode(code: string): Observable<Chat> {
+    return this.http.get<Chat>(`${this.urlBase}/code/${code}`);
+  }
+
   view(id: string): Observable<Chat> {
     return this.http.get<Chat>(`${this.urlBase}/${id}`);
   }
