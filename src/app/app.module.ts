@@ -18,6 +18,7 @@ import { AuthInterceptor } from "./auth.interceptor";
 import { HomeComponent } from "./layouts/home/home/home.component";
 import { ServiciosLayoutComponent } from './pages/servicios-layout/servicios-layout.component';
 import { PlanesLayoutComponent } from './pages/planes-layout/planes-layout.component';
+import { ChatGuard } from "./guards/chat.guard";
 
 @NgModule({
   imports: [
@@ -31,6 +32,7 @@ import { PlanesLayoutComponent } from './pages/planes-layout/planes-layout.compo
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent, HomeComponent, ServiciosLayoutComponent, PlanesLayoutComponent],
   providers: [
+    ChatGuard,
     AuthGuard,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],

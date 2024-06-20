@@ -48,6 +48,9 @@ export class VerifyComponent implements OnInit {
       next: (response) => {
         console.log('serviciojmm', response);
         if (response) {
+          if (!localStorage.getItem('code')) {
+            localStorage.setItem('code', this.code);
+          }
           if (this.securityService.existSession()) {
             this.router.navigate(['/chatsp', this.code]);
           } else {

@@ -160,4 +160,14 @@ export class SecurityService {
     }
     return null;
   }
+
+  getCodeChat() {
+    let code = localStorage.getItem('code');
+    return code;
+  }
+
+  existCodeChat() {
+    let code = this.getCodeChat();
+    return code ? true : false;
+  }
 }
