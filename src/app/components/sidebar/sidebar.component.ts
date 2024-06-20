@@ -16,13 +16,13 @@ export const ROUTES: RouteInfo[] = [
     path: "/dashboard",
     title: "Dashboard",
     icon: "ni-tv-2 text-primary",
-    class: "2",
+    class: "1",
   },
   { path: "/icons", title: "Icons", icon: "ni-planet text-blue", class: "2" },
   {
     path: "/user-profile",
     title: "Perfil",
-    icon: "ni-single-02 text-yellow",
+    icon: "ni-circle-08 text-yellow",
     class: "1",
   },
   {
@@ -30,7 +30,7 @@ export const ROUTES: RouteInfo[] = [
     title: "Chat",
     icon: "ni-chat-round text-red",
     class: "1",
-  }
+  },
 ];
 
 @Component({
@@ -42,13 +42,45 @@ export class SidebarComponent implements OnInit {
   theUser: User;
   subscription: Subscription;
   public menuItems: any[];
-  public isCollapsed = true  ;
+  public isCollapsed = true;
+  routesClient: RouteInfo[];
+  routesAdmin: RouteInfo[];
 
   constructor(
     private router: Router,
     private theSecurityService: SecurityService,
-    private theWebSocketService: WebSocketService
-  ) {}
+    private theWebSocketService: WebSocketService,
+  ) {
+    this.routesClient = [
+      {
+        path: `/subscriptions`,
+        title: "Suscripciones",
+        icon: "ni-bullet-list-67 text-red",
+        class: "2",
+      },
+    ];
+
+    this.routesAdmin = [
+      {
+        path: "/users/list",
+        title: "Users",
+        icon: "ni ni-single-02 text-blue",
+        class: "1",
+      },
+      {
+        path: "/roles/list",
+        title: "Roles",
+        icon: "ni ni-support-16 text-blue",
+        class: "2",
+      },
+      {
+        path: "/permissions/list",
+        title: "Permisos",
+        icon: "ni ni-key-25 text-yellow",
+        class: "2",
+      },
+    ];
+  }
 
   getSecurityService() {
     return this.theSecurityService;
@@ -56,13 +88,13 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     if (this.theSecurityService.hasRole("Cliente")) {
-      ROUTES.push({
-        path: `/subscriptions`,
-        title: "Suscripciones",
-        icon: "ni-bullet-list-67 text-red",
-        class: "2",
-      });
+      ROUTES.concat(this.routesClient);
     }
+
+    if (this.theSecurityService.hasRole("Administrador")) {
+      ROUTES.push(...this.routesAdmin);
+    }
+
     this.menuItems = ROUTES.filter((menuItem) => menuItem);
     this.router.events.subscribe((event) => {
       this.isCollapsed = true;
