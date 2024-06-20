@@ -25,6 +25,12 @@ export const ROUTES: RouteInfo[] = [
     icon: "ni-single-02 text-yellow",
     class: "1",
   },
+  {
+    path: "/verify-chat",
+    title: "Chat",
+    icon: "ni-chat-round text-red",
+    class: "1",
+  }
 ];
 
 @Component({

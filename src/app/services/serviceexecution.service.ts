@@ -40,4 +40,8 @@ export class ServiceexecutionService {
   getServiceexecutionByCustomer(id: number): Observable<Serviceexecution[]> {
     return this.http.get<Serviceexecution[]>(`${this.baseUrl}/customer/${id}`);
   }
+
+  findCodeOfServiceExecution(code: string): Observable<Serviceexecution> {
+    return this.http.get<Serviceexecution>(`${this.baseUrl}/code/${code}`);
+  }
 }

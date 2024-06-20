@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { VerifyChatRoutingModule } from './verify-chat-routing.module';
 import { VerifyComponent } from './verify/verify.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,9 @@ import { VerifyComponent } from './verify/verify.component';
   ],
   imports: [
     CommonModule,
-    VerifyChatRoutingModule
+    VerifyChatRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class VerifyChatModule { }

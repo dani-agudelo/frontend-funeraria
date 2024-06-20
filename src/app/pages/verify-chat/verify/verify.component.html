@@ -1,1 +1,22 @@
-<p>verify works!</p>
+<div class="pqr-section text-center">
+  <div class="container-fluid">
+    <h2 class="section-title">Bienvenido al chat</h2>
+    <p class="section-description">Ingresa tu código de servicio el cual fue enviado a tu correo. Serás redirigido a tu
+      sala de chat</p>
+    <form class="pqr-form" [formGroup]="theFormGroup">
+      <div class="form-group">
+        <input type="text" class="form-control" formControlName="code" placeholder="Ingresa el código">
+        <div *ngIf="getTheFormGroup.code.errors && (getTheFormGroup.code.dirty ||
+                          getTheFormGroup.code.touched || trySend)">
+          <strong *ngIf="getTheFormGroup.code.errors.required" class="msnError">
+            El código es requerido
+          </strong>
+          <strong *ngIf="getTheFormGroup.code.errors.min" class="msnError">
+            Minimo 1 caracter
+          </strong>
+        </div>
+      </div>
+      <button class="btn btn-primary" (click)="verify()">Enviar</button>
+    </form>
+  </div>
+</div>

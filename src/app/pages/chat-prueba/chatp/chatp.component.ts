@@ -19,7 +19,7 @@ export class ChatpComponent implements OnInit, AfterViewChecked {
   userSubscription: Subscription;
   urlPhoto: string;
 
-  constructor(private webSocketService: WebSocketService, private theSecurityService: SecurityService) { }
+  constructor(private webSocketService: WebSocketService, private theSecurityService: SecurityService, ) { }
 
   getSecurityService() {
     return this.theSecurityService;

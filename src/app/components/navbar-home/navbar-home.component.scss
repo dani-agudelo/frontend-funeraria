@@ -11,6 +11,24 @@
     /* Sombreado del texto */
 }
 
+.navbar-brand {
+    font-size: 1.25rem;
+    line-height: inherit;
+
+    display: inline-block;
+
+    margin-right: 1rem;
+    padding-top: .0625rem;
+    padding-bottom: .0625rem;
+
+    white-space: nowrap;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+    text-decoration: none;
+}
+
 .nav-link:hover {
     color: #7A5A3B !important;
     /* Color del texto al pasar el mouse */
@@ -19,4 +37,19 @@
 .navbar-nav {
     margin-left: 300px;
     justify-content: center;
+}
+
+.navbar-vertical .navbar-brand-img,
+.navbar-vertical .navbar-brand > img
+{
+    width: 15px;
+    height: 15px;
+}
+
+.container {
+    padding: 0;
+}
+
+nav {
+    padding: 0;
 }

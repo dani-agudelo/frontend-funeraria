@@ -102,7 +102,8 @@ export const AdminLayoutRoutes: Routes = [
       ),
   },
   {
-    path: "chatsp",
+    path: "chatsp/:code",
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import("../../pages/chat-prueba/chat-prueba.module").then(
         (m) => m.ChatPruebaModule,
@@ -118,7 +119,6 @@ export const AdminLayoutRoutes: Routes = [
   },
   {
     path: "request-service",
-    // canActivate: [AuthGuard],
     loadChildren: () =>
       import("../../pages/request-service/request-service.module").then(
         (m) => m.RequestServiceModule,

@@ -2,11 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { Chat } from 'src/app/models/chat.model';
 import { Headquarter } from 'src/app/models/headquarter.model';
 import { Room } from 'src/app/models/room.model';
 import { Service } from 'src/app/models/service.model';
 import { Serviceexecution } from 'src/app/models/serviceexecution.model';
 import { User } from 'src/app/models/user.model';
+import { ChatService } from 'src/app/services/chat.service';
 import { CustomerService } from 'src/app/services/customer.service';
 import { HeadquarterService } from 'src/app/services/headquarter.service';
 import { SecurityService } from 'src/app/services/security.service';
@@ -23,6 +25,7 @@ export class RequestComponent implements OnInit {
   theUser: User;
   subscription: Subscription;
   serviceExecution: Serviceexecution;
+  chat: Chat;
   formGroup: FormGroup;
   services: Service[];
   headquarters: Headquarter[];
@@ -36,6 +39,7 @@ export class RequestComponent implements OnInit {
     private servicesService: ServicesService,
     private headquarterService: HeadquarterService,
     private customerService: CustomerService,
+    private chatService: ChatService,
     private theSecurityService: SecurityService,
     private formBuilder: FormBuilder,
     private parent: ActivatedRoute,
@@ -166,13 +170,21 @@ export class RequestComponent implements OnInit {
     console.log(this.serviceExecution)
     this.service.create(this.serviceExecution).subscribe((newService) => {
       console.log('serv base',newService);
+      this.chat = {
+        id: null,
+        service_execution_id: newService.id,
+        code_chat: newService.unique_code,
+        status: true
+      }
+      this.chatService.create(this.chat).subscribe((chat) => {
+        console.log('chatbase',chat);
+      });
       Swal.fire({
         title: '¡Solicitud creada!',
         text: 'El código del servicio y demás datos fueron enviados a su correo.',
         icon: 'success',
         confirmButtonText: 'OK'
       }).then((result) => {
-        // Navega al home después de que el usuario cierre el SweetAlert
         if (result.isConfirmed) {
           this.router.navigate(['/home']);
         }
